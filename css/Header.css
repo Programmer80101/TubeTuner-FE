@@ -1,0 +1,107 @@
+@import "./globals.css";
+
+@utility menu-width {
+  @apply w-44;
+}
+
+@layer components {
+  #nav-wrapper {
+    @apply sticky inset-0 z-30 p-0;
+    @apply box-border;
+    --icon-size: 40px;
+    --menu-padding: 6px;
+    --border-width: 1px;
+  }
+
+  #nav-wrapper .nav,
+  #nav-wrapper .nav-menu {
+    @apply bg-black/50 backdrop-blur-sm;
+    @apply border-neutral-300;
+  }
+
+  #nav-wrapper .nav {
+    @apply p-2 m-0 h-14 border-b;
+    @apply grid grid-cols-[1fr_auto_1fr] gap-2 items-center;
+    @apply transition duration-300 ease-in-out;
+
+    border-bottom-width: var(--border-width);
+  }
+
+  #nav-wrapper button:has(> .nav-icon) {
+    @apply grid place-items-center;
+    @apply aspect-square p-0;
+  }
+
+  #nav-wrapper .nav-icon {
+    @apply icon text-[22px];
+  }
+
+  #nav-wrapper .nav-start {
+    @apply flex justify-start;
+  }
+
+  #nav-wrapper .nav-center .brand-name {
+    @apply text-xl px-4;
+  }
+
+  #nav-wrapper .nav-end {
+    @apply flex justify-end;
+  }
+
+  #nav-wrapper .nav-menu {
+    @apply fixed inset-0 top-14 z-20 overflow-hidden;
+    @apply min-h-screen menu-width;
+    @apply transform border-r;
+    @apply transition-transform duration-300 ease-in;
+
+    padding-inline: var(--menu-padding);
+    border-right-width: var(--border-width);
+  }
+
+  #nav-wrapper .nav-menu[data-open="false"] {
+    @apply -translate-x-full;
+  }
+
+  #nav-wrapper .nav-menu[data-open="true"] {
+    @apply translate-x-0;
+  }
+
+  #nav-wrapper .nav-link {
+    @apply grid grid-cols-[auto_1fr] gap-1;
+    @apply text-xl w-full p-0 mt-1.5;
+    @apply rounded-sm overflow-hidden;
+    @apply text-neutral-100 hover:text-neutral-50;
+    @apply outline-offset-0 outline-neutral-300;
+    @apply focus-visible:outline-neutral-300;
+  }
+
+  #nav-wrapper .nav-link::after {
+    @apply h-full opacity-5 bottom-0;
+  }
+
+  #nav-wrapper .nav-link-icon {
+    @apply grid place-items-center m-0 h-full;
+    width: var(--icon-size);
+    height: var(--icon-size);
+  }
+
+  #nav-wrapper .nav-link-label {
+    @apply grid items-center h-full;
+  }
+
+  @media (min-width: 640px) {
+    #nav-wrapper .nav-menu[data-open="true"],
+    #nav-wrapper .nav-menu[data-open="false"] {
+      @apply translate-x-0;
+      width: calc(
+        var(--icon-size) + var(--border-width) + var(--menu-padding) * 2
+      );
+
+      transition: width 300ms ease-in;
+    }
+
+    #nav-wrapper .nav-menu:hover {
+      @apply menu-width;
+    }
+  }
+}

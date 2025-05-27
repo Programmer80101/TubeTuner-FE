@@ -1,0 +1,64 @@
+@import "./globals.css";
+
+@layer components {
+  .tooltip-wrapper {
+    @apply relative inline-block;
+  }
+
+  .tooltip-wrapper .tooltip-content {
+    @apply absolute z-50;
+    @apply text-sm w-max h-min px-2 py-1;
+    @apply bg-neutral-800 text-neutral-150;
+    @apply shadow-uniform-md shadow-black/20;
+    @apply hover:shadow-uniform-lg hover:shadow-black/30;
+    @apply rounded-xs transform;
+    @apply scale-0 opacity-0 invisible;
+
+    transition: opacity 250ms ease-in, scale 250ms ease-in,
+      visibility 250ms ease-in;
+  }
+
+  .tooltip-wrapper:hover .tooltip-content {
+    @apply scale-100 opacity-100 visible;
+  }
+
+  .tooltip-wrapper span {
+    @apply absolute w-2 h-2 bg-neutral-800 rotate-45;
+  }
+
+  .tooltip-wrapper[data-position="top"] .tooltip-content {
+    @apply bottom-full left-1/2 mb-2;
+    @apply -translate-x-1/2 origin-bottom;
+  }
+
+  .tooltip-wrapper[data-position="bottom"] .tooltip-content {
+    @apply top-full left-1/2 mt-2;
+    @apply -translate-x-1/2 origin-top;
+  }
+
+  .tooltip-wrapper[data-position="left"] .tooltip-content {
+    @apply right-full top-1/2 mr-2;
+    @apply -translate-y-1/2 origin-right;
+  }
+
+  .tooltip-wrapper[data-position="right"] .tooltip-content {
+    @apply left-full top-1/2 ml-2;
+    @apply -translate-y-1/2 origin-left;
+  }
+
+  .tooltip-wrapper[data-position="top"] span {
+    @apply left-1/2 bottom-[-4px] -translate-x-1/2;
+  }
+
+  .tooltip-wrapper[data-position="bottom"] span {
+    @apply left-1/2 top-[-4px] -translate-x-1/2;
+  }
+
+  .tooltip-wrapper[data-position="left"] span {
+    @apply top-1/2 right-[-4px] -translate-y-1/2;
+  }
+
+  .tooltip-wrapper[data-position="right"] span {
+    @apply top-1/2 left-[-4px] -translate-y-1/2;
+  }
+}

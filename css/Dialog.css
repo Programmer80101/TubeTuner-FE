@@ -1,0 +1,30 @@
+@import "./globals.css";
+
+@layer components {
+  .dialog-wrapper {
+    @apply fixed inset-0 z-50;
+    @apply w-screen full-screen;
+    @apply grid items-center;
+  }
+
+  .dialog-wrapper .dialog-box {
+    @apply relative z-50 wrapper-sm;
+    @apply bg-neutral-850 rounded-sm;
+    @apply shadow-uniform-2xl shadow-black/50;
+  }
+
+  .dialog-wrapper .dialog-title {
+    @apply w-full text-2xl pt-3 pb-2 px-8;
+  }
+
+  .dialog-wrapper .dialog-close-button {
+    @apply absolute top-0 right-0 p-2 icon;
+  }
+
+  .dialog-wrapper .dialog-overlay {
+    @apply fixed inset-0 z-40;
+    @apply w-screen h-screen;
+    @apply bg-black/20 backdrop-blur-[1.5px];
+    @apply cursor-pointer;
+  }
+}

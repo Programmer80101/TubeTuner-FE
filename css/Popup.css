@@ -1,0 +1,54 @@
+@import "./globals.css";
+
+@layer components {
+  .popup {
+    @apply relative z-50;
+    @apply text-sm font-500;
+    @apply w-full max-h-min px-3 py-2;
+    @apply text-neutral-50 hover:text-white;
+    @apply bg-neutral-650 hover:bg-neutral-700;
+    @apply flex items-center justify-between;
+    @apply shadow-uniform-md shadow-black/15;
+    @apply hover:shadow-uniform-lg hover:shadow-black/25;
+    @apply transition-colors duration-300 ease-in;
+    @apply rounded border-none;
+  }
+
+  .popup button.popup-close-button {
+    @apply text-base p-1 m-0 h-auto w-auto;
+    @apply hover:bg-black/5 icon;
+  }
+
+  .popup[data-popup-color="green"] {
+    @apply bg-green-600 hover:bg-green-700;
+  }
+
+  .popup[data-popup-color="blue"] {
+    @apply bg-blue-600 hover:bg-blue-700;
+  }
+
+  .popup[data-popup-color="red"] {
+    @apply bg-red-600 hover:bg-red-700;
+  }
+
+  .popup[data-popup-color="yellow"] {
+    @apply bg-yellow-600 hover:bg-yellow-700;
+  }
+
+  .popup[data-popup-color="purple"] {
+    @apply bg-purple-600 hover:bg-purple-700;
+  }
+
+  .popup[data-popup-color="gold"] {
+    @apply text-neutral-800;
+    @apply bg-yellow-400 hover:bg-amber-400;
+  }
+
+  .popup .popup-progress {
+    @apply absolute bottom-0 left-0;
+    @apply h-1 bg-black/20;
+    @apply duration-100 ease-linear;
+
+    transition-property: width, background-color;
+  }
+}

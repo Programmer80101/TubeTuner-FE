@@ -1,0 +1,34 @@
+@import "./globals.css";
+
+@layer components {
+  .accordion-wrapper {
+    @apply mb-4 mx-auto;
+    @apply rounded-sm;
+    @apply shadow-uniform-sm shadow-black/25;
+
+    width: min(100vw - 4rem, 32rem);
+  }
+
+  .accordion-button {
+    @apply relative z-1;
+    @apply text-left text-lg font-400 px-4 py-2 w-full;
+    @apply bg-neutral-800 hover:bg-neutral-800;
+    @apply cursor-pointer shadow-none;
+    @apply flex justify-between items-center;
+    @apply border-none rounded-b-none rounded-t-sm;
+  }
+
+  .accordion-icon {
+    @apply text-xl;
+  }
+
+  .accordion-content {
+    @apply bg-neutral-800 text-neutral-100;
+    @apply overflow-hidden rounded-b-sm;
+    @apply border-t-1 border-neutral-700;
+  }
+
+  .accordion-children {
+    @apply px-3 py-2;
+  }
+}

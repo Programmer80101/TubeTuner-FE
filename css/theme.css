@@ -1,0 +1,129 @@
+@theme {
+  --color-primary-100: oklch(0.9085 0.182 226.4);
+  --color-primary-150: oklch(0.8589 0.1786 227.6);
+  --color-primary-200: oklch(0.8093 0.1752 228.8);
+  --color-primary-250: oklch(0.7597 0.172 230);
+  --color-primary-300: oklch(0.7101 0.1688 231.3);
+  --color-primary-350: oklch(0.6605 0.1657 232.7);
+  --color-primary-400: oklch(0.6109 0.1628 234.1);
+  --color-primary-450: oklch(0.5613 0.1599 235.5);
+  --color-primary-500: oklch(0.5117 0.1571 237);
+  --color-primary-550: oklch(0.4621 0.1544 238.6);
+  --color-primary-600: oklch(0.4125 0.1519 240.2);
+  --color-primary-650: oklch(0.3629 0.1495 241.9);
+  --color-primary-700: oklch(0.3133 0.1472 243.6);
+  --color-primary-750: oklch(0.2637 0.145 245.3);
+  --color-primary-800: oklch(0.2141 0.143 247.2);
+  --color-primary-850: oklch(0.1645 0.1411 249);
+  --color-primary-900: oklch(0.1149 0.1394 251);
+  --color-primary-950: oklch(0.1149 0.1394 251);
+
+  --color-accent-100: oklch(0.9085 0.976 118);
+  --color-accent-150: oklch(0.8589 0.926 118);
+  --color-accent-200: oklch(0.8093 0.876 118);
+  --color-accent-250: oklch(0.7597 0.826 118);
+  --color-accent-300: oklch(0.7101 0.776 118);
+  --color-accent-350: oklch(0.6605 0.726 118);
+  --color-accent-400: oklch(0.6109 0.676 118);
+  --color-accent-450: oklch(0.5613 0.626 118);
+  --color-accent-500: oklch(0.5117 0.576 118);
+  --color-accent-550: oklch(0.4621 0.526 118);
+  --color-accent-600: oklch(0.4125 0.476 118);
+  --color-accent-650: oklch(0.3629 0.426 118);
+  --color-accent-700: oklch(0.3133 0.376 118);
+  --color-accent-750: oklch(0.2637 0.326 118);
+  --color-accent-800: oklch(0.2141 0.276 118);
+  --color-accent-850: oklch(0.1645 0.226 118);
+  --color-accent-900: oklch(0.1149 0.176 118);
+  --color-accent-950: oklch(0.1149 0.176 118);
+
+  --color-neutral-100: oklch(0.9085 0 0);
+  --color-neutral-150: oklch(0.8589 0 0);
+  --color-neutral-200: oklch(0.8093 0 0);
+  --color-neutral-250: oklch(0.7597 0 0);
+  --color-neutral-300: oklch(0.7101 0 0);
+  --color-neutral-350: oklch(0.6605 0 0);
+  --color-neutral-400: oklch(0.6109 0 0);
+  --color-neutral-450: oklch(0.5613 0 0);
+  --color-neutral-500: oklch(0.5117 0 0);
+  --color-neutral-550: oklch(0.4621 0 0);
+  --color-neutral-600: oklch(0.4125 0 0);
+  --color-neutral-650: oklch(0.3629 0 0);
+  --color-neutral-700: oklch(0.3133 0 0);
+  --color-neutral-750: oklch(0.2637 0 0);
+  --color-neutral-800: oklch(0.2141 0 0);
+  --color-neutral-850: oklch(0.1645 0 0);
+  --color-neutral-900: oklch(0.1149 0 0);
+  --color-neutral-950: oklch(0.1149 0 0);
+
+  --shadow-uniform-2xs: 0 0 1px 0 rgb(0 0 0);
+  --shadow-uniform-xs: 0 0 3px 1px rgb(0 0 0);
+  --shadow-uniform-sm: 0 0 5px 2px rgb(0 0 0);
+  --shadow-uniform-md: 0 0 8px 3px rgb(0 0 0);
+  --shadow-uniform-lg: 0 0 10px 5px rgb(0 0 0);
+  --shadow-uniform-xl: 0 0 12px 7px rgb(0 0 0);
+  --shadow-uniform-2xl: 0 0 15px 10px rgb(0 0 0);
+
+  --font-weight-100: 100;
+  --font-weight-200: 200;
+  --font-weight-300: 300;
+  --font-weight-400: 400;
+  --font-weight-500: 500;
+  --font-weight-600: 600;
+  --font-weight-700: 700;
+  --font-weight-800: 800;
+  --font-weight-900: 900;
+
+  --min-wrapper-size-small-screen: calc(100% - 3rem);
+  --min-wrapper-size-large-screen: calc(100% - 7rem);
+
+  --wrapper-xs: min(var(--min-wrapper-size-small-screen), 28rem);
+  --wrapper-sm: min(var(--min-wrapper-size-small-screen), 36rem);
+
+  --wrapper-md: min(var(--min-wrapper-size-large-screen), 48rem);
+  --wrapper-lg: min(var(--min-wrapper-size-large-screen), 56rem);
+}
+
+@utility wrapper-* {
+  @apply mx-auto;
+  max-width: --value(--wrapper- *);
+}
+
+@utility full-screen {
+  min-height: calc(100vh - 6rem);
+}
+
+@utility button {
+  @apply font-500 text-base h-10 px-3;
+  @apply text-neutral-100 hover:text-neutral-50;
+  @apply bg-neutral-800 hover:bg-neutral-750;
+  @apply rounded-sm border-none cursor-pointer;
+  @apply shadow-uniform-md shadow-black/15;
+  @apply hover:shadow-uniform-lg hover:shadow-black/25;
+  @apply focus-visible:outline-offset-2 focus-visible:outline-2;
+  @apply focus-visible:outline-neutral-150;
+  @apply duration-300 ease-in;
+  transition-property: color, background-color, border-color, outline-border,
+    text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter,
+    backdrop-filter;
+}
+
+@utility input {
+  @apply px-3 py-2 h-10 m-0 mt-1 w-full font-200;
+  @apply bg-neutral-850 hover:bg-neutral-850;
+  @apply text-neutral-100 hover:text-neutral-50;
+  @apply outline-1 outline-neutral-600 hover:outline-neutral-400;
+  @apply shadow-uniform-md shadow-black/15 rounded-sm;
+  @apply hover:shadow-uniform-lg hover:shadow-black/25;
+  @apply focus-visible:outline-2 focus-visible:outline-neutral-150;
+  @apply focus-visible:outline-neutral-150;
+  @apply duration-300 ease-in;
+
+  transition-property: border-color, outline-color, box-shadow, background-color;
+  flex-grow: 1000;
+}
+
+@utility icon {
+  @apply text-lg grid place-items-center;
+  aspect-ratio: 1 / 1;
+}

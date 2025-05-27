@@ -1,0 +1,13 @@
+@import "./globals.css";
+
+@layer components {
+  .dot-loader-wrapper {
+    @apply flex items-center justify-center;
+  }
+
+  .dot-loader-wrapper .dot-loader {
+    @apply w-auto h-auto;
+    @apply bg-neutral-100;
+    @apply rounded-full;
+  }
+}

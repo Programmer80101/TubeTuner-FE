@@ -1,0 +1,37 @@
+@import "./globals.css";
+
+@layer components {
+  #footer .socials {
+    @apply flex items-center justify-center;
+    @apply gap-6 pb-4 pt-2;
+  }
+
+  #footer .socials .social-link {
+    @apply text-neutral-250 text-2xl;
+    @apply transition-colors duration-300 ease-in;
+  }
+
+  #footer footer {
+    @apply text-sm pb-4 px-6 sm:px-20 md:px-30 lg:px-40;
+    @apply bg-neutral-800 text-neutral-150 text-center;
+  }
+
+  #footer footer > div {
+    @apply w-full pt-4;
+  }
+
+  #footer footer .links {
+    @apply grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4;
+    @apply gap-2;
+  }
+
+  #footer footer .links a {
+    @apply relative max-w-fit;
+    @apply left-1/2 -translate-x-1/2;
+    @apply text-neutral-50 hover:text-white;
+  }
+
+  #footer footer .links a::after {
+    @apply left-1/2 -translate-x-1/2;
+  }
+}
