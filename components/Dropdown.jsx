@@ -77,7 +77,7 @@ export default function Dropdown({
         type="button"
         title={label}
         onClick={toggleOpen}
-        className="dropdown-button input"
+        className="dropdown-button"
         clickAnimation={false}
         aria-label={label}
         aria-haspopup="listbox"

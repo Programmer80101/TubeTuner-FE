@@ -9,7 +9,7 @@ const config = {
   author: "Surprized Pikachu",
   themeColor: "#2563eb",
   navHiddenPaths: ["/admin", "/login", "/register"],
-  footerHiddenPaths: ["/admin", "/login", "/register"],
+  footerHiddenPaths: ["/load", "/admin", "/login", "/register"],
   socials: {
     github: "",
     youtube: "",

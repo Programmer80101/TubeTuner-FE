@@ -141,14 +141,8 @@
   input[type="password"],
   input[type="number"],
   input[type="file"],
-  textarea,
-  select,
-  option {
+  textarea {
     @apply input;
-  }
-
-  select {
-    @apply px-2;
   }
 
   textarea {

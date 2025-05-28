@@ -45,7 +45,7 @@
   }
 
   .switch-wrapper .switch-button[aria-disabled="true"][aria-checked="true"] {
-    @apply saturate-80;
+    @apply bg-primary-500 saturate-80;
   }
 
   .switch-wrapper .switch-button[aria-disabled="true"] .switch-thumb {

@@ -13,7 +13,7 @@
 
   #footer .socials .social-link svg {
     @apply hover:text-shadow-lg hover:shadow-current;
-    @apply duration-200 ease-in;
+    @apply duration-200 ease-in transform-3d perspective-distant;
     @apply hover:scale-110 hover:-translate-y-1;
 
     transition-property: color, background-color, translate, scale;

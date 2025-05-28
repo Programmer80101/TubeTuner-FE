@@ -74,7 +74,7 @@
   }
 
   button[data-color="transparent"] {
-    @apply bg-transparent hover:bg-white/4;
+    @apply bg-transparent hover:bg-white/10;
     @apply shadow-none hover:shadow-none;
   }
 }

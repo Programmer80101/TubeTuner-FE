@@ -21,7 +21,7 @@
     @apply text-red-500 text-xs font-400;
   }
 
-  .input-wrapper input[aria-invalid="false"] + .input-msg {
+  .input-wrapper input[aria-invalid="false"]:user-valid + .input-msg {
     @apply hidden;
   }
 }

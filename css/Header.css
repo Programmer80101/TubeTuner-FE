@@ -67,7 +67,7 @@
   }
 
   #nav-wrapper .nav-link::after {
-    @apply h-full opacity-5 bottom-0;
+    @apply h-full opacity-10 bottom-0;
   }
 
   #nav-wrapper .nav-link-icon {
