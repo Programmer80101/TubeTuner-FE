@@ -6,9 +6,8 @@
   }
 
   .dropdown-wrapper .dropdown-button {
-    @apply input flex items-center justify-between gap-2;
-    @apply focus:outline-2 outline-offset-0;
-    @apply focus:outline-offset-0 focus:outline-neutral-150;
+    @apply outline-none focus-visible:outline-solid;
+    @apply flex items-center justify-between gap-2;
   }
 
   .dropdown-wrapper .dropdown-icon {
@@ -19,9 +18,8 @@
     @apply w-48 max-w-screen;
     @apply bg-neutral-800;
     @apply absolute z-50 mt-2;
-    @apply border-1 border-neutral-500;
-    @apply shadow-uniform-sm shadow-black/20;
-    @apply rounded-sm;
+    @apply shadow-uniform-sm shadow-black/50;
+    @apply rounded-xs;
     @apply duration-300 ease-in;
 
     transition-property: border-color, box-shadow, outline, outline,

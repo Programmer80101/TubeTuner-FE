@@ -73,23 +73,30 @@
   --font-weight-800: 800;
   --font-weight-900: 900;
 
-  --min-wrapper-size-small-screen: calc(100% - 3rem);
-  --min-wrapper-size-large-screen: calc(100% - 7rem);
-
-  --wrapper-xs: min(var(--min-wrapper-size-small-screen), 28rem);
-  --wrapper-sm: min(var(--min-wrapper-size-small-screen), 36rem);
-
-  --wrapper-md: min(var(--min-wrapper-size-large-screen), 48rem);
-  --wrapper-lg: min(var(--min-wrapper-size-large-screen), 56rem);
+  --wrapper-xs: 20rem;
+  --wrapper-sm: 30rem;
+  --wrapper-md: 40rem;
+  --wrapper-lg: 50rem;
+  --wrapper-xl: 60rem;
 }
 
 @utility wrapper-* {
   @apply mx-auto;
-  max-width: --value(--wrapper- *);
+  --side-spacing: calc(100% - 2rem);
+
+  @media (min-width: 24rem) {
+    --side-spacing: calc(100% - 4rem);
+  }
+
+  @media (min-width: 40rem) {
+    --side-spacing: calc(100% - 8rem);
+  }
+
+  max-width: min(var(--side-spacing), --value(--wrapper- *));
 }
 
 @utility full-screen {
-  min-height: calc(100vh - 6rem);
+  min-height: calc(100vh - 7rem);
 }
 
 @utility input {
@@ -97,7 +104,7 @@
   @apply bg-neutral-800 hover:bg-neutral-800;
   @apply text-neutral-100 hover:text-neutral-50;
   @apply outline-1 outline-neutral-400 hover:outline-neutral-200;
-  @apply shadow-uniform-xs shadow-black rounded-sm;
+  @apply shadow-uniform-xs shadow-black rounded-xs;
   @apply hover:shadow-uniform-sm hover:shadow-black;
   @apply focus-visible:outline-2 focus-visible:outline-neutral-150;
   @apply focus-visible:outline-neutral-150;

@@ -60,7 +60,7 @@
   #nav-wrapper .nav-link {
     @apply grid grid-cols-[auto_1fr] gap-1;
     @apply text-xl w-full p-0 mt-1.5;
-    @apply rounded-sm overflow-hidden;
+    @apply rounded-xs overflow-hidden;
     @apply text-neutral-100 hover:text-neutral-50;
     @apply outline-offset-0 outline-neutral-300;
     @apply focus-visible:outline-neutral-300;

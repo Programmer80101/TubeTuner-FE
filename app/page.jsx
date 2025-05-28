@@ -7,9 +7,12 @@ import Accordion from "@/components/Accordion";
 import Dropdown from "@/components/Dropdown";
 import Tooltip from "@/components/Tooltip";
 import Input from "@/components/Input";
+import Textarea from "@/components/Textarea";
 import Switch from "@/components/Switch";
 import Button from "@/components/Button";
 import Dialog from "@/components/Dialog";
+import Checkbox from "@/components/Checkbox";
+import Radio from "@/components/Radio";
 import MotionOnView from "@/components/MotionOnView";
 import withPopup from "@/hoc/withPopup";
 import withConfetti from "@/hoc/withConfetti";
@@ -26,6 +29,10 @@ function Home({ addPopup, triggerConfetti }) {
   const [controlledInput, setControlledInput] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [radioValue, setRadioValue] = useState('option1');
+  const [isChecked, setIsChecked] = useState(false);
+  const [num, setNum] = useState(0);
+  const [textarea, setTextarea] = useState("");
   const pokemons = [
     "Pikachu",
     "Ash Greninja",
@@ -199,6 +206,8 @@ function Home({ addPopup, triggerConfetti }) {
               name="num"
               type="number"
               label="Number Input:"
+              value={num}
+              onChange={(e) => setNum(e.target.value)}
               pattern="[0-9]+"
               min="0"
               max="999"
@@ -208,21 +217,55 @@ function Home({ addPopup, triggerConfetti }) {
               required
             />
           </MotionOnView>
+          <Textarea
+            id="textarea"
+            name="textarea"
+            label="Additional Comments: "
+            placeholder="Enter your interests..."
+            value={textarea}
+            onChange={(e) => setTextarea(e.target.value)}
+            errorMsg="Too short or too long"
+            helpMsg="Feel free to add anything!"
+            tooltip="Optional"
+            minLength={6}
+            maxLength={12}
+          />
           <MotionOnView>
-            <div>
-              <label htmlFor="checkboxInput">
-                <input type="checkbox" id="checkboxInput" /> Checkbox
-              </label>
-            </div>
-          </MotionOnView>
-          <MotionOnView>
-            <div>
-              <label htmlFor="radioInput1">
-                <input type="radio" id="radioInput1" name="radioGroup" /> Radio Option 1
-              </label>
-              <label htmlFor="radioInput2">
-                <input type="radio" id="radioInput2" name="radioGroup" /> Radio Option 2
-              </label>
+            <p>Choose an option:</p>
+            <div className="space-x-4">
+              <Radio
+                id="opt1"
+                name="example"
+                label="Option 1"
+                value="option1"
+                checked={radioValue === 'option1'}
+                onChange={(e) => setRadioValue(e.target.value)}
+              />
+              <Radio
+                id="opt2"
+                name="example"
+                label="Option 2"
+                value="option2"
+                checked={radioValue === 'option2'}
+                onChange={(e) => setRadioValue(e.target.value)}
+              />
+              <Radio
+                id="opt3"
+                name="example"
+                label="Option 3"
+                value="option3"
+                checked={radioValue === 'option3'}
+                onChange={(e) => setRadioValue(e.target.value)}
+                disabled={true}
+              />
+              <Radio
+                id="opt4"
+                name="example2"
+                label="Option 4"
+                value="option3"
+                checked={true}
+                disabled={true}
+              />
             </div>
           </MotionOnView>
           <div>
@@ -270,6 +313,30 @@ function Home({ addPopup, triggerConfetti }) {
               <option value="mega-charizard-x">Mega Charizard X</option>
               <option value="mewtwo">Mewtwo</option>
             </select>
+          </MotionOnView>
+          <MotionOnView>
+            <Checkbox
+              id="agree"
+              label="I agree to the terms"
+              checked={isChecked}
+              onChange={(e) => setIsChecked(e.target.checked)}
+            />
+          </MotionOnView>
+          <MotionOnView>
+            <Checkbox
+              id="cookie"
+              label="I agree to using cookies"
+              checked={true}
+              disabled={true}
+            />
+          </MotionOnView>
+          <MotionOnView>
+            <Checkbox
+              id="private"
+              label="Private Form"
+              checked={false}
+              disabled={true}
+            />
           </MotionOnView>
           <Button type="submit" color="blue" size={3} className="mt-4">Submit</Button>
         </form>

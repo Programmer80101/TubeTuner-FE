@@ -2,37 +2,36 @@
 
 import { useRef, useState } from "react";
 import Tooltip from "@/components/Tooltip";
-import "@/css/Input.css";
+import "@/css/Textarea.css"
 
-export default function Input({
+export default function Textarea({
   id,
   name,
   label,
-  type = "text",
   placeholder = "",
   value = "",
   onChange,
   onBlur,
+  rows = 4,
   error = false,
-  pattern,
   errorMsg = "Error!",
   helpMsg = "",
   disabled = false,
   tooltip = "",
   ...props
 }) {
-  const inputRef = useRef(null);
+  const textareaRef = useRef(null);
   const [isInvalid, setIsInvalid] = useState(false);
   const descriptionId = `description-${id}`
 
   const handleBlur = (e) => {
-    const input = inputRef.current;
-    if (input) setIsInvalid(error || !input.checkValidity());
+    const textarea = textareaRef.current;
+    if (textarea) setIsInvalid(error || !textarea.checkValidity());
     if (onBlur) onBlur?.(e);
   };
 
   return (
-    <div className="input-wrapper">
+    <div className="textarea-wrapper">
       <div>
         {label && (
           <label htmlFor={id}>
@@ -45,23 +44,22 @@ export default function Input({
           </Tooltip>
         )}
       </div>
-      <input
+      <textarea
         id={id}
         name={name}
-        type={type}
-        ref={inputRef}
+        rows={rows}
+        ref={textareaRef}
         value={value}
-        pattern={pattern}
         placeholder={placeholder}
         onChange={onChange}
         onBlur={handleBlur}
         disabled={disabled}
-        aria-invalid={isInvalid}
         aria-disabled={disabled}
+        aria-invalid={isInvalid}
         aria-describedby={descriptionId}
         {...props}
       />
-      <span id={descriptionId} className="input-msg">
+      <span id={descriptionId} className="textarea-msg">
         {isInvalid ? errorMsg : helpMsg}
       </span>
     </div>

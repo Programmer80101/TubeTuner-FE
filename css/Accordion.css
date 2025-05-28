@@ -2,17 +2,16 @@
 
 @layer components {
   .accordion-wrapper {
-    @apply mb-4 mx-auto;
-    @apply rounded-sm bg-neutral-800;
+    @apply mb-4 mx-auto w-full wrapper-sm;
+    @apply rounded-xs bg-neutral-750 hover:bg-neutral-700;
     @apply shadow-uniform-md shadow-black;
-
-    width: min(100vw - 4rem, 32rem);
+    @apply transition-colors duration-200 ease-in;
   }
 
   .accordion-button {
     @apply relative z-1 w-full;
     @apply text-left text-lg px-4;
-    @apply bg-neutral-800 hover:bg-neutral-800;
+    @apply bg-transparent hover:bg-transparent;
     @apply cursor-pointer shadow-none hover:shadow-none;
     @apply flex justify-between items-center;
     @apply border-none rounded-b-none rounded-t-sm;

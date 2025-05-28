@@ -9,12 +9,12 @@
     @apply absolute z-50;
     @apply text-sm w-max h-min px-2 py-1;
     @apply bg-neutral-750 text-neutral-100;
-    @apply shadow-uniform-sm shadow-black/25;
+    @apply shadow-uniform-xs shadow-black/25;
     @apply rounded-xs transform;
     @apply scale-0 opacity-0 invisible;
+    @apply duration-200 ease-in;
 
-    transition: opacity 250ms ease-in, scale 250ms ease-in,
-      visibility 250ms ease-in;
+    transition-property: opacity, scale, visibility;
   }
 
   .tooltip-wrapper:hover .tooltip-content {

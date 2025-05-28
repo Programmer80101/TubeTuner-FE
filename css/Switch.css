@@ -13,11 +13,14 @@
     @apply grid items-center;
   }
 
+  .switch-wrapper:has(.switch-button[aria-disabled="true"]) .switch-label {
+    @apply text-neutral-250;
+  }
+
   .switch-wrapper .switch-button {
     @apply relative;
     @apply p-0 m-0 h-6 w-11;
-    @apply bg-neutral-800 rounded-full cursor-pointer;
-    @apply border-1 border-neutral-600 hover:border-neutral-400;
+    @apply bg-neutral-750 rounded-full cursor-pointer;
     @apply shadow-uniform-md shadow-black/15;
     @apply hover:shadow-uniform-lg hover:shadow-black/25;
     @apply focus-visible:outline-offset-2 focus-visible:outline-2;
@@ -27,28 +30,25 @@
     transition-property: border-color, box-shadow, background-color;
   }
 
-  .switch-wrapper .switch-button[disabled] {
-    @apply border-neutral-700 hover:border-neutral-700;
-    @apply cursor-not-allowed;
-  }
-
-  .switch-wrapper .switch-button[aria-checked="true"] {
-    @apply bg-primary-500;
-    @apply border-primary-400 hover:border-primary-300;
-  }
-
-  .switch-wrapper .switch-button[disabled][aria-checked="true"] {
-    @apply border-primary-400 hover:border-primary-400;
-    @apply saturate-80;
-  }
-
   .switch-wrapper .switch-thumb {
     @apply absolute top-0 left-0 mt-0.5 ml-0.5;
     @apply w-5 h-5 rounded-full;
     @apply bg-neutral-100;
   }
 
-  .switch-wrapper .switch-button[disabled] .switch-thumb {
+  .switch-wrapper .switch-button[aria-checked="true"] {
+    @apply bg-primary-500;
+  }
+
+  .switch-wrapper .switch-button[aria-disabled="true"] {
+    @apply cursor-not-allowed bg-neutral-650;
+  }
+
+  .switch-wrapper .switch-button[aria-disabled="true"][aria-checked="true"] {
+    @apply saturate-80;
+  }
+
+  .switch-wrapper .switch-button[aria-disabled="true"] .switch-thumb {
     @apply bg-neutral-300;
   }
 }

@@ -5,7 +5,7 @@
     @apply font-500 text-base h-10 px-3;
     @apply text-neutral-100 hover:text-neutral-50;
     @apply bg-neutral-750 hover:bg-neutral-700;
-    @apply rounded-sm border-none cursor-pointer;
+    @apply rounded-xs border-none cursor-pointer;
     @apply shadow-uniform-md shadow-neutral-750/5;
     @apply hover:shadow-uniform-lg hover:shadow-neutral-700/15;
     @apply focus-visible:outline-offset-2 focus-visible:outline-2;
@@ -16,9 +16,9 @@
       filter, backdrop-filter;
   }
 
-  button[aria-busy="false"][disabled] {
+  button[aria-busy="false"]:disabled {
     @apply cursor-not-allowed;
-    @apply bg-neutral-800 text-neutral-350;
+    @apply bg-neutral-650 text-neutral-300;
     @apply shadow-none hover:shadow-none;
   }
 
@@ -37,7 +37,7 @@
   }
 
   button[data-color="blue"] {
-    @apply bg-blue-700 hover:bg-blue-600;
+    @apply bg-sky-700 hover:bg-sky-600;
     @apply shadow-blue-600/5 hover:shadow-blue-600/15;
     @apply focus-visible:outline-blue-600;
   }

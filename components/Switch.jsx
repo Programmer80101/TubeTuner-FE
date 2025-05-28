@@ -32,6 +32,7 @@ export default function Switch({
         disabled={disabled}
         aria-label={label}
         aria-checked={checked}
+        aria-disabled={disabled}
         role="switch"
       >
         <motion.span

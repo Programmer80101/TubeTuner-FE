@@ -28,11 +28,11 @@
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-transparent rounded-sm;
+    @apply bg-transparent rounded-xs;
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-neutral-700 rounded-sm;
+    @apply bg-neutral-700 rounded-xs;
     @apply border-2 border-neutral-700;
     @apply hover:bg-neutral-650;
   }
@@ -86,7 +86,7 @@
   p,
   ul,
   ol {
-    @apply wrapper-xs text-neutral-100;
+    @apply wrapper-sm text-neutral-100;
     @apply text-left font-thin;
   }
 
@@ -152,7 +152,7 @@
   }
 
   textarea {
-    @apply min-h-40 w-full;
+    @apply w-full h-auto min-h-5;
   }
 
   input[type="checkbox"],
@@ -166,7 +166,17 @@
 
   label > input[type="checkbox"],
   label > input[type="radio"] {
-    @apply translate-y-0.5 mr-1;
+    @apply translate-y-0.5 mr-2 cursor-pointer;
+  }
+
+  label > input[type="checkbox"]:disabled,
+  label > input[type="radio"]:disabled {
+    @apply cursor-not-allowed;
+  }
+
+  label > input[type="checkbox"]:disabled + span,
+  label > input[type="radio"]:disabled + span {
+    @apply text-neutral-250;
   }
 
   input[type="range"] {
