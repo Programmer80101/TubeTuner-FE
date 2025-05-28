@@ -1,0 +1,23 @@
+@import "./globals.css";
+
+@layer components {
+  .input-wrapper input[aria-invalid="false"] {
+    @apply outline-green-700 hover:outline-green-600 focus:outline-green-600;
+  }
+
+  .input-wrapper input[aria-invalid="true"] {
+    @apply outline-red-700 hover:outline-red-600 focus:outline-red-600;
+  }
+
+  .input-wrapper input + .input-msg {
+    @apply text-neutral-300 text-sm leading-1 font-400;
+  }
+
+  .input-wrapper input[aria-invalid="true"] + .input-msg {
+    @apply text-red-500 text-sm leading-[5px] font-400;
+  }
+
+  .input-wrapper input[aria-invalid="false"] + .input-msg {
+    @apply hidden;
+  }
+}

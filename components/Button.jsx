@@ -10,8 +10,10 @@ export default function Button({
   onClick,
   disabled = false,
   isLoading = false,
+  clickAnimation = true,
   loadingText = "",
   size = 2,
+  icon = false,
   ...props
 }) {
   const handleClick = (e) => {
@@ -24,13 +26,13 @@ export default function Button({
     <motion.button
       type="button"
       onClick={handleClick}
-      whileTap={isLoading ? {} : { scale: 0.98 }}
+      whileTap={clickAnimation ? (isLoading ? {} : { scale: 0.96 }) : {}}
       transition={{ duration: 0.1, ease: "easeIn" }}
       aria-busy={isLoading}
       aria-disabled={isLoading}
       disabled={disabled || isLoading}
-      data-button="true"
       data-color={color}
+      data-icon={icon}
       {...props}
     >
       {

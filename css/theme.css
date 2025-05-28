@@ -56,7 +56,6 @@
   --color-neutral-900: oklch(0.1149 0 0);
   --color-neutral-950: oklch(0.1149 0 0);
 
-  --shadow-uniform-2xs: 0 0 1px 0 rgb(0 0 0);
   --shadow-uniform-xs: 0 0 3px 1px rgb(0 0 0);
   --shadow-uniform-sm: 0 0 5px 2px rgb(0 0 0);
   --shadow-uniform-md: 0 0 8px 3px rgb(0 0 0);
@@ -93,30 +92,16 @@
   min-height: calc(100vh - 6rem);
 }
 
-@utility button {
-  @apply font-500 text-base h-10 px-3;
-  @apply text-neutral-100 hover:text-neutral-50;
-  @apply bg-neutral-800 hover:bg-neutral-750;
-  @apply rounded-sm border-none cursor-pointer;
-  @apply shadow-uniform-md shadow-black/15;
-  @apply hover:shadow-uniform-lg hover:shadow-black/25;
-  @apply focus-visible:outline-offset-2 focus-visible:outline-2;
-  @apply focus-visible:outline-neutral-150;
-  @apply duration-300 ease-in;
-  transition-property: color, background-color, border-color, outline-border,
-    text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter,
-    backdrop-filter;
-}
-
 @utility input {
   @apply px-3 py-2 h-10 m-0 mt-1 w-full font-200;
-  @apply bg-neutral-850 hover:bg-neutral-850;
+  @apply bg-neutral-800 hover:bg-neutral-800;
   @apply text-neutral-100 hover:text-neutral-50;
-  @apply outline-1 outline-neutral-600 hover:outline-neutral-400;
-  @apply shadow-uniform-md shadow-black/15 rounded-sm;
-  @apply hover:shadow-uniform-lg hover:shadow-black/25;
+  @apply outline-1 outline-neutral-400 hover:outline-neutral-200;
+  @apply shadow-uniform-xs shadow-black rounded-sm;
+  @apply hover:shadow-uniform-sm hover:shadow-black;
   @apply focus-visible:outline-2 focus-visible:outline-neutral-150;
   @apply focus-visible:outline-neutral-150;
+  @apply placeholder:text-neutral-400;
   @apply duration-300 ease-in;
 
   transition-property: border-color, outline-color, box-shadow, background-color;
@@ -124,6 +109,5 @@
 }
 
 @utility icon {
-  @apply text-lg grid place-items-center;
-  aspect-ratio: 1 / 1;
+  @apply grid place-items-center aspect-square;
 }

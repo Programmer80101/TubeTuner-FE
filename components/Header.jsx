@@ -19,7 +19,7 @@ export default function Header() {
   useEffect(() => {
     const handleClickOutside = (event) => {
       const nav = document.querySelector(".nav-menu");
-      if (nav && !nav.contains(event.target)) {
+      if (!nav.contains(event.target)) {
         setIsNavOpen(false);
       }
     };
@@ -65,8 +65,9 @@ export default function Header() {
               className="sm:hidden"
               tabIndex={isNavOpen ? -1 : 0}
               color="transparent"
+              icon={true}
             >
-              <FaBarsStaggered className="nav-icon" />
+              <FaBarsStaggered />
             </Button>
           </div>
           <div className="nav-center">
@@ -85,8 +86,9 @@ export default function Header() {
               aria-label="Profile"
               className="rounded-full"
               color="transparent"
+              icon={true}
             >
-              <FaUserAlt className="nav-icon" />
+              <FaUserAlt />
             </Button>
           </div>
         </div>

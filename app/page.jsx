@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import DotLoader from "@/components/DotLoader";
 import Accordion from "@/components/Accordion";
 import Dropdown from "@/components/Dropdown";
 import Tooltip from "@/components/Tooltip";
+import Input from "@/components/Input";
 import Switch from "@/components/Switch";
 import Button from "@/components/Button";
 import Dialog from "@/components/Dialog";
@@ -21,6 +22,10 @@ function Home({ addPopup, triggerConfetti }) {
   const [pkmn, setPkmn, removePkmn] = useLocalStorage("pkmn", 0);
   const [open, setOpen] = useState(false);
   const [morePkmn, setMorePkmn] = useState(2);
+  const [name, setName] = useState("");
+  const [controlledInput, setControlledInput] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const pokemons = [
     "Pikachu",
     "Ash Greninja",
@@ -128,28 +133,80 @@ function Home({ addPopup, triggerConfetti }) {
         <h2>Form</h2>
         <form className="flex flex-col gap-3">
           <MotionOnView>
-            <div>
-              <label htmlFor="textInput">Text Input:</label>
-              <input type="text" id="textInput" placeholder="Enter text" />
-            </div>
+            <Input
+              id="name"
+              label="Your Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              pattern="[a-z]+"
+              errorMsg="Only lowercase letters are allowed!"
+              helpMsg="Only lowercase letters are allowed!"
+              tooltip="hello"
+              maxLength="10"
+              placeholder="Username"
+              required
+            />
           </MotionOnView>
           <MotionOnView>
-            <div>
-              <label htmlFor="emailInput">Email Input:</label>
-              <input type="email" id="emailInput" placeholder="Enter email" />
-            </div>
+            <Input
+              id="email"
+              label="Email Address"
+              type="email"
+              value={controlledInput}
+              onChange={e => setControlledInput(e.target.value)}
+              tooltip={
+                <span className="text-green">Your email</span>
+              }
+              pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+              errorMsg="Invalid Email!"
+              placeholder="Email"
+              required
+            />
           </MotionOnView>
           <MotionOnView>
-            <div>
-              <label htmlFor="passwordInput">Password Input:</label>
-              <input type="password" id="passwordInput" placeholder="Enter password" />
-            </div>
+            <Input
+              id="password"
+              name="password"
+              label="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              errorMsg="Password must contain at least one uppercase character, one lowercase character, one number and a special character!"
+              pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[#?!@$%^&*-]).{8,}$"
+              minLength="8"
+              helpMsg="Choose a strong password!"
+              placeholder="Password"
+              required
+            />
           </MotionOnView>
           <MotionOnView>
-            <div>
-              <label htmlFor="numberInput">Number Input:</label>
-              <input type="number" id="numberInput" placeholder="Enter number" />
-            </div>
+            <Input
+              id="confirm-password"
+              name="confirm-password"
+              label="Confirm Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              tooltip="Confirm your password!"
+              error={password !== confirmPassword}
+              errorMsg="Passwords don't match"
+              placeholder="Confirm Password"
+              minLength="8"
+              required
+            />
+          </MotionOnView>
+          <MotionOnView>
+            <Input
+              id="num"
+              name="num"
+              type="number"
+              label="Number Input:"
+              pattern="[0-9]+"
+              min="0"
+              max="999"
+              errorMsg="Only integers are allowed in the range 0 - 999"
+              helpMsg="Range: 0 - 999"
+              placeholder="100"
+              required
+            />
           </MotionOnView>
           <MotionOnView>
             <div>
@@ -168,6 +225,29 @@ function Home({ addPopup, triggerConfetti }) {
               </label>
             </div>
           </MotionOnView>
+          <div>
+            <Switch
+              id="switchOn"
+              label="Switch On"
+              checked={on}
+              onChange={() => setOn(!on)}
+            />
+            <Switch
+              id="switchOff"
+              label="Switch Off"
+              checked={off}
+              onChange={() => setOff(!off)}
+              fullWidth={false}
+              disabled
+            />
+            <Switch
+              id="switchOof"
+              label="Switch Oof"
+              checked={oof}
+              onChange={() => setOof(!oof)}
+              disabled
+            />
+          </div>
           <Dropdown
             label="Select an option"
             items={pokemons}

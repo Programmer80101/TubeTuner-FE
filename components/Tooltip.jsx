@@ -26,7 +26,7 @@ export default function Tooltip({
         role="tooltip"
       >
         {children}
-        <span />
+        <span className="tooltip-arrow" />
       </div>
     </span>
   )

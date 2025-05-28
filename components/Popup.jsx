@@ -63,6 +63,7 @@ export default function Popup({ id, color = "neutral", removePopup, children }) 
         aria-label="Close Popup"
         aria-hidden="true"
         color="transparent"
+        icon={true}
       >
         <FaXmark />
       </Button>

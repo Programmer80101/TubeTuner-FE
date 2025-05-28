@@ -20,20 +20,11 @@
   }
 
   #nav-wrapper .nav {
-    @apply p-2 m-0 h-14 border-b;
+    @apply px-2 py-1 m-0 h-14 border-b;
     @apply grid grid-cols-[1fr_auto_1fr] gap-2 items-center;
     @apply transition duration-300 ease-in-out;
 
     border-bottom-width: var(--border-width);
-  }
-
-  #nav-wrapper button:has(> .nav-icon) {
-    @apply grid place-items-center;
-    @apply aspect-square p-0;
-  }
-
-  #nav-wrapper .nav-icon {
-    @apply icon text-[22px];
   }
 
   #nav-wrapper .nav-start {

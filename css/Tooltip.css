@@ -8,9 +8,8 @@
   .tooltip-wrapper .tooltip-content {
     @apply absolute z-50;
     @apply text-sm w-max h-min px-2 py-1;
-    @apply bg-neutral-800 text-neutral-150;
-    @apply shadow-uniform-md shadow-black/20;
-    @apply hover:shadow-uniform-lg hover:shadow-black/30;
+    @apply bg-neutral-750 text-neutral-100;
+    @apply shadow-uniform-sm shadow-black/25;
     @apply rounded-xs transform;
     @apply scale-0 opacity-0 invisible;
 
@@ -22,8 +21,12 @@
     @apply scale-100 opacity-100 visible;
   }
 
-  .tooltip-wrapper span {
-    @apply absolute w-2 h-2 bg-neutral-800 rotate-45;
+  .tooltip-wrapper .tooltip-arrow {
+    @apply absolute w-2 h-2 bg-neutral-750 rotate-45;
+  }
+
+  .tooltip-wrapper .tooltip-icon {
+    @apply icon text-xs m-1;
   }
 
   .tooltip-wrapper[data-position="top"] .tooltip-content {
@@ -46,19 +49,19 @@
     @apply -translate-y-1/2 origin-left;
   }
 
-  .tooltip-wrapper[data-position="top"] span {
+  .tooltip-wrapper[data-position="top"] .tooltip-arrow {
     @apply left-1/2 bottom-[-4px] -translate-x-1/2;
   }
 
-  .tooltip-wrapper[data-position="bottom"] span {
+  .tooltip-wrapper[data-position="bottom"] .tooltip-arrow {
     @apply left-1/2 top-[-4px] -translate-x-1/2;
   }
 
-  .tooltip-wrapper[data-position="left"] span {
+  .tooltip-wrapper[data-position="left"] .tooltip-arrow {
     @apply top-1/2 right-[-4px] -translate-y-1/2;
   }
 
-  .tooltip-wrapper[data-position="right"] span {
+  .tooltip-wrapper[data-position="right"] .tooltip-arrow {
     @apply top-1/2 left-[-4px] -translate-y-1/2;
   }
 }

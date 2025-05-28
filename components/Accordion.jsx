@@ -3,6 +3,7 @@
 import { FiChevronDown } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
 import { useId, useState } from "react";
+import Button from "@/components/Button";
 import "@/css/Accordion.css";
 
 const contentVariants = {
@@ -19,11 +20,12 @@ export default function Accordion({ title, children }) {
 
   return (
     <div className="accordion-wrapper">
-      <button
+      <Button
         id={buttonId}
         title={title}
         className="accordion-button"
         onClick={() => setIsOpen(open => !open)}
+        clickAnimation={false}
         aria-label={title}
         aria-expanded={isOpen}
         aria-controls={controlId}
@@ -35,9 +37,9 @@ export default function Accordion({ title, children }) {
           transition={{ duration: 0.3, ease: "easeIn" }}
           aria-hidden={true}
         >
-          <FiChevronDown aria-hidden={true} />
+          <FiChevronDown className="icon text-xl" aria-hidden={true} />
         </motion.span>
-      </button>
+      </Button>
 
       <AnimatePresence initial={false}>
         {isOpen && (

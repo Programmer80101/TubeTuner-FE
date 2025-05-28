@@ -1,15 +1,16 @@
 "use client";
 
 import { FaXmark } from "react-icons/fa6";
-import { useCallback, useEffect, useId, useRef } from 'react';
+import React, { useCallback, useEffect, useId, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { FocusTrap } from "focus-trap-react";
 import { AnimatePresence, motion } from "framer-motion";
 import Button from "@/components/Button";
 import "@/css/Dialog.css";
 
 const backdropVariants = {
-  hidden: { opacity: 0, filter: "blur(0px)" },
-  visible: { opacity: 1, filter: "blur(2px)" },
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
 };
 
 const dialogVariants = {
@@ -17,6 +18,30 @@ const dialogVariants = {
   visible: { opacity: 1, scale: 1 },
 };
 
+const MemoizedContent = React.memo(({ title, children, onClose, showCornerCloseButton }) => (
+  <motion.div
+    className="dialog-box"
+    variants={dialogVariants}
+    initial="hidden"
+    animate="visible"
+    exit="hidden"
+    transition={{ duration: 0.3 }}
+  >
+    {showCornerCloseButton && (
+      <Button
+        type="button"
+        className="dialog-close-button"
+        onClick={onClose}
+        aria-label="Close Dialog"
+        color="transparent"
+      >
+        <FaXmark />
+      </Button>
+    )}
+    <h2 className="dialog-title">{title}</h2>
+    {children}
+  </motion.div>
+));
 
 export default function Dialog({
   isOpen,
@@ -30,16 +55,10 @@ export default function Dialog({
   const labelId = `dialog-label=${id}`;
   const lastFocusedRef = useRef(null);
 
-  const handleClose = useCallback(() => {
-    onClose();
-  }, [onClose]);
-
-  const handleKey = (e) => {
-    if (e.key === "Escape") {
-      e.stopPropagation();
-      handleClose();
-    }
-  };
+  const handleKey = useCallback(
+    (e) => e.key === "Escape" && (e.stopPropagation(), onClose()),
+    [onClose]
+  );
 
   useEffect(() => {
     if (isOpen) {
@@ -57,7 +76,9 @@ export default function Dialog({
     };
   }, [isOpen]);
 
-  return (
+  if (typeof document === "undefined") return null;
+
+  return createPortal(
     <AnimatePresence>
       {isOpen && (
         <FocusTrap
@@ -70,35 +91,15 @@ export default function Dialog({
             aria-modal="true"
             aria-labelledby={labelId}
           >
-            <motion.div
-              className="dialog-box"
-              variants={dialogVariants}
-              initial="hidden"
-              animate="visible"
-              exit="hidden"
-              transition={{ duration: 0.3 }}
-              key="dialog"
-            >
-              {showCornerCloseButton && (
-                <Button
-                  type="button"
-                  title="Close Dialog"
-                  className="dialog-close-button"
-                  onClick={handleClose}
-                  aria-label="Close Dialog"
-                  aria-hidden="true"
-                  tabIndex={0}
-                  color="transparent"
-                >
-                  <FaXmark />
-                </Button>
-              )}
-              <h2 id={labelId} className="dialog-title">{title}</h2>
-              {children}
-            </motion.div>
+            <MemoizedContent
+              title={title}
+              onClose={onClose}
+              showCornerCloseButton={showCornerCloseButton}
+              children={children}
+            />
             <motion.div
               className="dialog-overlay"
-              onClick={closeOnOverlayClick ? handleClose : undefined}
+              onClick={closeOnOverlayClick ? onClose : undefined}
               variants={backdropVariants}
               initial="hidden"
               animate="visible"
@@ -110,6 +111,7 @@ export default function Dialog({
           </div>
         </FocusTrap>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 }

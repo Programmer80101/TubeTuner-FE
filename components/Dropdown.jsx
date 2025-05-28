@@ -1,8 +1,9 @@
 "use client";
 
 import { FiChevronDown, FiCheck } from "react-icons/fi";
-import { useState, useRef, useEffect, useId } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useRef, useEffect, useId } from 'react';
+import Button from "@/components/Button";
 import "@/css/Dropdown.css";
 
 const containerVariants = {
@@ -70,13 +71,14 @@ export default function Dropdown({
           {label}
         </label>
       </div>
-      <button
+      <Button
         id={labelId}
         ref={buttonRef}
         type="button"
         title={label}
         onClick={toggleOpen}
         className="dropdown-button input"
+        clickAnimation={false}
         aria-label={label}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
@@ -90,7 +92,7 @@ export default function Dropdown({
         >
           <FiChevronDown />
         </motion.span>
-      </button>
+      </Button>
 
       <AnimatePresence>
         {isOpen && (

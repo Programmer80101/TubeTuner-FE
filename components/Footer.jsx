@@ -13,7 +13,7 @@ export default function Footer() {
         <Link
           href={config.socials.discord}
           target="_blank"
-          className="social-link hover:text-[#5865F2]"
+          className="social-link text-[#5865F2]"
           aria-label="Discord"
         >
           <FaDiscord aria-hidden="true" />
@@ -21,7 +21,7 @@ export default function Footer() {
         <Link
           href={config.socials.github}
           target="_blank"
-          className="social-link hover:text-white"
+          className="social-link text-white"
           aria-label="GitHub"
         >
           <FaGithub aria-hidden="true" />
@@ -29,7 +29,7 @@ export default function Footer() {
         <Link
           href={config.socials.twitter}
           target="_blank"
-          className="social-link hover:text-white"
+          className="social-link text-white"
           aria-label="X formerly Twitter"
         >
           <FaXTwitter aria-hidden="true" />
@@ -37,7 +37,7 @@ export default function Footer() {
         <Link
           href={config.socials.youtube}
           target="_blank"
-          className="social-link hover:text-[#FF0000]"
+          className="social-link text-[#FF0000]"
           aria-label="YouTube"
         >
           <FaYoutube aria-hidden="true" />
@@ -45,7 +45,7 @@ export default function Footer() {
         <Link
           href={config.socials.linkedIn}
           target="_blank"
-          className="social-link hover:text-[#0077B5]"
+          className="social-link text-[#0077B5]"
           aria-label="LinkedIn"
         >
           <FaLinkedin aria-hidden="true" />

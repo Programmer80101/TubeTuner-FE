@@ -5,7 +5,7 @@
     @apply relative z-50;
     @apply text-sm font-500;
     @apply w-full max-h-min px-3 py-2;
-    @apply text-neutral-50 hover:text-white;
+    @apply text-white hover:text-neutral-50;
     @apply bg-neutral-650 hover:bg-neutral-700;
     @apply flex items-center justify-between;
     @apply shadow-uniform-md shadow-black/15;
@@ -16,7 +16,7 @@
 
   .popup button.popup-close-button {
     @apply text-base p-1 m-0 h-auto w-auto;
-    @apply hover:bg-black/5 icon;
+    @apply hover:bg-black/5;
   }
 
   .popup[data-popup-color="green"] {
@@ -32,7 +32,7 @@
   }
 
   .popup[data-popup-color="yellow"] {
-    @apply bg-yellow-600 hover:bg-yellow-700;
+    @apply bg-yellow-500 hover:bg-yellow-600;
   }
 
   .popup[data-popup-color="purple"] {

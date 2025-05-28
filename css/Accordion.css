@@ -3,29 +3,24 @@
 @layer components {
   .accordion-wrapper {
     @apply mb-4 mx-auto;
-    @apply rounded-sm;
-    @apply shadow-uniform-sm shadow-black/25;
+    @apply rounded-sm bg-neutral-800;
+    @apply shadow-uniform-md shadow-black;
 
     width: min(100vw - 4rem, 32rem);
   }
 
   .accordion-button {
-    @apply relative z-1;
-    @apply text-left text-lg font-400 px-4 py-2 w-full;
+    @apply relative z-1 w-full;
+    @apply text-left text-lg px-4;
     @apply bg-neutral-800 hover:bg-neutral-800;
-    @apply cursor-pointer shadow-none;
+    @apply cursor-pointer shadow-none hover:shadow-none;
     @apply flex justify-between items-center;
     @apply border-none rounded-b-none rounded-t-sm;
   }
 
-  .accordion-icon {
-    @apply text-xl;
-  }
-
   .accordion-content {
-    @apply bg-neutral-800 text-neutral-100;
-    @apply overflow-hidden rounded-b-sm;
-    @apply border-t-1 border-neutral-700;
+    @apply bg-black/40 text-neutral-100;
+    @apply overflow-hidden;
   }
 
   .accordion-children {

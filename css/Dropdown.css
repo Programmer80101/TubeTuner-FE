@@ -17,9 +17,9 @@
 
   .dropdown-wrapper .dropdown-list {
     @apply w-48 max-w-screen;
-    @apply bg-neutral-850;
+    @apply bg-neutral-800;
     @apply absolute z-50 mt-2;
-    @apply border-1 border-neutral-700;
+    @apply border-1 border-neutral-500;
     @apply shadow-uniform-sm shadow-black/20;
     @apply rounded-sm;
     @apply duration-300 ease-in;
@@ -30,7 +30,7 @@
 
   .dropdown-wrapper .dropdown-item {
     @apply relative pl-3 py-2 m-0 mt-[1px];
-    @apply bg-neutral-850 hover:bg-neutral-800 font-100;
+    @apply bg-neutral-800 hover:bg-neutral-750 font-100;
     @apply text-neutral-100 hover:text-neutral-50;
     @apply focus-visible:outline-offset-0 focus-visible:outline-1;
     @apply focus-visible:outline-neutral-100;
