@@ -24,7 +24,7 @@
   }
 
   .popup[data-popup-color="blue"] {
-    @apply bg-blue-600 hover:bg-blue-700;
+    @apply bg-sky-600 hover:bg-sky-700;
   }
 
   .popup[data-popup-color="red"] {

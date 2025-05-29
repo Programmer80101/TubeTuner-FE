@@ -15,15 +15,27 @@ export default function Input({
   onBlur,
   error = false,
   pattern,
+  maxLength,
   errorMsg = "Error!",
   helpMsg = "",
-  disabled = false,
   tooltip = "",
+  showCharacterCount = false,
+  required = false,
+  disabled = false,
   ...props
 }) {
   const inputRef = useRef(null);
   const [isInvalid, setIsInvalid] = useState(false);
+  const [characterCount, setCharacterCount] = useState(0);
   const descriptionId = `description-${id}`
+
+  const handleChange = (e) => {
+    if (showCharacterCount) {
+      setCharacterCount(e.target.value.length);
+    }
+
+    if (onChange) onChange?.(e);
+  }
 
   const handleBlur = (e) => {
     const input = inputRef.current;
@@ -39,6 +51,7 @@ export default function Input({
             {label}
           </label>
         )}
+        {}
         {!!tooltip && (
           <Tooltip>
             {tooltip}
@@ -53,7 +66,7 @@ export default function Input({
         value={value}
         pattern={pattern}
         placeholder={placeholder}
-        onChange={onChange}
+        onChange={handleChange}
         onBlur={handleBlur}
         disabled={disabled}
         aria-invalid={isInvalid}
@@ -61,9 +74,15 @@ export default function Input({
         aria-describedby={descriptionId}
         {...props}
       />
-      <span id={descriptionId} className="input-msg">
-        {isInvalid ? errorMsg : helpMsg}
-      </span>
+      <div className="input-bottom">
+        <span id={descriptionId} className="input-msg">
+          {isInvalid ? errorMsg : helpMsg}
+        </span>
+        <span>
+          {showCharacterCount && characterCount}
+          {(showCharacterCount && maxLength) && (` / ${maxLength}`)}
+        </span>
+      </div>
     </div>
   );
 }

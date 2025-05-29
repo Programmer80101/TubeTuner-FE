@@ -3,7 +3,7 @@
 @layer components {
   .accordion-wrapper {
     @apply mb-4 mx-auto w-full wrapper-sm;
-    @apply rounded-xs bg-neutral-750 hover:bg-neutral-700;
+    @apply rounded-xs bg-neutral-750;
     @apply shadow-uniform-md shadow-black;
     @apply transition-colors duration-200 ease-in;
   }

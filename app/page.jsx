@@ -10,6 +10,7 @@ import Input from "@/components/Input";
 import Textarea from "@/components/Textarea";
 import Switch from "@/components/Switch";
 import Button from "@/components/Button";
+import LinkButton from "@/components/LinkButton";
 import Dialog from "@/components/Dialog";
 import Checkbox from "@/components/Checkbox";
 import Radio from "@/components/Radio";
@@ -119,9 +120,27 @@ function Home({ addPopup, triggerConfetti }) {
         </Tooltip>
       </div>
       <MotionOnView className="wrapper-xs flex justify-center flex-col gap-4">
+        <h2>Link Button</h2>
+        <LinkButton href="#" external className="" disabled onClick={() => addPopup("Disabled button clicked!", "gray")} color="gray">Disabled</LinkButton>
+        <LinkButton href="#" external outline className="w-full" onClick={() => addPopup("Outline button clicked!", "neutral")}>Outline!</LinkButton>
+        <LinkButton href="#" external className="w-full" onClick={() => addPopup("Neutral button clicked!", "neutral")} color="neutral">Neutral!</LinkButton>
+        <LinkButton href="#" external className="w-full" onClick={() => addPopup("Neutral button clicked!", "neutral")} color="transparent">Ghost Button!</LinkButton>
+        <LinkButton href="#" external className="w-full" onClick={() => addPopup("Neutral button clicked!", "neutral")} color="transparent" disabled>Ghost Disabled!</LinkButton>
+        <LinkButton href="#" external className="w-full" onClick={() => addPopup("This is danger!", "red")} color="red">Danger!</LinkButton>
+        <LinkButton href="#" external className="w-full" onClick={() => addPopup("Default button clicked!", "blue")} color="blue">Default</LinkButton>
+        <LinkButton href="#" external className="w-full" onClick={() => addPopup("Success button clicked!", "green")} color="green">Success</LinkButton>
+        <LinkButton href="#" external className="w-full" onClick={() => addPopup("Epik button clicked!", "purple")} color="purple">Epik</LinkButton>
+        <LinkButton href="#" external className="w-full" onClick={() => addPopup("Warning button clicked!", "yellow")} color="yellow">Warning</LinkButton>
+        <LinkButton href="#" external className="w-full" onClick={() => addPopup("Awesome button clicked!", "gold")} color="gold">Awesome!</LinkButton>
+      </MotionOnView>
+      <MotionOnView className="wrapper-xs flex justify-center flex-col gap-4">
         <h2>Buttons</h2>
         <Button className="w-full" disabled onClick={() => addPopup("Disabled button clicked!", "gray")} color="gray">Disabled</Button>
+        <Button outline className="w-full" onClick={() => addPopup("Outline button clicked!", "neutral")}>Outline!</Button>
         <Button className="w-full" onClick={() => addPopup("Neutral button clicked!", "neutral")} color="neutral">Neutral!</Button>
+        <Button className="w-full" onClick={() => addPopup("Neutral button clicked!", "neutral")} color="transparent">Ghost Button!</Button>
+        <Button className="w-full" onClick={() => addPopup("Neutral button clicked!", "neutral")} color="transparent" isLoading={true}>Ghost Loading!</Button>
+        <Button className="w-full" onClick={() => addPopup("Neutral button clicked!", "neutral")} color="transparent" disabled>Ghost Disabled!</Button>
         <Button className="w-full" isLoading onClick={() => addPopup("Loading button clicked!", "loading")} color="loading" loadingText="Loading...">Loading...</Button>
         <Button className="w-full" isLoading onClick={() => addPopup("Loading button clicked!", "loading")} color="loading" />
         <Button className="w-full" onClick={() => addPopup("This is danger!", "red")} color="red">Danger!</Button>
@@ -133,6 +152,7 @@ function Home({ addPopup, triggerConfetti }) {
         <Button className="w-full" onClick={() => addPopup("Epik button clicked!", "purple")} color="purple">Epik</Button>
         <Button className="w-full" isLoading onClick={() => addPopup("Epik button clicked!", "purple")} color="purple" loadingText="Epik">Epik</Button>
         <Button className="w-full" onClick={() => addPopup("Warning button clicked!", "yellow")} color="yellow">Warning</Button>
+        <Button className="w-full" isLoading onClick={() => addPopup("Warning button clicked!", "yellow")} color="yellow" loadingText="Warning">Warning</Button>
         <Button className="w-full" onClick={() => addPopup("Awesome button clicked!", "gold")} color="gold">Awesome!</Button>
         <Button className="w-full" isLoading onClick={() => addPopup("Awesome button clicked!", "gold")} color="gold" loadingText="Awesome!">Awesome!</Button>
       </MotionOnView>
@@ -152,6 +172,19 @@ function Home({ addPopup, triggerConfetti }) {
               maxLength="10"
               placeholder="Username"
               required
+              showCharacterCount
+            />
+          </MotionOnView>
+          <MotionOnView>
+            <Input
+              id="userid"
+              label="User ID"
+              value="surprizedPika123"
+              errorMsg="Only lowercase letters are allowed!"
+              helpMsg="Only lowercase letters are allowed!"
+              tooltip="Already filled for you!"
+              placeholder="Username"
+              disabled
             />
           </MotionOnView>
           <MotionOnView>

@@ -5,6 +5,7 @@
     @apply font-500 text-base h-10 px-3;
     @apply text-neutral-100 hover:text-neutral-50;
     @apply bg-neutral-750 hover:bg-neutral-700;
+    @apply flex flex-row justify-center items-center gap-2;
     @apply rounded-xs border-none cursor-pointer;
     @apply shadow-uniform-md shadow-neutral-750/5;
     @apply hover:shadow-uniform-lg hover:shadow-neutral-700/15;
@@ -76,5 +77,11 @@
   button[data-color="transparent"] {
     @apply bg-transparent hover:bg-white/10;
     @apply shadow-none hover:shadow-none;
+  }
+
+  button[data-outline="true"] {
+    @apply bg-transparent text-neutral-100 hover:bg-white/10;
+    @apply shadow-none hover:shadow-none;
+    @apply outline-1 outline-neutral-400;
   }
 }

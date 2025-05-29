@@ -89,7 +89,7 @@
   }
 
   @media (min-width: 40rem) {
-    --side-spacing: calc(100% - 8rem);
+    --side-spacing: calc(100% - 9rem);
   }
 
   max-width: min(var(--side-spacing), --value(--wrapper- *));

@@ -1,0 +1,7 @@
+@import "./globals.css";
+
+@layer components {
+  .link-button {
+    @apply block;
+  }
+}

@@ -5,6 +5,10 @@
     @apply w-fit inline;
   }
 
+  .input-wrapper input:disabled {
+    @apply cursor-not-allowed brightness-70;
+  }
+
   .input-wrapper input[aria-invalid="false"]:user-valid {
     @apply outline-green-700 hover:outline-green-600 focus:outline-green-600;
   }
@@ -13,15 +17,19 @@
     @apply outline-red-700 hover:outline-red-600 focus:outline-red-600;
   }
 
-  .input-wrapper input + .input-msg {
+  .input-wrapper .input-bottom {
+    @apply flex flex-row gap-2 justify-between mt-0.5;
+  }
+
+  .input-wrapper input + .input-bottom {
     @apply text-neutral-300 text-xs font-400;
   }
 
-  .input-wrapper input[aria-invalid="true"] + .input-msg {
+  .input-wrapper input[aria-invalid="true"] + .input-bottom {
     @apply text-red-500 text-xs font-400;
   }
 
-  .input-wrapper input[aria-invalid="false"]:user-valid + .input-msg {
+  .input-wrapper input[aria-invalid="false"]:user-valid + .input-bottom {
     @apply hidden;
   }
 }

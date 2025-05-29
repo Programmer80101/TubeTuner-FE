@@ -16,7 +16,7 @@
   .loader > span,
   .loader > span::before {
     @apply h-4 w-4 rounded-full origin-center brightness-125;
-    @apply bg-gradient-to-r from-[#ff1515] to-[#400000];
+    @apply bg-gradient-to-r from-[#ff1515] to-[#200000];
     animation: loader-orb 3s ease-in-out infinite;
     background: radial-gradient(
       50% 50%,

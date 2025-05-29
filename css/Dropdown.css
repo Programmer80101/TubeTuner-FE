@@ -6,7 +6,7 @@
   }
 
   .dropdown-wrapper .dropdown-button {
-    @apply outline-none focus-visible:outline-solid w-full;
+    @apply input outline-solid w-full; 
     @apply flex items-center justify-between gap-2;
   }
 
@@ -18,6 +18,7 @@
     @apply w-48 max-w-screen;
     @apply bg-neutral-750;
     @apply absolute z-50 mt-2;
+    @apply outline-1 outline-neutral-400;
     @apply shadow-uniform-sm shadow-black/50;
     @apply rounded-xs;
     @apply duration-300 ease-in;
