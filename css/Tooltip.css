@@ -8,7 +8,7 @@
   .tooltip-wrapper .tooltip-content {
     @apply absolute z-50;
     @apply text-sm w-max h-min px-2 py-1;
-    @apply bg-neutral-750 text-neutral-100;
+    @apply bg-neutral-700 text-neutral-100;
     @apply shadow-uniform-xs shadow-black/25;
     @apply rounded-xs transform;
     @apply scale-0 opacity-0 invisible;
@@ -22,7 +22,7 @@
   }
 
   .tooltip-wrapper .tooltip-arrow {
-    @apply absolute w-2 h-2 bg-neutral-750 rotate-45;
+    @apply absolute w-2 h-2 bg-neutral-700 rotate-45;
   }
 
   .tooltip-wrapper .tooltip-icon {

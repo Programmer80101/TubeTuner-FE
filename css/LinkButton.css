@@ -2,6 +2,6 @@
 
 @layer components {
   .link-button {
-    @apply block;
+    @apply inline-block;
   }
 }

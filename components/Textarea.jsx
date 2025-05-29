@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useCallback } from "react";
 import Tooltip from "@/components/Tooltip";
 import "@/css/Textarea.css"
 
@@ -8,27 +8,40 @@ export default function Textarea({
   id,
   name,
   label,
-  placeholder = "",
+  rows = 4,
   value = "",
+  placeholder = "",
   onChange,
   onBlur,
-  rows = 4,
-  error = false,
+  maxLength,
   errorMsg = "Error!",
   helpMsg = "",
-  disabled = false,
   tooltip = "",
+  showCharacterCount = false,
+  required = false,
+  disabled = false,
+  error = false,
+  resizeable = true,
   ...props
 }) {
   const textareaRef = useRef(null);
   const [isInvalid, setIsInvalid] = useState(false);
-  const descriptionId = `description-${id}`
+  const [characterCount, setCharacterCount] = useState(0);
+  const descriptionId = `description-${id}`;
 
-  const handleBlur = (e) => {
+  const handleChange = useCallback((e) => {
+    if (showCharacterCount) {
+      setCharacterCount(e.target.value.length);
+    }
+
+    if (onChange) onChange?.(e);
+  }, [showCharacterCount]);
+
+  const handleBlur = useCallback((e) => {
     const textarea = textareaRef.current;
     if (textarea) setIsInvalid(error || !textarea.checkValidity());
     if (onBlur) onBlur?.(e);
-  };
+  }, [error]);
 
   return (
     <div className="textarea-wrapper">
@@ -37,6 +50,9 @@ export default function Textarea({
           <label htmlFor={id}>
             {label}
           </label>
+        )}
+        {required && (
+          <span className="text-red-500 text-xl mt-0">*</span>
         )}
         {!!tooltip && (
           <Tooltip>
@@ -51,17 +67,27 @@ export default function Textarea({
         ref={textareaRef}
         value={value}
         placeholder={placeholder}
-        onChange={onChange}
+        onChange={handleChange}
         onBlur={handleBlur}
         disabled={disabled}
         aria-disabled={disabled}
         aria-invalid={isInvalid}
         aria-describedby={descriptionId}
+        style={{
+          resize: resizeable ? "vertical" : "none",
+          borderBottomRightRadius: resizeable ? 0 : "2px",
+        }}
         {...props}
       />
-      <span id={descriptionId} className="textarea-msg">
-        {isInvalid ? errorMsg : helpMsg}
-      </span>
+      <div className="textarea-bottom">
+        <span id={descriptionId}>
+          {isInvalid ? errorMsg : helpMsg}
+        </span>
+        <span>
+          {showCharacterCount && characterCount}
+          {(showCharacterCount && maxLength) && (` / ${maxLength}`)}
+        </span>
+      </div>
     </div>
   );
 }

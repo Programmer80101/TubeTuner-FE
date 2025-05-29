@@ -123,6 +123,7 @@ function Home({ addPopup, triggerConfetti }) {
         <h2>Link Button</h2>
         <LinkButton href="#" external className="" disabled onClick={() => addPopup("Disabled button clicked!", "gray")} color="gray">Disabled</LinkButton>
         <LinkButton href="#" external outline className="w-full" onClick={() => addPopup("Outline button clicked!", "neutral")}>Outline!</LinkButton>
+        <LinkButton href="#" external onClick={() => addPopup("Neutral button clicked!", "neutral")} color="neutral">Link!</LinkButton>
         <LinkButton href="#" external className="w-full" onClick={() => addPopup("Neutral button clicked!", "neutral")} color="neutral">Neutral!</LinkButton>
         <LinkButton href="#" external className="w-full" onClick={() => addPopup("Neutral button clicked!", "neutral")} color="transparent">Ghost Button!</LinkButton>
         <LinkButton href="#" external className="w-full" onClick={() => addPopup("Neutral button clicked!", "neutral")} color="transparent" disabled>Ghost Disabled!</LinkButton>
@@ -131,7 +132,6 @@ function Home({ addPopup, triggerConfetti }) {
         <LinkButton href="#" external className="w-full" onClick={() => addPopup("Success button clicked!", "green")} color="green">Success</LinkButton>
         <LinkButton href="#" external className="w-full" onClick={() => addPopup("Epik button clicked!", "purple")} color="purple">Epik</LinkButton>
         <LinkButton href="#" external className="w-full" onClick={() => addPopup("Warning button clicked!", "yellow")} color="yellow">Warning</LinkButton>
-        <LinkButton href="#" external className="w-full" onClick={() => addPopup("Awesome button clicked!", "gold")} color="gold">Awesome!</LinkButton>
       </MotionOnView>
       <MotionOnView className="wrapper-xs flex justify-center flex-col gap-4">
         <h2>Buttons</h2>
@@ -153,8 +153,6 @@ function Home({ addPopup, triggerConfetti }) {
         <Button className="w-full" isLoading onClick={() => addPopup("Epik button clicked!", "purple")} color="purple" loadingText="Epik">Epik</Button>
         <Button className="w-full" onClick={() => addPopup("Warning button clicked!", "yellow")} color="yellow">Warning</Button>
         <Button className="w-full" isLoading onClick={() => addPopup("Warning button clicked!", "yellow")} color="yellow" loadingText="Warning">Warning</Button>
-        <Button className="w-full" onClick={() => addPopup("Awesome button clicked!", "gold")} color="gold">Awesome!</Button>
-        <Button className="w-full" isLoading onClick={() => addPopup("Awesome button clicked!", "gold")} color="gold" loadingText="Awesome!">Awesome!</Button>
       </MotionOnView>
       <div className="flex flex-col gap-4 wrapper-sm">
         <h2>Form</h2>
@@ -184,6 +182,18 @@ function Home({ addPopup, triggerConfetti }) {
               helpMsg="Only lowercase letters are allowed!"
               tooltip="Already filled for you!"
               placeholder="Username"
+              readOnly
+            />
+          </MotionOnView>
+          <MotionOnView>
+            <Input
+              id="preId"
+              label="Premium ID"
+              value=""
+              errorMsg="Only lowercase letters are allowed!"
+              helpMsg="Only lowercase letters are allowed!"
+              tooltip="Already filled for you!"
+              placeholder="Premium ID"
               disabled
             />
           </MotionOnView>
@@ -238,7 +248,7 @@ function Home({ addPopup, triggerConfetti }) {
               id="num"
               name="num"
               type="number"
-              label="Number Input:"
+              label="Number Input"
               value={num}
               onChange={(e) => setNum(e.target.value)}
               pattern="[0-9]+"
@@ -251,9 +261,9 @@ function Home({ addPopup, triggerConfetti }) {
             />
           </MotionOnView>
           <Textarea
-            id="textarea"
-            name="textarea"
-            label="Additional Comments: "
+            id="textarea0"
+            name="textarea0"
+            label="Additional Comments"
             placeholder="Enter your interests..."
             value={textarea}
             onChange={(e) => setTextarea(e.target.value)}
@@ -262,6 +272,29 @@ function Home({ addPopup, triggerConfetti }) {
             tooltip="Optional"
             minLength={6}
             maxLength={12}
+          />
+          <Textarea
+            id="textarea1"
+            name="textarea2"
+            label="Motto"
+            value="Pika pikachu pika pikachu"
+            errorMsg="Too short or too long"
+            helpMsg="Feel free to add anything!"
+            tooltip="Optional"
+            maxLength={30}
+            readOnly
+          />
+          <Textarea
+            id="textarea2"
+            name="textarea2"
+            value="You've already made a suggestion. Wait for it to get approved!"
+            label="More Additional Comments "
+            placeholder="Enter your interests..."
+            errorMsg="Too short or too long"
+            helpMsg="Feel free to add anything!"
+            tooltip="Optional"
+            maxLength={30}
+            disabled
           />
           <MotionOnView>
             <p>Choose an option:</p>

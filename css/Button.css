@@ -3,7 +3,7 @@
 @layer components {
   button {
     @apply font-500 text-base h-10 px-3;
-    @apply text-neutral-100 hover:text-neutral-50;
+    @apply text-neutral-50 hover:text-white;
     @apply bg-neutral-750 hover:bg-neutral-700;
     @apply flex flex-row justify-center items-center gap-2;
     @apply rounded-xs border-none cursor-pointer;
@@ -67,20 +67,13 @@
     @apply focus-visible:outline-purple-600;
   }
 
-  button[data-color="gold"] {
-    @apply text-neutral-800;
-    @apply bg-amber-400 hover:bg-yellow-400;
-    @apply shadow-amber-400/5 hover:shadow-amber-400/15;
-    @apply focus-visible:outline-amber-400;
-  }
-
   button[data-color="transparent"] {
     @apply bg-transparent hover:bg-white/10;
     @apply shadow-none hover:shadow-none;
   }
 
   button[data-outline="true"] {
-    @apply bg-transparent text-neutral-100 hover:bg-white/10;
+    @apply bg-transparent text-neutral-100 hover:bg-white/20;
     @apply shadow-none hover:shadow-none;
     @apply outline-1 outline-neutral-400;
   }

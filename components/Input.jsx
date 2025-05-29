@@ -1,6 +1,7 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { FaAsterisk } from "react-icons/fa";
+import { useRef, useState, useCallback } from "react";
 import Tooltip from "@/components/Tooltip";
 import "@/css/Input.css";
 
@@ -9,11 +10,10 @@ export default function Input({
   name,
   label,
   type = "text",
-  placeholder = "",
   value = "",
+  placeholder = "",
   onChange,
   onBlur,
-  error = false,
   pattern,
   maxLength,
   errorMsg = "Error!",
@@ -22,6 +22,7 @@ export default function Input({
   showCharacterCount = false,
   required = false,
   disabled = false,
+  error = false,
   ...props
 }) {
   const inputRef = useRef(null);
@@ -29,19 +30,19 @@ export default function Input({
   const [characterCount, setCharacterCount] = useState(0);
   const descriptionId = `description-${id}`
 
-  const handleChange = (e) => {
+  const handleChange = useCallback((e) => {
     if (showCharacterCount) {
       setCharacterCount(e.target.value.length);
     }
 
     if (onChange) onChange?.(e);
-  }
+  }, [showCharacterCount]);
 
-  const handleBlur = (e) => {
+  const handleBlur = useCallback((e) => {
     const input = inputRef.current;
     if (input) setIsInvalid(error || !input.checkValidity());
     if (onBlur) onBlur?.(e);
-  };
+  }, [error]);
 
   return (
     <div className="input-wrapper">
@@ -51,7 +52,9 @@ export default function Input({
             {label}
           </label>
         )}
-        {}
+        {required && (
+          <span className="text-red-500 text-xl mt-0">*</span>
+        )}
         {!!tooltip && (
           <Tooltip>
             {tooltip}
@@ -75,7 +78,7 @@ export default function Input({
         {...props}
       />
       <div className="input-bottom">
-        <span id={descriptionId} className="input-msg">
+        <span id={descriptionId}>
           {isInvalid ? errorMsg : helpMsg}
         </span>
         <span>
