@@ -225,6 +225,7 @@ function Home({ addPopup, triggerConfetti }) {
               minLength="8"
               helpMsg="Choose a strong password!"
               placeholder="Password"
+              tooltip="Choose a strong password! Required field."
               required
             />
           </MotionOnView>
@@ -269,9 +270,11 @@ function Home({ addPopup, triggerConfetti }) {
             onChange={(e) => setTextarea(e.target.value)}
             errorMsg="Too short or too long"
             helpMsg="Feel free to add anything!"
-            tooltip="Optional"
+            tooltip="Required field. Share your thoughts!"
             minLength={6}
             maxLength={12}
+            required
+            showCharacterCount
           />
           <Textarea
             id="textarea1"
@@ -281,8 +284,9 @@ function Home({ addPopup, triggerConfetti }) {
             errorMsg="Too short or too long"
             helpMsg="Feel free to add anything!"
             tooltip="Optional"
-            maxLength={30}
             readOnly
+            resizeable={false}
+            maxLength={30}
           />
           <Textarea
             id="textarea2"
@@ -293,7 +297,6 @@ function Home({ addPopup, triggerConfetti }) {
             errorMsg="Too short or too long"
             helpMsg="Feel free to add anything!"
             tooltip="Optional"
-            maxLength={30}
             disabled
           />
           <MotionOnView>

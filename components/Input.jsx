@@ -52,12 +52,13 @@ export default function Input({
             {label}
           </label>
         )}
-        {required && (
-          <span className="text-red-500 text-xl mt-0">*</span>
-        )}
-        {!!tooltip && (
-          <Tooltip>
-            {tooltip}
+        {(!!tooltip || required) && (
+          <Tooltip
+            icon={required ? (
+              <div className="text-red-500 origin-center scale-190">*</div>
+            ) : undefined}
+          >
+            {tooltip || "Required field."}
           </Tooltip>
         )}
       </div>
@@ -75,6 +76,7 @@ export default function Input({
         aria-invalid={isInvalid}
         aria-disabled={disabled}
         aria-describedby={descriptionId}
+        maxLength={maxLength}
         {...props}
       />
       <div className="input-bottom">

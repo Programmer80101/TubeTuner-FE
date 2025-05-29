@@ -3,6 +3,7 @@
 @layer components {
   .tooltip-wrapper {
     @apply relative inline-block;
+    @apply m-1 -translate-y-1;
   }
 
   .tooltip-wrapper .tooltip-content {
@@ -17,7 +18,8 @@
     transition-property: opacity, scale, visibility;
   }
 
-  .tooltip-wrapper:hover .tooltip-content {
+  .tooltip-wrapper .tooltip-icon:hover + .tooltip-content,
+  .tooltip-wrapper .tooltip-content:hover {
     @apply scale-100 opacity-100 visible;
   }
 
@@ -26,7 +28,7 @@
   }
 
   .tooltip-wrapper .tooltip-icon {
-    @apply icon text-xs m-1;
+    @apply icon text-xs w-3 h-3 overflow-hidden;
   }
 
   .tooltip-wrapper[data-position="top"] .tooltip-content {

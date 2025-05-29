@@ -51,12 +51,13 @@ export default function Textarea({
             {label}
           </label>
         )}
-        {required && (
-          <span className="text-red-500 text-xl mt-0">*</span>
-        )}
-        {!!tooltip && (
-          <Tooltip>
-            {tooltip}
+        {(!!tooltip || required) && (
+          <Tooltip
+            icon={required ? (
+              <span className="text-red-500 origin-center scale-190">*</span>
+            ) : undefined}
+          >
+            {tooltip || "Required field."}
           </Tooltip>
         )}
       </div>
@@ -77,6 +78,7 @@ export default function Textarea({
           resize: resizeable ? "vertical" : "none",
           borderBottomRightRadius: resizeable ? 0 : "2px",
         }}
+        maxLength={maxLength}
         {...props}
       />
       <div className="textarea-bottom">

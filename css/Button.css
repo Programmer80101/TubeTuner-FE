@@ -4,7 +4,7 @@
   button {
     @apply font-500 text-base h-10 px-3;
     @apply text-neutral-50 hover:text-white;
-    @apply bg-neutral-750 hover:bg-neutral-700;
+    @apply bg-neutral-700 hover:bg-neutral-650;
     @apply flex flex-row justify-center items-center gap-2;
     @apply rounded-xs border-none cursor-pointer;
     @apply shadow-uniform-md shadow-neutral-750/5;
@@ -19,7 +19,7 @@
 
   button[aria-busy="false"]:disabled {
     @apply cursor-not-allowed;
-    @apply bg-neutral-650 text-neutral-300;
+    @apply bg-neutral-800 text-neutral-300;
     @apply shadow-none hover:shadow-none;
   }
 

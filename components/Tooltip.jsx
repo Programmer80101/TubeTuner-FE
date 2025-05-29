@@ -1,15 +1,16 @@
 "use client";
 
 import { FaInfoCircle } from "react-icons/fa";
+import { useId } from "react";
 import "@/css/Tooltip.css";
 
 export default function Tooltip({
-  id,
+  icon,
   children,
   position = 'top',
 }) {
-
-  const tooltipId = `tooltip=${id}`;
+  const id = useId();
+  const tooltipId = `tooltip-${id}`;
 
   return (
     <span
@@ -19,7 +20,9 @@ export default function Tooltip({
       aria-describedby={tooltipId}
       data-position={position}
     >
-      <FaInfoCircle className="tooltip-icon" />
+      <div className="tooltip-icon">
+        {!!icon ? icon : <FaInfoCircle />}
+      </div>
       <div
         id={tooltipId}
         className="tooltip-content"
