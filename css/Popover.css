@@ -1,0 +1,38 @@
+@import "./globals.css";
+
+@layer components {
+  .popover-wrapper {
+    @apply relative block w-fit;
+  }
+
+  .popover-wrapper .popover-button {
+    @apply flex items-center justify-between gap-2;
+  }
+
+  .popover-wrapper .popover-button svg {
+    @apply text-lg aspect-square;
+    @apply transition-transform duration-300 ease-in;
+  }
+
+  .popover-wrapper .popover-content {
+    @apply absolute z-50 mt-2;
+    @apply w-fit max-w-screen text-left;
+    @apply bg-neutral-800 origin-top;
+    @apply outline-1 outline-neutral-600;
+    @apply shadow-uniform-sm shadow-black/50;
+    @apply rounded-xs overflow-hidden;
+    @apply duration-300 ease-in;
+
+    transition-property: border-color, box-shadow, outline, outline,
+      background-color;
+  }
+
+  .dropdown-wrapper .popover-content > button {
+    @apply focus-visible:outline-offset-0 focus-visible:outline-1;
+    @apply focus-visible:outline-neutral-100;
+  }
+
+  .popover-wrapper .popover-content > * {
+    @apply w-full justify-start rounded-none;
+  }
+}

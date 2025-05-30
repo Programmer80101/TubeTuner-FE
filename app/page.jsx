@@ -15,6 +15,7 @@ import Dialog from "@/components/Dialog";
 import Checkbox from "@/components/Checkbox";
 import Radio from "@/components/Radio";
 import MotionOnView from "@/components/MotionOnView";
+import Popover from "@/components/Popover";
 import withPopup from "@/hoc/withPopup";
 import withConfetti from "@/hoc/withConfetti";
 import useLocalStorage from "@/hooks/useLocalStorage";
@@ -57,6 +58,14 @@ function Home({ addPopup, triggerConfetti }) {
       <div className="wrapper-xs grid items-center gap-4">
         <h2>Dot Loader</h2>
         <DotLoader count={3} size={4} />
+        <Popover
+          className="w-32 flex flex-col gap-0.5"
+          trigger={"Click Me!"}
+        >
+          <Button color="transparent" clickAnimation={false}>Edit</Button>
+          <Button color="transparent" clickAnimation={false}>View</Button>
+          <Button color="transparent" clickAnimation={false}>Share</Button>
+        </Popover>
       </div>
       <MotionOnView>
         <div className="grid place-items-center wrapper-xs mt-4">
@@ -210,7 +219,6 @@ function Home({ addPopup, triggerConfetti }) {
               pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
               errorMsg="Invalid Email!"
               placeholder="Email"
-              required
             />
           </MotionOnView>
           <MotionOnView>

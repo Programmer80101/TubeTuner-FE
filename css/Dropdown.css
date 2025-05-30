@@ -10,8 +10,9 @@
     @apply flex items-center justify-between gap-2;
   }
 
-  .dropdown-wrapper .dropdown-icon {
+  .dropdown-wrapper .dropdown-button svg {
     @apply text-lg aspect-square;
+    @apply transition-transform duration-300 ease-in;
   }
 
   .dropdown-wrapper .dropdown-list {
@@ -20,7 +21,7 @@
     @apply absolute z-50 mt-2;
     @apply outline-1 outline-neutral-400;
     @apply shadow-uniform-sm shadow-black/50;
-    @apply rounded-xs;
+    @apply rounded-xs overflow-hidden;
     @apply duration-300 ease-in;
 
     transition-property: border-color, box-shadow, outline, outline,

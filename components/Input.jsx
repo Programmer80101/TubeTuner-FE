@@ -55,7 +55,7 @@ export default function Input({
         {(!!tooltip || required) && (
           <Tooltip
             icon={required ? (
-              <div className="text-red-500 origin-center scale-190">*</div>
+              <div className="text-red-500 origin-center scale-195">*</div>
             ) : undefined}
           >
             {tooltip || "Required field."}

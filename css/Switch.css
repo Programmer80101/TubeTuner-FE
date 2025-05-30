@@ -19,10 +19,11 @@
 
   .switch-wrapper .switch-button {
     @apply relative;
-    @apply p-0 m-0 h-6 w-11;
-    @apply bg-neutral-600 rounded-full cursor-pointer;
-    @apply shadow-uniform-md shadow-black/15;
-    @apply hover:shadow-uniform-lg hover:shadow-black/25;
+    @apply p-0 m-0 h-6.5 w-11.25;
+    @apply border-solid border-1 border-neutral-400;
+    @apply bg-neutral-700 rounded-full cursor-pointer;
+    @apply shadow-uniform-xs shadow-black/30;
+    @apply hover:shadow-uniform-xs hover:shadow-black/50;
     @apply focus-visible:outline-offset-2 focus-visible:outline-2;
     @apply focus-visible:outline-neutral-150;
     @apply duration-300 ease-in;
@@ -38,15 +39,15 @@
   }
 
   .switch-wrapper .switch-button[aria-checked="true"] {
-    @apply bg-primary-400;
+    @apply bg-primary-400 border-primary-300;
   }
 
   .switch-wrapper .switch-button[aria-disabled="true"] {
-    @apply cursor-not-allowed bg-neutral-650;
+    @apply cursor-not-allowed bg-neutral-650 border-neutral-550;
   }
 
   .switch-wrapper .switch-button[aria-disabled="true"][aria-checked="true"] {
-    @apply bg-primary-500 saturate-80;
+    @apply bg-primary-550 border-primary-500 saturate-80;
   }
 
   .switch-wrapper .switch-button[aria-disabled="true"] .switch-thumb {

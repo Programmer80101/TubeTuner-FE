@@ -149,7 +149,7 @@
   }
 
   textarea {
-    @apply w-full h-auto min-h-5;
+    @apply w-full h-auto min-h-9.5;
   }
 
   input[type="checkbox"],

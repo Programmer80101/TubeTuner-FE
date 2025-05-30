@@ -19,7 +19,7 @@
 
   button[aria-busy="false"]:disabled {
     @apply cursor-not-allowed;
-    @apply bg-neutral-800 text-neutral-300;
+    @apply bg-neutral-600 text-neutral-300;
     @apply shadow-none hover:shadow-none;
   }
 
@@ -73,8 +73,8 @@
   }
 
   button[data-outline="true"] {
-    @apply bg-transparent text-neutral-100 hover:bg-white/20;
+    @apply bg-transparent hover:bg-neutral-700;
     @apply shadow-none hover:shadow-none;
-    @apply outline-1 outline-neutral-400;
+    @apply outline-1 outline-neutral-700;
   }
 }

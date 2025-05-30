@@ -54,7 +54,7 @@ export default function Textarea({
         {(!!tooltip || required) && (
           <Tooltip
             icon={required ? (
-              <span className="text-red-500 origin-center scale-190">*</span>
+              <div className="text-red-500 origin-center scale-195">*</div>
             ) : undefined}
           >
             {tooltip || "Required field."}

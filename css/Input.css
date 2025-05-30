@@ -12,7 +12,7 @@
   .input-wrapper input[aria-invalid="false"]:user-valid {
     @apply outline-green-700 hover:outline-green-600 focus:outline-green-600;
   }
-
+ 
   .input-wrapper input[aria-invalid="true"] {
     @apply outline-red-700 hover:outline-red-600 focus:outline-red-600;
   }

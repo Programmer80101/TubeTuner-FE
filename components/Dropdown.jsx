@@ -85,13 +85,7 @@ export default function Dropdown({
         aria-controls={controlId}
       >
         {items[value]}
-        <motion.span
-          className="dropdown-icon"
-          animate={{ rotate: isOpen ? 180 : 0 }}
-          transition={{ duration: 0.2, ease: "easeIn" }}
-        >
-          <FiChevronDown />
-        </motion.span>
+        <FiChevronDown className={isOpen ? "rotate-180" : ""} />
       </Button>
 
       <AnimatePresence>

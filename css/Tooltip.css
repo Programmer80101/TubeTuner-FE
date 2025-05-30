@@ -7,8 +7,8 @@
   }
 
   .tooltip-wrapper .tooltip-content {
-    @apply absolute z-50;
-    @apply text-sm w-max h-min px-2 py-1;
+    @apply absolute z-50 text-sm text-center;
+    @apply w-max h-min max-w-56 px-2 py-1;
     @apply bg-neutral-700 text-neutral-100;
     @apply shadow-uniform-xs shadow-black/25;
     @apply rounded-xs transform;
@@ -28,7 +28,8 @@
   }
 
   .tooltip-wrapper .tooltip-icon {
-    @apply icon text-xs w-3 h-3 overflow-hidden;
+    @apply size-3 max-w-3 max-h-3;
+    @apply icon text-xs overflow-hidden;
   }
 
   .tooltip-wrapper[data-position="top"] .tooltip-content {
