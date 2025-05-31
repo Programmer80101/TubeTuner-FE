@@ -1,20 +1,24 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
+import useDebounce from "@/hooks/useDebounce";
 import config from "@/config";
 
-export default function useSessionStorage(key, initialValue) {
-  const itemKey = useMemo(() => `${config.prefix}-${key}`, [key]);
-  const [storageValue, setStorageValue] = useState(initialValue);
+export default function useStorage(key, initialValue) {
   const isFirstLoad = useRef(true);
+  const itemKey = useMemo(() => `${config.prefix}-${key}`, [key]);
 
+  const computedInitialValue = useMemo(() => (
+    typeof initialValue === "function" ? initialValue() : initialValue
+  ), []);
+
+  const [storageValue, setStorageValue] = useState(computedInitialValue);
+  const debouncedStorageValue = useDebounce(storageValue);
 
   useEffect(() => {
-    try {
-      if (typeof window === "undefined") return;
+    if (typeof window === "undefined") return;
 
-      const storedValue = window.sessionStorage.getItem(itemKey);
-      if (storedValue !== null) {
-        setStorageValue(JSON.parse(storedValue));
-      }
+    try {
+      const storedValue = sessionStorage.getItem(itemKey);
+      if (storedValue !== null) setStorageValue(JSON.parse(storedValue));
     } catch {}
 
     isFirstLoad.current = false;
@@ -22,18 +26,18 @@ export default function useSessionStorage(key, initialValue) {
 
   useEffect(() => {
     if (isFirstLoad.current || typeof window === "undefined") return;
+
     try {
-      window.sessionStorage.setItem(itemKey, JSON.stringify(storageValue));
+      sessionStorage.setItem(itemKey, JSON.stringify(debouncedStorageValue));
     } catch (e) {
-      console.error("Error saving to sessionStorage: ", e);
+      console.error(`Error saving to session storage: `, e);
     }
-  }, [storageValue, itemKey]);
+  }, [debouncedStorageValue, itemKey]);
 
-  const removeStorageValue = useCallback(() => {
-    window.sessionStorage.removeItem(itemKey);
-    setStorageValue(typeof initialValue === "function" ? initialValue() : initialValue);
-  }, [itemKey, initialValue]);
+  const removeStorageItem = useCallback(() => {
+    sessionStorage.removeItem(itemKey);
+    setStorageValue(computedInitialValue);
+  }, [itemKey, computedInitialValue]);
 
-  return [storageValue, setStorageValue, removeStorageValue];
+  return [storageValue, setStorageValue, removeStorageItem];
 }
-

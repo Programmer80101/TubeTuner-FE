@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import DotLoader from "@/components/DotLoader";
 import Accordion from "@/components/Accordion";
 import Dropdown from "@/components/Dropdown";
@@ -20,7 +20,9 @@ import Badge from "@/components/Badge";
 import Avatar from "@/components/Avatar";
 import withPopup from "@/hoc/withPopup";
 import withConfetti from "@/hoc/withConfetti";
+import useClipboard from "@/hooks/useClipboard";
 import useLocalStorage from "@/hooks/useLocalStorage";
+import useSessionStorage from "@/hooks/useSessionStorage";
 import useToggle from "@/hooks/useToggle";
 
 function Home({ addPopup, triggerConfetti }) {
@@ -38,6 +40,18 @@ function Home({ addPopup, triggerConfetti }) {
   const [isChecked, setIsChecked] = useToggle(false);
   const [num, setNum] = useState(0);
   const [textarea, setTextarea] = useState("");
+  const [isCopied, copy] = useClipboard();
+  const [localInput, setLocalInput, removeLocal] = useLocalStorage(
+    "testKey",
+    "defaultLocal"
+  );
+
+  // 2. useSessionStorage hook: persisted only until the tab is closed
+  const [sessionInput, setSessionInput, removeSession] = useSessionStorage(
+    "sessionKey",
+    "defaultSession"
+  );
+
   const pokemons = [
     "Pikachu",
     "Ash Greninja",
@@ -70,6 +84,84 @@ function Home({ addPopup, triggerConfetti }) {
           src="https://randomuser.me/api/portraits/men/75.jpg"
           alt="Michael Roberts"
         />
+      </div>
+      <div>
+        <div style={{ fontFamily: "sans-serif", padding: "2rem" }}>
+          <h2>📦 Storage Tester</h2>
+
+          {/* LOCAL STORAGE SECTION */}
+          <section style={{ marginBottom: "2rem" }}>
+            <h3>🌐 Local Storage (persistent)</h3>
+            <p>
+              Key: <code>"{`${"PREFIX"}-testKey`}"</code>
+            </p>
+            <label>
+              Local Value:&nbsp;
+              <input
+                type="text"
+                value={localInput}
+                onChange={(e) => setLocalInput(e.target.value)}
+                style={{ padding: "0.5rem", fontSize: "1rem" }}
+              />
+            </label>
+            <button
+              onClick={removeLocal}
+              style={{
+                marginLeft: "1rem",
+                padding: "0.5rem 1rem",
+                fontSize: "1rem",
+              }}
+            >
+              Remove Local
+            </button>
+            <p>
+              Current localInput: <strong>{localInput}</strong>
+            </p>
+            <p style={{ fontSize: "0.9rem", color: "#555" }}>
+              → Try opening another tab to see cross-tab synchronization (local
+              only)
+            </p>
+          </section>
+
+          {/* SESSION STORAGE SECTION */}
+          <section>
+            <h3>🕒 Session Storage (tab-only)</h3>
+            <p>
+              Key: <code>"{`${"PREFIX"}-sessionKey`}"</code>
+            </p>
+            <label>
+              Session Value:&nbsp;
+              <input
+                type="text"
+                value={sessionInput}
+                onChange={(e) => setSessionInput(e.target.value)}
+                style={{ padding: "0.5rem", fontSize: "1rem" }}
+              />
+            </label>
+            <button
+              onClick={removeSession}
+              style={{
+                marginLeft: "1rem",
+                padding: "0.5rem 1rem",
+                fontSize: "1rem",
+              }}
+            >
+              Remove Session
+            </button>
+            <p>
+              Current sessionInput: <strong>{sessionInput}</strong>
+            </p>
+            <p style={{ fontSize: "0.9rem", color: "#555" }}>
+              → Reload the page: this value remains. Close & reopen the tab: it
+              resets.
+            </p>
+          </section>
+        </div>
+      </div>
+      <div>
+        <Button color="blue" onClick={() => copy("hello world!")}>
+          {isCopied ? "Copied!" : "Copy"}
+        </Button>
       </div>
       <div className="p-6">
         <h2 className="text-2xl font-semibold mb-4">Tailwind Color Badges</h2>
