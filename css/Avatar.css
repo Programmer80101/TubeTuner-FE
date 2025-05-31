@@ -1,0 +1,8 @@
+@import "./globals.css";
+
+@layer components {
+  .avatar-wrapper {
+    @apply relative flex items-center justify-center;
+    @apply rounded-full size-12 overflow-hidden;
+  }
+}

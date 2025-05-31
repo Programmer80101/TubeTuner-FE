@@ -1,0 +1,54 @@
+@import "./globals.css";
+
+@layer components {
+  .badge {
+    @apply inline-block text-sm font-400;
+    @apply py-1 px-2 rounded-sm;
+    @apply text-neutral-200 bg-current/10 hover:bg-current/15;
+    @apply transition-colors duration-200 ease-in;
+  }
+
+  .badge[data-color="red"] {
+    @apply text-red-500;
+  }
+
+  .badge[data-color="orange"] {
+    @apply text-orange-500;
+  }
+
+  .badge[data-color="yellow"] {
+    @apply text-yellow-500;
+  }
+
+  .badge[data-color="gold"] {
+    @apply text-amber-500;
+  }
+
+  .badge[data-color="lime"] {
+    @apply text-lime-500;
+  }
+
+  .badge[data-color="green"] {
+    @apply text-green-500;
+  }
+
+  .badge[data-color="cyan"] {
+    @apply text-cyan-500;
+  }
+
+  .badge[data-color="blue"] {
+    @apply text-sky-500;
+  }
+
+  .badge[data-color="purple"] {
+    @apply text-purple-500;
+  }
+
+  .badge[data-solid="true"] {
+    @apply bg-current;
+  }
+
+  .badge[data-solid="true"] .badge-text {
+    @apply text-white;
+  }
+}

@@ -18,7 +18,7 @@
   }
 
   .textarea-wrapper .textarea-bottom {
-    @apply text-neutral-300 text-xs font-400;
+    @apply text-neutral-300 text-xs font-400 -mt-1;
     @apply flex flex-row gap-2 justify-between;
   }
 

@@ -12,14 +12,14 @@
   .input-wrapper input[aria-invalid="false"]:user-valid {
     @apply outline-green-700 hover:outline-green-600 focus:outline-green-600;
   }
- 
+
   .input-wrapper input[aria-invalid="true"] {
     @apply outline-red-700 hover:outline-red-600 focus:outline-red-600;
   }
 
   .input-wrapper .input-bottom {
     @apply text-neutral-300 text-xs font-400;
-    @apply flex flex-row gap-2 justify-between mt-1.5;
+    @apply flex flex-row gap-2 justify-between mt-0.5;
   }
 
   .input-wrapper input[aria-invalid="true"] + .input-bottom {

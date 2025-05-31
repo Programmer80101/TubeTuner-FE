@@ -16,6 +16,8 @@ import Checkbox from "@/components/Checkbox";
 import Radio from "@/components/Radio";
 import MotionOnView from "@/components/MotionOnView";
 import Popover from "@/components/Popover";
+import Badge from "@/components/Badge";
+import Avatar from "@/components/Avatar";
 import withPopup from "@/hoc/withPopup";
 import withConfetti from "@/hoc/withConfetti";
 import useLocalStorage from "@/hooks/useLocalStorage";
@@ -52,9 +54,42 @@ function Home({ addPopup, triggerConfetti }) {
     "Glaceon",
   ]
 
+  const colors = [
+    'neutral',
+    'red', 'orange', 'gold', 'yellow', 'lime',
+    'green', 'cyan',
+    'blue', 'purple'
+  ];
+
   return (
     <div>
       <h1>Frontend Boilerplate</h1>
+      <div className="grid place-items-center">
+        <Avatar
+          src="https://randomuser.me/api/portraits/men/75.jpg"
+          alt="Michael Roberts"
+        />
+      </div>
+      <div className="p-6">
+        <h2 className="text-2xl font-semibold mb-4">Tailwind Color Badges</h2>
+        <div className="flex flex-row flex-wrap gap-x-10 gap-y-4">
+          {colors.map((col) => (
+            <Badge key={col} color={col}>
+              {col.charAt(0).toUpperCase() + col.slice(1)}
+            </Badge>
+          ))}
+        </div>
+        <Button color="blue" className="relative">
+          Inbox
+          <Badge
+            color="red"
+            solid
+            className="icon text-xs rounded-full absolute top-0 right-0 -translate-y-1/2 translate-x-1/2"
+          >
+            5
+          </Badge>
+        </Button>
+      </div>
       <div className="wrapper-xs grid items-center gap-4">
         <h2>Dot Loader</h2>
         <DotLoader count={3} size={4} />
@@ -382,15 +417,6 @@ function Home({ addPopup, triggerConfetti }) {
             setValue={setMorePkmn}
             width={38}
           />
-          <MotionOnView>
-            <label htmlFor="Pokemon">Dropdown:</label>
-            <select id="Pokemon">
-              <option value="pikachu">Pikachu</option>
-              <option value="ash-greninja">Ash Greninja</option>
-              <option value="mega-charizard-x">Mega Charizard X</option>
-              <option value="mewtwo">Mewtwo</option>
-            </select>
-          </MotionOnView>
           <MotionOnView>
             <Checkbox
               id="agree"

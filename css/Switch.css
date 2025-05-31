@@ -19,7 +19,7 @@
 
   .switch-wrapper .switch-button {
     @apply relative;
-    @apply p-0 m-0 h-6.5 w-11.25;
+    @apply p-0 m-0 h-6.5 w-11.5;
     @apply border-solid border-1 border-neutral-400;
     @apply bg-neutral-700 rounded-full cursor-pointer;
     @apply shadow-uniform-xs shadow-black/30;

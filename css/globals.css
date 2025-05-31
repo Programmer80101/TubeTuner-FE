@@ -68,7 +68,7 @@
   }
 
   h1 {
-    @apply text-5xl pt-8 pb-2;
+    @apply text-5xl pt-4 pb-2;
   }
 
   h2 {

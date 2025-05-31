@@ -68,7 +68,7 @@
   }
 
   button[data-color="transparent"] {
-    @apply bg-transparent hover:bg-white/10;
+    @apply bg-transparent hover:bg-white/5;
     @apply shadow-none hover:shadow-none;
   }
 
