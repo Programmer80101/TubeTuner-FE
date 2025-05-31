@@ -3,6 +3,7 @@
 import { FiChevronDown, FiCheck } from "react-icons/fi";
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useRef, useEffect, useId } from 'react';
+import useClickOutside from "@/hooks/useClickOutside";
 import Button from "@/components/Button";
 import "@/css/Dropdown.css";
 
@@ -50,16 +51,7 @@ export default function Dropdown({
     buttonRef.current?.focus();
   };
 
-  useEffect(() => {
-    function handleClickOutside(e) {
-      if (containerRef.current && !containerRef.current.contains(e.target)) {
-        setIsOpen(false);
-      }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+  useClickOutside(containerRef, () => setIsOpen(false));
 
   return (
     <div

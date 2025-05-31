@@ -4,7 +4,8 @@ import { FaHome, FaInfoCircle, FaTools, FaAddressBook, FaUserAlt } from "react-i
 import { FaBarsStaggered } from "react-icons/fa6";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState, useRef } from "react";
+import useClickOutside from "@/hooks/useClickOutside";
 import Button from "@/components/Button";
 import config from "@/config";
 import "@/css/Header.css";
@@ -12,23 +13,12 @@ import "@/css/Header.css";
 export default function Header() {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const pathname = usePathname();
+  const navRef = useRef(null);
 
   const toggleNav = () => setIsNavOpen((prev) => !prev);
   const showNav = !config.navHiddenPaths.includes(pathname);
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      const nav = document.querySelector(".nav-menu");
-      if (!nav.contains(event.target)) {
-        setIsNavOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  useClickOutside(navRef, () => setIsNavOpen(false));
 
   const navLinks = [
     {
@@ -93,6 +83,7 @@ export default function Header() {
           </div>
         </div>
         <div
+          ref={navRef}
           className="nav-menu"
           aria-hidden={!isNavOpen}
           data-open={isNavOpen}

@@ -16,11 +16,11 @@
   }
 
   ::selection {
-    @apply bg-primary-700 text-neutral-100;
+    @apply bg-primary-400/25 text-neutral-50;
   }
 
   ::-moz-selection {
-    @apply bg-primary-700 text-neutral-100;
+    @apply bg-primary-400/25 text-neutral-50;
   }
 
   ::-webkit-scrollbar {

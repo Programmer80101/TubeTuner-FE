@@ -21,20 +21,21 @@ import Avatar from "@/components/Avatar";
 import withPopup from "@/hoc/withPopup";
 import withConfetti from "@/hoc/withConfetti";
 import useLocalStorage from "@/hooks/useLocalStorage";
+import useToggle from "@/hooks/useToggle";
 
 function Home({ addPopup, triggerConfetti }) {
-  const [on, setOn] = useState(false);
-  const [off, setOff] = useState(false);
-  const [oof, setOof] = useState(true);
+  const [on, setOn] = useToggle(false);
+  const [off, setOff] = useToggle(false);
+  const [oof, setOof] = useToggle(true);
   const [pkmn, setPkmn, removePkmn] = useLocalStorage("pkmn", 0);
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useToggle(false);
   const [morePkmn, setMorePkmn] = useState(2);
   const [name, setName] = useState("");
   const [controlledInput, setControlledInput] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [radioValue, setRadioValue] = useState('option1');
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useToggle(false);
   const [num, setNum] = useState(0);
   const [textarea, setTextarea] = useState("");
   const pokemons = [

@@ -1,14 +1,17 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import config from "@/config";
 
-export default function useLocalStorage(key, initialValue) {
+export default function useSessionStorage(key, initialValue) {
   const itemKey = useMemo(() => `${config.prefix}-${key}`, [key]);
   const [storageValue, setStorageValue] = useState(initialValue);
   const isFirstLoad = useRef(true);
 
+
   useEffect(() => {
     try {
-      const storedValue = localStorage.getItem(itemKey);
+      if (typeof window === "undefined") return;
+
+      const storedValue = window.sessionStorage.getItem(itemKey);
       if (storedValue !== null) {
         setStorageValue(JSON.parse(storedValue));
       }
@@ -18,18 +21,19 @@ export default function useLocalStorage(key, initialValue) {
   }, [itemKey]);
 
   useEffect(() => {
-    if (isFirstLoad.current) return;
+    if (isFirstLoad.current || typeof window === "undefined") return;
     try {
-      localStorage.setItem(itemKey, JSON.stringify(storageValue));
+      window.sessionStorage.setItem(itemKey, JSON.stringify(storageValue));
     } catch (e) {
-      console.error("Error saving to localStorage: ", e);
+      console.error("Error saving to sessionStorage: ", e);
     }
   }, [storageValue, itemKey]);
 
   const removeStorageValue = useCallback(() => {
-    localStorage.removeItem(itemKey);
+    window.sessionStorage.removeItem(itemKey);
     setStorageValue(typeof initialValue === "function" ? initialValue() : initialValue);
   }, [itemKey, initialValue]);
 
   return [storageValue, setStorageValue, removeStorageValue];
 }
+

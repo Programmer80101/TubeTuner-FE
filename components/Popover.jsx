@@ -2,7 +2,8 @@
 
 import { FiChevronDown } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
-import { useId, useState, useRef, useEffect } from 'react';
+import { useId, useState, useRef } from 'react';
+import useClickOutside from "@/hooks/useClickOutside";
 import Button from "@/components/Button";
 import "@/css/Popover.css";
 
@@ -26,20 +27,11 @@ export default function Popover({ trigger, className = "", children, ...props })
   const labelId = `popover-label-${id}`;
   const controlId = `popover-controls-${id}`;
 
+  useClickOutside(containerRef, () => setIsOpen(false));
+
   const togglePopover = () => {
     setIsOpen((prev) => !prev);
   };
-
-  useEffect(() => {
-    function handleClickOutside(e) {
-      if (containerRef.current && !containerRef.current.contains(e.target)) {
-        setIsOpen(false);
-      }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
 
   return (
     <div
