@@ -4,7 +4,7 @@ import { useCallback, useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import Popup from "@/components/Popup";
 
-function withPopup(WrappedComponent) {
+export default function withPopup(WrappedComponent) {
   const PopupComponent = (props) => {
     const [popups, setPopups] = useState([]);
 
@@ -42,4 +42,3 @@ function withPopup(WrappedComponent) {
   return PopupComponent;
 };
 
-export default withPopup;
