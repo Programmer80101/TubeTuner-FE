@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import Loader from "@/components/Loader";
 import DotLoader from "@/components/DotLoader";
 import Accordion from "@/components/Accordion";
 import Dropdown from "@/components/Dropdown";
@@ -21,6 +22,11 @@ import Avatar from "@/components/Avatar";
 import withPopup from "@/hoc/withPopup";
 import withConfetti from "@/hoc/withConfetti";
 import useClipboard from "@/hooks/useClipboard";
+import useFetch from "@/hooks/useFetch";
+import useAsync from "@/hooks/useAsync";
+import useTimeout from "@/hooks/useTimeout";
+import useInterval from "@/hooks/useInterval";
+import useOnlineStatus from "@/hooks/useOnlineStatus";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import useSessionStorage from "@/hooks/useSessionStorage";
 import useToggle from "@/hooks/useToggle";
@@ -41,12 +47,23 @@ function Home({ addPopup, triggerConfetti }) {
   const [num, setNum] = useState(0);
   const [textarea, setTextarea] = useState("");
   const [isCopied, copy] = useClipboard();
+  const [visible, setVisible] = useState(true);
+  const [count, setCount] = useState(0);
+  const [delay, setDelay] = useState(1000);
+  const [isRunning, setIsRunning] = useState(true);
+  const isOnline = useOnlineStatus();
   const [localInput, setLocalInput, removeLocal] = useLocalStorage(
     "testKey",
     "defaultLocal"
   );
 
-  // 2. useSessionStorage hook: persisted only until the tab is closed
+  useInterval(
+    () => {
+      setCount((c) => c + 1);
+    },
+    isRunning ? delay : null
+  );
+
   const [sessionInput, setSessionInput, removeSession] = useSessionStorage(
     "sessionKey",
     "defaultSession"
@@ -76,9 +93,102 @@ function Home({ addPopup, triggerConfetti }) {
     'blue', 'purple'
   ];
 
+  useTimeout(() => {
+    setVisible(false);
+  }, 7000);
+
+  const { data: posts, isLoading, error } = useFetch(
+    'https://jsonplaceholder.typicode.com/posts'
+  );
+
+  const fetchUser = async () => {
+    const response = await fetch('https://jsonplaceholder.typicode.com/users/1');
+    if (!response.ok) {
+      throw new Error(`Error ${response.status}`);
+    }
+    return response.json();
+  };
+
+  const { status, value: user, err, run } = useAsync(fetchUser, false);
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  if (error) {
+    return <p>Error fetching posts: {error.message}</p>;
+  }
+
   return (
     <div>
       <h1>Frontend Boilerplate</h1>
+      <div style={{ fontFamily: 'Arial, sans-serif' }}>
+        <h2>Connection Status:</h2>
+        {isOnline ? (
+          <p style={{ color: 'green' }}>🟢 You are online</p>
+        ) : (
+          <p style={{ color: 'red' }}>🔴 You are offline</p>
+        )}
+      </div>
+      <div style={{ fontFamily: 'Arial, sans-serif' }}>
+        <h2>User Profile</h2>
+        <button onClick={run} disabled={status === 'pending'}>
+          {status === 'pending' ? 'Loading…' : 'Fetch User'}
+        </button>
+
+        {status === 'idle' && <p>Click "Fetch User" to load data.</p>}
+        {status === 'pending' && <p>Loading user data…</p>}
+        {status === 'error' && <p style={{ color: 'red' }}>Error: {err.message}</p>}
+        {status === 'success' && user && (
+          <div>
+            <h3>{user.name}</h3>
+            <p>
+              <strong>Email:</strong> {user.email}
+            </p>
+          </div>
+        )}
+      </div>
+      <div style={{ fontFamily: 'Arial, sans-serif' }}>
+        {visible ? (
+          <p>This message will disappear after 5 seconds.</p>
+        ) : (
+          <p>Message hidden.</p>
+        )}
+      </div>
+      <div style={{ fontFamily: 'Arial, sans-serif' }}>
+        <h2>Counter: {count}</h2>
+        <button onClick={() => setIsRunning((r) => !r)}>
+          {isRunning ? 'Pause' : 'Start'}
+        </button>
+        <div style={{ marginTop: '1rem' }}>
+          <label>
+            Delay (ms):{' '}
+            <input
+              type="number"
+              value={delay}
+              onChange={(e) => setDelay(Number(e.target.value))}
+              style={{ width: '4rem' }}
+            />
+          </label>
+        </div>
+      </div>
+      <div>
+        <div>
+          <h2>Posts</h2>
+          {posts && posts.length > 0 ? (
+            <ul>
+              {posts.slice(0, 10).map((post) => (
+                <li key={post.id}>
+                  <strong>{post.title}</strong>
+                  <p>{post.body}</p>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>No posts found.</p>
+          )}
+        </div>
+      </div>
       <div className="grid place-items-center">
         <Avatar
           src="https://randomuser.me/api/portraits/men/75.jpg"

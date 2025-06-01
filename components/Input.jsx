@@ -1,6 +1,5 @@
 "use client";
 
-import { FaAsterisk } from "react-icons/fa";
 import { useRef, useState, useCallback } from "react";
 import Tooltip from "@/components/Tooltip";
 import "@/css/Input.css";
@@ -28,7 +27,7 @@ export default function Input({
   const inputRef = useRef(null);
   const [isInvalid, setIsInvalid] = useState(false);
   const [characterCount, setCharacterCount] = useState(0);
-  const descriptionId = `description-${id}`
+  const descriptionId = `description-${id}`;
 
   const handleChange = useCallback((e) => {
     if (showCharacterCount) {
