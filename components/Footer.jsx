@@ -28,7 +28,7 @@ export default function Footer() {
           <Link
             href={config.socials.github}
             target="_blank"
-            className="social-link text-neutral-200"
+            className="social-link text-neutral-250"
             aria-label="GitHub"
           >
             <IoLogoGithub aria-hidden="true" />

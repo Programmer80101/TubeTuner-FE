@@ -15,8 +15,8 @@
 
   #nav-wrapper .nav,
   #nav-wrapper .nav-menu {
-    @apply bg-black/50 backdrop-blur-sm;
-    @apply border-neutral-300;
+    @apply bg-primary-350/10 backdrop-blur-sm;
+    @apply border-neutral-600;
   }
 
   #nav-wrapper .nav {
@@ -27,12 +27,16 @@
     border-bottom-width: var(--border-width);
   }
 
+  #nav-wrapper .nav button {
+    @apply hover:bg-white/20;
+  }
+
   #nav-wrapper .nav-start {
     @apply flex justify-start;
   }
 
   #nav-wrapper .nav-center .brand-name {
-    @apply text-xl px-4;
+    @apply text-2xl px-4;
   }
 
   #nav-wrapper .nav-end {
@@ -62,12 +66,10 @@
     @apply text-xl w-full p-0 mt-1.5;
     @apply rounded-xs overflow-hidden;
     @apply text-neutral-100 hover:text-neutral-50;
-    @apply outline-offset-0 outline-neutral-300;
-    @apply focus-visible:outline-neutral-300;
   }
 
   #nav-wrapper .nav-link::after {
-    @apply h-full opacity-10 bottom-0;
+    @apply h-full bg-white opacity-20 bottom-0 -z-1;
   }
 
   #nav-wrapper .nav-link-icon {

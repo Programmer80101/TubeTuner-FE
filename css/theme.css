@@ -87,14 +87,14 @@
 
 @utility wrapper-* {
   @apply mx-auto;
-  --side-spacing: calc(100% - 2rem);
+  --side-spacing: calc(100vw - 2rem);
 
   @media (min-width: 24rem) {
-    --side-spacing: calc(100% - 4rem);
+    --side-spacing: calc(100vw - 4rem);
   }
 
   @media (min-width: 40rem) {
-    --side-spacing: calc(100% - 9rem);
+    --side-spacing: calc(100vw - 9rem);
   }
 
   max-width: min(var(--side-spacing), --value(--wrapper- *));

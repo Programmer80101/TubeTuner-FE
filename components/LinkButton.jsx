@@ -13,6 +13,7 @@ export default function LinkButton({
 }) {
   return (
     <Link
+      tabIndex={-1}
       className={`link-button ${className}`}
       href={href}
       target={external ? '_blank' : undefined}

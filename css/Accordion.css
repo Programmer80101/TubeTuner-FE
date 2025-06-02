@@ -18,7 +18,7 @@
   }
 
   .accordion-wrapper .accordion-content {
-    @apply text-neutral-100 bg-neutral-850;
+    @apply text-neutral-100 bg-black/4;
     @apply overflow-hidden;
   }
 
