@@ -1,5 +1,6 @@
 "use client";
 
+import { FaAsterisk } from "react-icons/fa6";
 import { useRef, useState, useCallback } from "react";
 import Tooltip from "@/components/Tooltip";
 import "@/css/Input.css";
@@ -54,7 +55,7 @@ export default function Input({
         {(!!tooltip || required) && (
           <Tooltip
             icon={required ? (
-              <div className="text-red-500 origin-center scale-195">*</div>
+              <FaAsterisk className="text-red-600" />
             ) : undefined}
           >
             {tooltip || "Required field."}

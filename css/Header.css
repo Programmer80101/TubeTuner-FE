@@ -28,7 +28,7 @@
   }
 
   #nav-wrapper .nav button {
-    @apply hover:bg-white/20;
+    @apply hover:bg-white/25;
   }
 
   #nav-wrapper .nav-start {
@@ -69,7 +69,7 @@
   }
 
   #nav-wrapper .nav-link::after {
-    @apply h-full bg-white opacity-20 bottom-0 -z-1;
+    @apply h-full bg-white opacity-25 bottom-0 -z-1;
   }
 
   #nav-wrapper .nav-link-icon {

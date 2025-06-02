@@ -5,6 +5,7 @@
     @apply relative inline-block;
     @apply m-1 -translate-y-1;
     @apply rounded-full outline-offset-2;
+    @apply focus-visible:outline-2 focus-visible:outline-neutral-100;
   }
 
   .tooltip-wrapper .tooltip-content {
