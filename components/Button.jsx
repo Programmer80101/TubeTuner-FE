@@ -14,7 +14,6 @@ export default function Button({
   loadingText = "",
   size = 2,
   icon = false,
-  outline = false,
   ...props
 }) {
   const handleClick = (e) => {
@@ -27,14 +26,13 @@ export default function Button({
     <motion.button
       type="button"
       onClick={handleClick}
-      whileTap={clickAnimation ? (isLoading ? {} : { scale: 0.96 }) : {}}
+      whileTap={clickAnimation ? (isLoading ? {} : { scale: 0.98 }) : {}}
       transition={{ duration: 0.1, ease: "easeIn" }}
       aria-busy={isLoading}
       aria-disabled={isLoading}
       disabled={disabled || isLoading}
       data-color={color}
       data-icon={icon}
-      data-outline={outline}
       {...props}
     >
       {

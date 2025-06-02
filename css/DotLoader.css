@@ -7,7 +7,7 @@
 
   .dot-loader-wrapper .dot-loader {
     @apply w-auto h-auto;
-    @apply bg-neutral-100;
+    @apply bg-neutral-950;
     @apply rounded-full;
   }
 }

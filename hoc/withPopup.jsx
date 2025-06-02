@@ -18,9 +18,8 @@ export default function withPopup(WrappedComponent) {
     }, []);
 
     return (
-      <div className="p-5 pt-6 pb-2 mb-8">
-        <WrappedComponent {...props} addPopup={addPopup} />
-        <div className="fixed top-5 left-1/2 -translate-x-1/2 space-y-2 z-50 wrapper-sm w-full">
+      <>
+        <div className="fixed px-5 top-15 left-1/2 -translate-x-1/2 space-y-2 z-50 wrapper-sm w-full">
           <AnimatePresence>
             {popups.map((popup) => (
               <Popup
@@ -34,7 +33,8 @@ export default function withPopup(WrappedComponent) {
             ))}
           </AnimatePresence>
         </div>
-      </div>
+        <WrappedComponent {...props} addPopup={addPopup} />
+      </>
     );
   };
 

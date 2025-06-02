@@ -3,23 +3,23 @@
 @layer components {
   button {
     @apply font-500 text-base h-10 px-3;
-    @apply text-neutral-50 hover:text-white;
-    @apply bg-neutral-700 hover:bg-neutral-650;
+    @apply text-white hover:text-neutral-950;
+    @apply bg-neutral-600 hover:bg-neutral-550;
     @apply flex flex-row justify-center items-center gap-2;
     @apply rounded-xs border-none cursor-pointer;
-    @apply shadow-uniform-md shadow-neutral-750/5;
-    @apply hover:shadow-uniform-lg hover:shadow-neutral-700/15;
+    @apply shadow-sm shadow-black/50;
     @apply focus-visible:outline-offset-2 focus-visible:outline-2;
     @apply focus-visible:outline-neutral-150;
     @apply duration-300 ease-in;
-    transition-property: color, background-color, border-color, outline-border,
+    transition-property:
+      color, background-color, border-color, outline-border,
       text-decoration-color, fill, stroke, opacity, box-shadow, transform,
       filter, backdrop-filter;
   }
 
   button[aria-busy="false"]:disabled {
     @apply cursor-not-allowed;
-    @apply bg-neutral-600 text-neutral-300;
+    @apply bg-neutral-450 text-neutral-700;
     @apply shadow-none hover:shadow-none;
   }
 
@@ -37,44 +37,38 @@
     @apply icon w-auto h-auto text-[22px];
   }
 
+  button[data-color="sky"] {
+    @apply bg-sky-600 hover:bg-sky-700;
+    @apply focus-visible:outline-sky-700;
+  }
+
   button[data-color="blue"] {
-    @apply bg-sky-700 hover:bg-sky-600;
-    @apply shadow-blue-600/5 hover:shadow-blue-600/15;
-    @apply focus-visible:outline-blue-600;
+    @apply bg-blue-600 hover:bg-blue-700;
+    @apply focus-visible:outline-blue-700;
   }
 
   button[data-color="red"] {
-    @apply bg-red-700 hover:bg-red-600;
-    @apply shadow-red-600/5 hover:shadow-red-600/15;
-    @apply focus-visible:outline-red-600;
+    @apply bg-red-600 hover:bg-red-700;
+    @apply focus-visible:outline-red-700;
   }
 
   button[data-color="green"] {
-    @apply bg-green-700 hover:bg-green-600;
-    @apply shadow-green-600/5 hover:shadow-green-600/15;
-    @apply focus-visible:outline-green-600;
+    @apply bg-green-600 hover:bg-green-700;
+    @apply focus-visible:outline-green-700;
   }
 
   button[data-color="yellow"] {
-    @apply bg-yellow-600 hover:bg-yellow-500;
-    @apply shadow-yellow-500/5 hover:shadow-yellow-500/15;
+    @apply bg-yellow-500 hover:bg-yellow-600;
     @apply focus-visible:outline-yellow-500;
   }
 
   button[data-color="purple"] {
-    @apply bg-purple-700 hover:bg-purple-600;
-    @apply shadow-purple-700/5 hover:shadow-purple-600/15;
-    @apply focus-visible:outline-purple-600;
+    @apply bg-purple-600 hover:bg-purple-700;
+    @apply focus-visible:outline-purple-700;
   }
 
   button[data-color="transparent"] {
-    @apply bg-transparent hover:bg-white/5;
+    @apply text-neutral-150 bg-transparent hover:bg-black/10;
     @apply shadow-none hover:shadow-none;
-  }
-
-  button[data-outline="true"] {
-    @apply bg-transparent hover:bg-neutral-700;
-    @apply shadow-none hover:shadow-none;
-    @apply outline-1 outline-neutral-700;
   }
 }

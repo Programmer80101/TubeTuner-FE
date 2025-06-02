@@ -10,11 +10,11 @@ export default function AnimationWrapper({ children }) {
       <AnimatePresence mode="wait">
         <motion.div
           key={path}
-          initial={{ opacity: 0, filter: "blur(1px)" }}
-          animate={{ opacity: 1, filter: "blur(0px)" }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3, ease: "easeIn" }}
-          style={{ height: "100%" }}
+          style={{ height: "100%", transform: "none", filter: "none" }}
         >
           {children}
         </motion.div>

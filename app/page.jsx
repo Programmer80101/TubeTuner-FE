@@ -19,17 +19,16 @@ import MotionOnView from "@/components/MotionOnView";
 import Popover from "@/components/Popover";
 import Badge from "@/components/Badge";
 import Avatar from "@/components/Avatar";
-import withPopup from "@/hoc/withPopup";
-import withConfetti from "@/hoc/withConfetti";
 import useClipboard from "@/hooks/useClipboard";
 import useFetch from "@/hooks/useFetch";
 import useAsync from "@/hooks/useAsync";
 import useTimeout from "@/hooks/useTimeout";
-import useInterval from "@/hooks/useInterval";
 import useOnlineStatus from "@/hooks/useOnlineStatus";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import useSessionStorage from "@/hooks/useSessionStorage";
 import useToggle from "@/hooks/useToggle";
+import withPopup from "@/hoc/withPopup";
+import withConfetti from "@/hoc/withConfetti";
 
 function Home({ addPopup, triggerConfetti }) {
   const [on, setOn] = useToggle(false);
@@ -48,20 +47,10 @@ function Home({ addPopup, triggerConfetti }) {
   const [textarea, setTextarea] = useState("");
   const [isCopied, copy] = useClipboard();
   const [visible, setVisible] = useState(true);
-  const [count, setCount] = useState(0);
-  const [delay, setDelay] = useState(1000);
-  const [isRunning, setIsRunning] = useState(true);
   const isOnline = useOnlineStatus();
   const [localInput, setLocalInput, removeLocal] = useLocalStorage(
     "testKey",
     "defaultLocal"
-  );
-
-  useInterval(
-    () => {
-      setCount((c) => c + 1);
-    },
-    isRunning ? delay : null
   );
 
   const [sessionInput, setSessionInput, removeSession] = useSessionStorage(
@@ -122,7 +111,7 @@ function Home({ addPopup, triggerConfetti }) {
   return (
     <div>
       <h1>Frontend Boilerplate</h1>
-      <div style={{ fontFamily: 'Arial, sans-serif' }}>
+      <div>
         <h2>Connection Status:</h2>
         {isOnline ? (
           <p style={{ color: 'green' }}>🟢 You are online</p>
@@ -130,11 +119,14 @@ function Home({ addPopup, triggerConfetti }) {
           <p style={{ color: 'red' }}>🔴 You are offline</p>
         )}
       </div>
-      <div style={{ fontFamily: 'Arial, sans-serif' }}>
+      <div className="grid place-items-center w-full">
+        <Link href="#" className="link">Click me!</Link>
+      </div>
+      <div>
         <h2>User Profile</h2>
-        <button onClick={run} disabled={status === 'pending'}>
+        <Button onClick={run} disabled={status === 'pending'}>
           {status === 'pending' ? 'Loading…' : 'Fetch User'}
-        </button>
+        </Button>
 
         {status === 'idle' && <p>Click "Fetch User" to load data.</p>}
         {status === 'pending' && <p>Loading user data…</p>}
@@ -148,29 +140,12 @@ function Home({ addPopup, triggerConfetti }) {
           </div>
         )}
       </div>
-      <div style={{ fontFamily: 'Arial, sans-serif' }}>
+      <div>
         {visible ? (
           <p>This message will disappear after 5 seconds.</p>
         ) : (
           <p>Message hidden.</p>
         )}
-      </div>
-      <div style={{ fontFamily: 'Arial, sans-serif' }}>
-        <h2>Counter: {count}</h2>
-        <button onClick={() => setIsRunning((r) => !r)}>
-          {isRunning ? 'Pause' : 'Start'}
-        </button>
-        <div style={{ marginTop: '1rem' }}>
-          <label>
-            Delay (ms):{' '}
-            <input
-              type="number"
-              value={delay}
-              onChange={(e) => setDelay(Number(e.target.value))}
-              style={{ width: '4rem' }}
-            />
-          </label>
-        </div>
       </div>
       <div>
         <div>
@@ -196,7 +171,7 @@ function Home({ addPopup, triggerConfetti }) {
         />
       </div>
       <div>
-        <div style={{ fontFamily: "sans-serif", padding: "2rem" }}>
+        <div>
           <h2>📦 Storage Tester</h2>
 
           {/* LOCAL STORAGE SECTION */}
@@ -214,7 +189,7 @@ function Home({ addPopup, triggerConfetti }) {
                 style={{ padding: "0.5rem", fontSize: "1rem" }}
               />
             </label>
-            <button
+            <Button
               onClick={removeLocal}
               style={{
                 marginLeft: "1rem",
@@ -223,7 +198,7 @@ function Home({ addPopup, triggerConfetti }) {
               }}
             >
               Remove Local
-            </button>
+            </Button>
             <p>
               Current localInput: <strong>{localInput}</strong>
             </p>
@@ -248,7 +223,7 @@ function Home({ addPopup, triggerConfetti }) {
                 style={{ padding: "0.5rem", fontSize: "1rem" }}
               />
             </label>
-            <button
+            <Button
               onClick={removeSession}
               style={{
                 marginLeft: "1rem",
@@ -257,7 +232,7 @@ function Home({ addPopup, triggerConfetti }) {
               }}
             >
               Remove Session
-            </button>
+            </Button>
             <p>
               Current sessionInput: <strong>{sessionInput}</strong>
             </p>
@@ -369,7 +344,6 @@ function Home({ addPopup, triggerConfetti }) {
       <MotionOnView className="wrapper-xs flex justify-center flex-col gap-4">
         <h2>Link Button</h2>
         <LinkButton href="#" external className="" disabled onClick={() => addPopup("Disabled button clicked!", "gray")} color="gray">Disabled</LinkButton>
-        <LinkButton href="#" external outline className="w-full" onClick={() => addPopup("Outline button clicked!", "neutral")}>Outline!</LinkButton>
         <LinkButton href="#" external onClick={() => addPopup("Neutral button clicked!", "neutral")} color="neutral">Link!</LinkButton>
         <LinkButton href="#" external className="w-full" onClick={() => addPopup("Neutral button clicked!", "neutral")} color="neutral">Neutral!</LinkButton>
         <LinkButton href="#" external className="w-full" onClick={() => addPopup("Neutral button clicked!", "neutral")} color="transparent">Ghost Button!</LinkButton>
@@ -383,7 +357,6 @@ function Home({ addPopup, triggerConfetti }) {
       <MotionOnView className="wrapper-xs flex justify-center flex-col gap-4">
         <h2>Buttons</h2>
         <Button className="w-full" disabled onClick={() => addPopup("Disabled button clicked!", "gray")} color="gray">Disabled</Button>
-        <Button outline className="w-full" onClick={() => addPopup("Outline button clicked!", "neutral")}>Outline!</Button>
         <Button className="w-full" onClick={() => addPopup("Neutral button clicked!", "neutral")} color="neutral">Neutral!</Button>
         <Button className="w-full" onClick={() => addPopup("Neutral button clicked!", "neutral")} color="transparent">Ghost Button!</Button>
         <Button className="w-full" onClick={() => addPopup("Neutral button clicked!", "neutral")} color="transparent" isLoading={true}>Ghost Loading!</Button>

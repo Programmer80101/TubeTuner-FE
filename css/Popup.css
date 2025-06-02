@@ -4,18 +4,18 @@
   .popup {
     @apply relative z-50;
     @apply text-sm font-500;
-    @apply w-full max-h-min px-3 py-2;
-    @apply text-white hover:text-neutral-50;
-    @apply bg-neutral-650 hover:bg-neutral-700;
+    @apply w-full h-10 px-3 py-2;
+    @apply text-white hover:text-neutral-950;
+    @apply bg-neutral-600 hover:bg-neutral-550;
     @apply flex items-center justify-between;
-    @apply shadow-uniform-md shadow-black/15;
-    @apply hover:shadow-uniform-lg hover:shadow-black/25;
-    @apply transition-colors duration-300 ease-in;
     @apply rounded border-none;
+    @apply shadow-sm shadow-black/50;
+    @apply transition-colors duration-300 ease-in;
   }
 
   .popup button.popup-close-button {
     @apply text-base p-1 m-0 h-auto w-auto;
+    @apply text-white hover:text-neutral-950;
     @apply hover:bg-black/5;
   }
 
@@ -41,7 +41,7 @@
 
   .popup .popup-progress {
     @apply absolute bottom-0 left-0;
-    @apply h-1 bg-black/20;
+    @apply h-1 bg-black/10;
     @apply duration-100 ease-linear;
 
     transition-property: width, background-color;

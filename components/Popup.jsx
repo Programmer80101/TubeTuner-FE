@@ -7,8 +7,12 @@ import Button from "@/components/Button";
 import "@/css/Popup.css";
 
 const popupVariants = {
-  hidden: { opacity: 0, y: -20, filter: "blur(1px)" },
-  visible: { opacity: 1, y: 0, filter: "blur(0px)" },
+  hidden: {
+    opacity: 0, y: -20, filter: "blur(1px)"
+  },
+  visible: {
+    opacity: 1, y: 0, filter: "blur(0px)"
+  },
 }
 
 export default function Popup({ id, color = "neutral", removePopup, children }) {

@@ -1,15 +1,14 @@
-import { Space_Grotesk } from "next/font/google";
+import { Outfit } from "next/font/google";
 import AnimationWrapper from "@/components/AnimationWrapper";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import config from "@/config";
 import "@/css/globals.css";
 
-const spaceGrotesk = Space_Grotesk({
+const outfit = Outfit({
   subsets: ["latin"],
   display: "swap",
 });
-
 
 export const metadata = {
   metadataBase: new URL(config.url),
@@ -76,9 +75,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${spaceGrotesk.className} antialiased`}
-      >
+      <body className={`${outfit.className} antialiased`} >
         <Header />
         <AnimationWrapper>
           {children}
