@@ -269,7 +269,7 @@ function Home({ addPopup, triggerConfetti }) {
         </Button>
       </div>
       <div className="wrapper-xs grid items-center gap-4">
-        <h2>Dot Loader</h2>
+        <h2>Dot Loader *</h2>
         <DotLoader count={3} size={4} />
         <Popover
           className="w-32 flex flex-col gap-0.5"
@@ -350,6 +350,7 @@ function Home({ addPopup, triggerConfetti }) {
         <LinkButton href="#" external className="w-full" onClick={() => addPopup("Neutral button clicked!", "neutral")} color="transparent" disabled>Ghost Disabled!</LinkButton>
         <LinkButton href="#" external className="w-full" onClick={() => addPopup("This is danger!", "red")} color="red">Danger!</LinkButton>
         <LinkButton href="#" external className="w-full" onClick={() => addPopup("Default button clicked!", "blue")} color="blue">Default</LinkButton>
+        <LinkButton href="#" external className="w-full" onClick={() => addPopup("Sky button clicked!", "sky")} color="sky">SKy</LinkButton>
         <LinkButton href="#" external className="w-full" onClick={() => addPopup("Success button clicked!", "green")} color="green">Success</LinkButton>
         <LinkButton href="#" external className="w-full" onClick={() => addPopup("Epik button clicked!", "purple")} color="purple">Epik</LinkButton>
         <LinkButton href="#" external className="w-full" onClick={() => addPopup("Warning button clicked!", "yellow")} color="yellow">Warning</LinkButton>
@@ -367,6 +368,8 @@ function Home({ addPopup, triggerConfetti }) {
         <Button className="w-full" isLoading onClick={() => addPopup("Danger button clicked!", "red")} color="red" loadingText="Danger!">Danger!</Button>
         <Button className="w-full" onClick={() => addPopup("Default button clicked!", "blue")} color="blue">Default</Button>
         <Button className="w-full" isLoading onClick={() => addPopup("Default button clicked!", "blue")} color="blue" loadingText="Default">Default</Button>
+        <Button className="w-full" onClick={() => addPopup("Sky button clicked!", "sky")} color="sky">Sky</Button>
+        <Button className="w-full" isLoading onClick={() => addPopup("Sky button clicked!", "sky")} color="sky" loadingText="Sky">Sky</Button>
         <Button className="w-full" onClick={() => addPopup("Success button clicked!", "green")} color="green">Success</Button>
         <Button className="w-full" isLoading onClick={() => addPopup("Success button clicked!", "green")} color="green" loadingText="Success">Success</Button>
         <Button className="w-full" onClick={() => addPopup("Epik button clicked!", "purple")} color="purple">Epik</Button>

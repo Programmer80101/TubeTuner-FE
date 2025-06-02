@@ -14,16 +14,16 @@
   }
 
   .switch-wrapper:has(.switch-button[aria-disabled="true"]) .switch-label {
-    @apply text-neutral-250;
+    @apply text-neutral-450;
   }
 
   .switch-wrapper .switch-button {
     @apply relative;
     @apply p-0 m-0 h-6.5 w-11.5;
-    @apply border-solid border-1 border-neutral-400;
-    @apply bg-neutral-700 rounded-full cursor-pointer;
-    @apply shadow-uniform-xs shadow-black/30;
-    @apply hover:shadow-uniform-xs hover:shadow-black/50;
+    @apply border-solid border-1 border-neutral-700;
+    @apply bg-neutral-750 rounded-full cursor-pointer;
+    @apply shadow-sm shadow-black/30;
+    @apply hover:shadow-sm hover:shadow-black/50;
     @apply focus-visible:outline-offset-2 focus-visible:outline-2;
     @apply focus-visible:outline-neutral-150;
     @apply duration-300 ease-in;
@@ -34,23 +34,15 @@
   .switch-wrapper .switch-thumb {
     @apply absolute top-0 left-0 mt-0.5 ml-0.5;
     @apply w-5 h-5 rounded-full;
-    @apply bg-neutral-50;
+    @apply bg-neutral-950;
     @apply transition-colors duration-200 ease-in;
   }
 
   .switch-wrapper .switch-button[aria-checked="true"] {
-    @apply bg-primary-400 border-primary-300;
+    @apply bg-primary-450 border-primary-500;
   }
 
   .switch-wrapper .switch-button[aria-disabled="true"] {
-    @apply cursor-not-allowed bg-neutral-650 border-neutral-550;
-  }
-
-  .switch-wrapper .switch-button[aria-disabled="true"][aria-checked="true"] {
-    @apply bg-primary-550 border-primary-500 saturate-80;
-  }
-
-  .switch-wrapper .switch-button[aria-disabled="true"] .switch-thumb {
-    @apply bg-neutral-300;
+    @apply cursor-not-allowed brightness-80 saturate-70;
   }
 }

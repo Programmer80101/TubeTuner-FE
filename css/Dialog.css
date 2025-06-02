@@ -9,9 +9,9 @@
 
   .dialog-wrapper .dialog-box {
     @apply relative z-50 wrapper-sm;
-    @apply bg-neutral-850 rounded-sm;
-    @apply border-1 border-neutral-400;
-    @apply shadow-uniform-2xl shadow-black/50;
+    @apply bg-neutral-950 rounded-sm;
+    @apply border-1 border-neutral-600;
+    @apply shadow-2xl;
   }
 
   .dialog-wrapper .dialog-title {
@@ -19,7 +19,7 @@
   }
 
   .dialog-wrapper .dialog-close-button {
-    @apply absolute top-0 right-0 p-2 icon;
+    @apply absolute top-0 right-0 p-1 icon;
   }
 
   .dialog-wrapper .dialog-overlay {

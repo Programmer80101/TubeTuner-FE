@@ -20,13 +20,11 @@
   button[aria-busy="false"]:disabled {
     @apply cursor-not-allowed;
     @apply bg-neutral-450 text-neutral-700;
-    @apply shadow-none hover:shadow-none;
   }
 
   button[aria-busy="true"] {
     @apply brightness-75;
     @apply cursor-not-allowed;
-    @apply shadow-none hover:shadow-none;
   }
 
   button .button-loader-wrapper {
@@ -68,7 +66,8 @@
   }
 
   button[data-color="transparent"] {
-    @apply text-neutral-150 bg-transparent hover:bg-black/10;
+    @apply text-neutral-150 hover:text-neutral-200;
+    @apply bg-transparent hover:bg-black/10;
     @apply shadow-none hover:shadow-none;
   }
 }
