@@ -363,6 +363,8 @@ function Home({ addPopup, triggerConfetti }) {
         <Button className="w-full" onClick={() => addPopup("Neutral button clicked!", "neutral")} color="transparent" isLoading={true}>Ghost Loading!</Button>
         <Button className="w-full" onClick={() => addPopup("Neutral button clicked!", "neutral")} color="transparent" disabled>Ghost Disabled!</Button>
         <Button className="w-full" isLoading onClick={() => addPopup("Loading button clicked!", "loading")} color="loading" loadingText="Loading...">Loading...</Button>
+        <Button className="w-full" onClick={() => addPopup("Primary button clicked!", "primary")} color="primary">Primary</Button>
+        <Button className="w-full" isLoading onClick={() => addPopup("Primary button clicked!", "primary")} color="primary" loadingText="Primary">Primary</Button>
         <Button className="w-full" isLoading onClick={() => addPopup("Loading button clicked!", "loading")} color="loading" />
         <Button className="w-full" onClick={() => addPopup("This is danger!", "red")} color="red">Danger!</Button>
         <Button className="w-full" isLoading onClick={() => addPopup("Danger button clicked!", "red")} color="red" loadingText="Danger!">Danger!</Button>

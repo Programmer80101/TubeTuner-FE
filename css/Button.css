@@ -35,6 +35,11 @@
     @apply icon w-auto h-auto text-[22px];
   }
 
+  button[data-color="primary"] {
+    @apply bg-primary-450 hover:bg-primary-500;
+    @apply focus-visible:outline-primary-550;
+  }
+
   button[data-color="sky"] {
     @apply bg-sky-600 hover:bg-sky-700;
     @apply focus-visible:outline-sky-700;
