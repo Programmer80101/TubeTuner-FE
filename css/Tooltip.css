@@ -11,7 +11,7 @@
     @apply absolute z-50 text-sm text-center;
     @apply w-max h-min max-w-56 px-2 py-1;
     @apply bg-neutral-950 text-neutral-100;
-    @apply shadow-md shadow-black/25;
+    @apply shadow-uniform-xs shadow-black/10;
     @apply rounded-xs transform;
     @apply scale-0 opacity-0 invisible;
     @apply duration-200 ease-in;

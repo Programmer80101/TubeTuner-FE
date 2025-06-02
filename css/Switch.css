@@ -20,8 +20,8 @@
   .switch-wrapper .switch-button {
     @apply relative;
     @apply p-0 m-0 h-6.5 w-11.5;
-    @apply border-solid border-1 border-neutral-700;
-    @apply bg-neutral-750 rounded-full cursor-pointer;
+    @apply border-solid border-1 border-neutral-650;
+    @apply bg-neutral-700 rounded-full cursor-pointer;
     @apply shadow-sm shadow-black/30;
     @apply hover:shadow-sm hover:shadow-black/50;
     @apply focus-visible:outline-offset-2 focus-visible:outline-2;
@@ -39,10 +39,10 @@
   }
 
   .switch-wrapper .switch-button[aria-checked="true"] {
-    @apply bg-primary-450 border-primary-500;
+    @apply bg-primary-400 border-primary-450;
   }
 
   .switch-wrapper .switch-button[aria-disabled="true"] {
-    @apply cursor-not-allowed brightness-80 saturate-70;
+    @apply cursor-not-allowed brightness-85 saturate-65;
   }
 }

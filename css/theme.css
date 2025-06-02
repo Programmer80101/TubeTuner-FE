@@ -71,7 +71,7 @@
   @apply px-3 py-2 h-10 m-0 mt-1 w-full;
   @apply bg-neutral-950 text-neutral-150 rounded-sm;
   @apply shadow-black/50 shadow-sm hover:shadow-md hover:shadow-black/30;
-  @apply outline-1 outline-neutral-500 hover:outline-primary-500;
+  @apply outline-1 outline-neutral-600 hover:outline-primary-500;
   @apply focus-visible:outline-2 focus-visible:outline-primary-500;
   @apply placeholder:text-neutral-450;
   @apply duration-300 ease-in;

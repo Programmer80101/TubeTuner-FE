@@ -1,7 +1,8 @@
 "use client";
 
-import { FaDiscord, FaGithub, FaLinkedin, FaYoutube } from "react-icons/fa";
+import { FaDiscord, FaLinkedin, FaYoutube } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
+import { IoLogoGithub } from "react-icons/io";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import MotionOnView from "@/components/MotionOnView";
@@ -27,15 +28,15 @@ export default function Footer() {
           <Link
             href={config.socials.github}
             target="_blank"
-            className="social-link text-white"
+            className="social-link text-neutral-200"
             aria-label="GitHub"
           >
-            <FaGithub aria-hidden="true" />
+            <IoLogoGithub aria-hidden="true" />
           </Link>
           <Link
             href={config.socials.twitter}
             target="_blank"
-            className="social-link text-white"
+            className="social-link text-neutral-100"
             aria-label="X formerly Twitter"
           >
             <FaXTwitter aria-hidden="true" />

@@ -3,26 +3,26 @@
 @layer components {
   .accordion-wrapper {
     @apply mb-4 mx-auto w-full wrapper-sm;
-    @apply rounded-xs bg-neutral-700;
-    @apply shadow-uniform-md shadow-black;
+    @apply bg-neutral-900 text-neutral-200;
+    @apply rounded-xs shadow-md;
     @apply transition-colors duration-200 ease-in;
   }
 
-  .accordion-button {
+  .accordion-wrapper .accordion-button {
     @apply relative z-1 w-full;
     @apply text-left text-lg px-3;
-    @apply bg-transparent hover:bg-transparent;
+    @apply bg-transparent hover:bg-transparent text-neutral-200;
     @apply cursor-pointer shadow-none hover:shadow-none;
     @apply flex justify-between items-center;
     @apply border-none rounded-b-none rounded-t-sm;
   }
 
-  .accordion-content {
-    @apply text-neutral-100 bg-neutral-750;
+  .accordion-wrapper .accordion-content {
+    @apply text-neutral-100 bg-neutral-850;
     @apply overflow-hidden;
   }
 
-  .accordion-children {
+  .accordion-wrapper .accordion-children {
     @apply px-3 py-2;
   }
 }
