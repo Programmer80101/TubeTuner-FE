@@ -1,0 +1,20 @@
+@import "./globals.css";
+
+@layer utilities {
+  #converter {
+    @apply bg-gradient-to-b from-primary-200 to-primary-50;
+    @apply shadow-lg;
+  }
+
+  #converter .converter-wrapper {
+    @apply max-w-xl mx-auto px-6 pb-6;
+  }
+
+  #converter .converter-form {
+    @apply flex flex-col gap-3;
+  }
+
+  #converter .split-container {
+    @apply grid grid-cols-2 gap-3;
+  }
+}

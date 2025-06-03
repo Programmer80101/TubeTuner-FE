@@ -2,7 +2,7 @@
 
 import { FiChevronDown, FiCheck } from "react-icons/fi";
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useRef, useEffect, useId } from 'react';
+import { useState, useRef, useId } from 'react';
 import useClickOutside from "@/hooks/useClickOutside";
 import Button from "@/components/Button";
 import "@/css/Dropdown.css";
@@ -32,7 +32,8 @@ export default function Dropdown({
   value = 0,
   setValue,
   width,
-  items = []
+  options = [],
+  disabled = false,
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef(null);
@@ -75,8 +76,10 @@ export default function Dropdown({
         aria-haspopup="listbox"
         aria-expanded={isOpen}
         aria-controls={controlId}
+        aria-disabled={disabled}
+        disabled={disabled}
       >
-        {items[value]}
+        {options[value]}
         <FiChevronDown className={isOpen ? "rotate-180" : ""} />
       </Button>
 
@@ -86,7 +89,7 @@ export default function Dropdown({
             id={controlId}
             tabIndex={-1}
             className="dropdown-list"
-            style={{ width: width * 4 }}
+            style={{ width: width }}
             initial="hidden"
             animate="show"
             exit="hidden"
@@ -95,7 +98,7 @@ export default function Dropdown({
             aria-labelledby={labelId}
             role="listbox"
           >
-            {items.map((item, index) => (
+            {options.map((option, index) => (
               <motion.li
                 key={index}
                 tabIndex={0}
@@ -110,8 +113,8 @@ export default function Dropdown({
                 aria-selected={value === index}
                 role="option"
               >
-                {item}
-                {item === items[value] && (
+                {option}
+                {option === options[value] && (
                   <FiCheck aria-hidden={true} className="dropdown-check" />
                 )}
               </motion.li>

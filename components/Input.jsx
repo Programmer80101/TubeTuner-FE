@@ -20,6 +20,8 @@ export default function Input({
   helpMsg = "",
   tooltip = "",
   showCharacterCount = false,
+  showDetails = true,
+  showTooltip = true,
   required = false,
   disabled = false,
   error = false,
@@ -52,7 +54,7 @@ export default function Input({
             {label}
           </label>
         )}
-        {(!!tooltip || required) && (
+        {(showTooltip && (!!tooltip || required)) && (
           <Tooltip
             icon={required ? (
               <FaAsterisk className="text-red-600" />
@@ -79,15 +81,17 @@ export default function Input({
         maxLength={maxLength}
         {...props}
       />
-      <div className="input-bottom">
-        <span id={descriptionId}>
-          {isInvalid ? errorMsg : helpMsg}
-        </span>
-        <span>
-          {showCharacterCount && characterCount}
-          {(showCharacterCount && maxLength) && (` / ${maxLength}`)}
-        </span>
-      </div>
+      {showDetails && (
+        <div className="input-bottom">
+          <span id={descriptionId}>
+            {isInvalid ? errorMsg : helpMsg}
+          </span>
+          <span>
+            {showCharacterCount && characterCount}
+            {(showCharacterCount && maxLength) && (` / ${maxLength}`)}
+          </span>
+        </div>
+      )}
     </div>
   );
 }

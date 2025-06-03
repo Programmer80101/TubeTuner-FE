@@ -1,0 +1,34 @@
+@import "./globals.css";
+
+@layer components {
+  .range-wrapper {
+    @apply w-full flex flex-col items-center;
+  }
+
+  input[type="range"] {
+    @apply w-full appearance-none rounded-full;
+    @apply border-none outline-none;
+    @apply focus-visible:outline-offset-1 focus-visible:outline-neutral-150;
+    @apply focus-visible:outline-1;
+  }
+
+  input[type="range"]::-webkit-slider-runnable-track {
+    @apply rounded-full;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    @apply appearance-none cursor-pointer;
+    @apply bg-primary-400 w-4.5 h-4.5;
+    @apply border-none rounded-full;
+  }
+
+  input[type="input"]::-moz-range-thumb {
+    @apply appearance-none cursor-pointer;
+    @apply bg-primary-400 w-4.5 h-4.5;
+    @apply border-none rounded-full;
+  }
+
+  input[type="input"]::-moz-range-track {
+    @apply border-none rounded-full;
+  }
+}
