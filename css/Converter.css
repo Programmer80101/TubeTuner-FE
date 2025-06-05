@@ -17,4 +17,8 @@
   #converter .split-container {
     @apply grid grid-cols-2 gap-3;
   }
+
+  #converter #advanced-options {
+    @apply p-3;
+  }
 }

@@ -1,0 +1,18 @@
+@import "./globals.css";
+
+@layer components {
+  .widget-wrapper {
+    @apply fixed z-50;
+  }
+
+  .widget-wrapper > button {
+    @apply fixed bottom-5 right-5;
+    @apply bg-neutral-950 hover:text-neutral-900;
+    @apply text-neutral-150 hover:text-neutral-200;
+    @apply rounded-full;
+  }
+
+  .widget-wrapper > button svg {
+    @apply rotate-90;
+  }
+}
