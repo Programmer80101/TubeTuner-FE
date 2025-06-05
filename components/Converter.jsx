@@ -9,6 +9,8 @@ import Dropdown from "@/components/Dropdown";
 import withPopup from "@/hoc/withPopup";
 import "@/css/Converter.css";
 
+const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+
 function Converter({ addPopup }) {
   const [url, setUrl] = useLocalStorage("converter-url", "");
   const [type, setType] = useLocalStorage("converter-type", 0);
@@ -17,11 +19,11 @@ function Converter({ addPopup }) {
   const [videoQuality, setVideoQuality] = useLocalStorage("converter-video-quality", 3);
   const [audioQuality, setAudioQuality] = useLocalStorage("converter-audio-quality", 2);
 
-  const [jobId, setJobId] = useState(null);
   const [status, setStatus] = useState("");
+  const [progress, setProgress] = useState(0);
   const [downloadPath, setDownloadPath] = useState("");
-  const [downloadProgress, setDownloadProgress] = useState(0);
-  const [transcodeProgress, setTranscodeProgress] = useState(0);
+  const [conversionId, setConversionId] = useState(null);
+
 
   const types = ["Audio", "Video"];
 
@@ -69,18 +71,19 @@ function Converter({ addPopup }) {
   ];
 
   const triggerDownload = () => {
-    if (downloadPath) window.location = downloadPath;
+    window.location = `${backendUrl}/${downloadPath}`;
   }
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    const endpoint = `${process.env.NEXT_PUBLIC_BACKEND_URL}/convert`;
+    const endpoint = `${backendUrl}/convert`;
     const body = {
       url: url,
       type: types[type],
       format: type === 0 ? audioFormats[audioFormat] : videoQualities[videoQuality],
-      quality: type === 0 ? audioQualities[audioFormat] : videoQualities[videoQuality],
+      audioQuality: audioQualities[audioFormat],
+      videoQuality: videoQualities[videoQuality],
     }
 
     try {
@@ -90,9 +93,9 @@ function Converter({ addPopup }) {
         addPopup(data.error, "red");
         return;
       }
-
-      setJobId(data.jobId);
+      console.log("data: ", data);
       setStatus("Pending...");
+      setConversionId(data.conversionId);
     } catch (error) {
       console.error("Error while conversion: ", error);
     }
@@ -103,39 +106,40 @@ function Converter({ addPopup }) {
   }, [downloadPath]);
 
   useEffect(() => {
-    if (!jobId) return;
+    if (!conversionId) return;
     const interval = setInterval(async () => {
       try {
-        const endpoint = `${process.env.NEXT_PUBLIC_BACKEND_URL}/convert/progress/${jobId}`;
-        const { data } = await axios.get(endpoint);
+        const endpoint = `${backendUrl}/progress`;
+        const body = { conversionId: conversionId };
+        const { data } = await axios.post(endpoint, body);
 
         const {
+          status,
           download,
           transcode,
-          status,
-          path,
+          downloadPath,
         } = data;
 
-        setDownloadProgress(download);
-        setTranscodeProgress(transcode);
         setStatus(status);
+        setProgress(download);
 
-        if (status === "done" && path) {
+        if (status === "completed" && downloadPath) {
           clearInterval(interval);
-          setDownloadPath(`${process.env.NEXT_PUBLIC_BACKEND_URL}/${path}`);
+          setDownloadPath(downloadPath);
+          addPopup("Conversion completed!", "green");
         }
         if (status === "error") {
           clearInterval(interval);
-          addPopup("Conversion error: " + resp.data.error, "red");
+          addPopup("Conversion error: " + data.error, "red");
         }
       } catch (error) {
-        console.error("Progress poll error:", err);
+        console.error("Progress poll error:", error);
         clearInterval(interval);
       }
-    }, 1000);
+    }, 500);
 
     return () => clearInterval(interval);
-  }, [jobId]);
+  }, [conversionId]);
 
   return (
     <div id="converter">
@@ -207,12 +211,11 @@ function Converter({ addPopup }) {
             Convert
           </Button>
         </form>
-        {jobId && (
+        {conversionId && (
           <div>
-            <p>Job ID: {jobId}</p>
+            <p>Conversion ID: {conversionId}</p>
             <p>Status: {status}</p>
-            <p>Download: {downloadProgress.toFixed(1)}%</p>
-            <p>Transcode: {transcodeProgress.toFixed(1)}%</p>
+            <p>Progress: {progress}%</p>
           </div>
         )}
       </div>
