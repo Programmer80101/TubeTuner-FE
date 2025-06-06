@@ -23,7 +23,7 @@
   }
 
   button[aria-busy="true"] {
-    @apply brightness-75;
+    @apply brightness-85;
     @apply cursor-not-allowed;
   }
 

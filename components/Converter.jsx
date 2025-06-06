@@ -2,29 +2,20 @@
 
 import { FaArrowsRotate } from "react-icons/fa6";
 import { FaQuestionCircle } from "react-icons/fa";
-import { FiChevronDown } from "react-icons/fi";
+import { FaDownload } from "react-icons/fa6";
 
 import axios from "axios";
-import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import useOnlineStatus from "@/hooks/useOnlineStatus";
 import useLocalStorage from "@/hooks/useLocalStorage";
-import useToggle from "@/hooks/useToggle";
 import Input from "@/components/Input";
 import Button from "@/components/Button";
 import Switch from "@/components/Switch";
+import DotLoader from "@/components/DotLoader";
 import Dropdown from "@/components/Dropdown";
 import Tooltip from "@/components/Tooltip";
 import withPopup from "@/hoc/withPopup";
 import "@/css/Converter.css";
-
-const contentVariants = {
-  hidden: { height: 0 },
-  visible: { height: "auto" }
-}
-
-const controlId = `accordion-control-advanced-options`
-const buttonId = `accordion-button-advanced-options`
 
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 const ytApiKey = process.env.NEXT_PUBLIC_YT_API_KEY;
@@ -47,14 +38,12 @@ const audioFormats = [
 
 const videoFormats = [
   'mp4',
-  'gif',
   'mkv',
   'mov',
   'avi',
   'flv',
   'webm',
-  'mpeg2',
-  '3gp',
+  "gif",
 ];
 
 const videoQualities = [
@@ -142,9 +131,8 @@ function Converter({ addPopup }) {
   const [audioQuality, setAudioQuality] = useLocalStorage("converter-audio-quality", 2);
   const [autoDownload, setAutoDownload] = useLocalStorage("converter-auto-download", false);
 
-  const [advancedOptions, toggleAdvancedOptions] = useToggle(false);
-
   const [fileName, setFileName] = useState("");
+  const [fileSize, setFileSize] = useState("");
   const [videoDetails, setVideoDetails] = useState({});
 
   const [status, setStatus] = useState("idle");
@@ -154,10 +142,13 @@ function Converter({ addPopup }) {
   const isOnline = useOnlineStatus();
 
   const triggerDownload = () => {
+    const fileFormat = type === 0 ? audioFormats[audioFormat] : videoFormats[videoFormat]
     const url = [
       `${backendUrl}/download/`,
-      `?fileName=${encodeURIComponent(fileName)}`,
-      `&customName=hehehehaw`
+      `?fileName=`,
+      encodeURIComponent(`${fileName}.${fileFormat}`),
+      `&customName=`,
+      encodeURIComponent(`${videoDetails.title}.${fileFormat}`)
     ]
 
     window.location = url.join("");
@@ -177,16 +168,6 @@ function Converter({ addPopup }) {
     if (!videoId) {
       addPopup("Invalid YouTube URL", "red");
       return;
-    }
-
-    const endpoint = `${backendUrl}/convert`;
-    const body = {
-      id: videoId,
-      url: url,
-      type: types[type],
-      format: type === 0 ? audioFormats[audioFormat] : videoFormats[videoQuality],
-      audioQuality: parseInt(audioQualities[audioFormat]),
-      videoQuality: parseInt(videoQualities[videoQuality]),
     }
 
     try {
@@ -223,6 +204,16 @@ function Converter({ addPopup }) {
       addPopup("Invalid YouTube URL", "red");
       console.error("Error fetching video details: ", error);
       return;
+    }
+
+    const endpoint = `${backendUrl}/convert`;
+    const body = {
+      id: videoId,
+      url: url,
+      type: types[type],
+      format: type === 0 ? audioFormats[audioFormat] : videoFormats[videoFormat],
+      audioQuality: parseInt(audioQualities[audioQuality]),
+      videoQuality: parseInt(videoQualities[videoQuality]),
     }
 
     try {
@@ -263,7 +254,15 @@ function Converter({ addPopup }) {
 
         if (newStatus === "done") {
           setLoading(false);
+          setProgress(0);
+          setFileSize(data.fileSize);
           clearInterval(interval);
+
+          const audio = new Audio("./ding.m4a");
+          audio.volume = 0.25;
+          audio.play();
+
+          if (autoDownload) triggerDownload();
         }
 
         if (newStatus === "error") {
@@ -365,75 +364,67 @@ function Converter({ addPopup }) {
             </div>
           )}
           <div className="split-container">
-            <Button
-              id="convert-button"
-              type="submit"
-              color="primary"
-              className="col-span-2"
-              title={displayStatusLabel[status]}
-              aria-label={displayStatusLabel[status]}
-              isLoading={loading}
-              showLoadingAnimation={false}
-            >
-              <span className="content">
-                <FaArrowsRotate />
-                {displayStatus[status]}
-              </span>
-              <span
-                className="progress-bar"
-                style={{
-                  width: `${progress}%`
-                }}
-              />
-            </Button>
-          </div>
-          <span
-            id={buttonId}
-            className="advanced-options-toggle"
-            title="Advanced Options"
-            onClick={() => toggleAdvancedOptions()}
-            aria-label="Advanced Options"
-            aria-expanded={advancedOptions}
-            aria-controls={controlId}
-          >
-            Advanced Options
-            <motion.span
-              animate={{ rotate: advancedOptions ? 180 : 0 }}
-              transition={{ duration: 0.2, ease: "easeIn" }}
-              aria-hidden={true}
-            >
-              <FiChevronDown className="icon text-xl" aria-hidden={true} />
-            </motion.span>
-          </span>
-        </form>
-        <AnimatePresence initial={false}>
-          {advancedOptions && (
-            <motion.div
-              id={controlId}
-              className="advanced-options-content"
-              variants={contentVariants}
-              initial="hidden"
-              animate="visible"
-              exit="hidden"
-              transition={{ duration: 0.3, ease: "easeIn" }}
-              aria-labelledby={buttonId}
-              role="region"
-            >
-              <Switch
-                checked={autoDownload}
-                onChange={setAutoDownload}
-                label={`Auto Download: ${autoDownload ? "On" : "Off"}`}
-                disabled={false}
-                fullWidth={false}
+            {(status !== "done") ? (
+              <Button
+                id="convert-button"
+                type="submit"
+                color="primary"
+                className="col-span-2"
+                title={displayStatusLabel[status]}
+                aria-label={displayStatusLabel[status]}
+                isLoading={loading}
+                showLoadingAnimation={false}
               >
-                Auto Download
-                <Tooltip icon={<FaQuestionCircle />}>
-                  Automatically starts download when conversion finishes.
-                </Tooltip>
-              </Switch>
-            </motion.div>
-          )}
-        </AnimatePresence>
+                <span className="content">
+                  {status === "pending" ? (
+                    <DotLoader />
+                  ) : (
+                    <FaArrowsRotate />
+                  )}
+                  {displayStatus[status]}
+                </span>
+                <span
+                  className="progress-bar"
+                  data-status={status}
+                  style={{
+                    width: `${progress}%`
+                  }}
+                />
+              </Button>
+            ) : (
+              <>
+                <Button
+                  type="button"
+                  color="green"
+                  onClick={() => triggerDownload()}
+                >
+                  <FaDownload />
+                  Download {fileSize}
+                </Button>
+                <Button
+                  type="button"
+                  color="primary"
+                  onClick={() => setStatus("idle")}
+                >
+                  Convert Next
+                </Button>
+              </>
+            )}
+          </div>
+
+          <Switch
+            checked={autoDownload}
+            onChange={setAutoDownload}
+            label={`Auto Download: ${autoDownload ? "On" : "Off"}`}
+            disabled={false}
+            fullWidth={false}
+          >
+            Auto Download
+            <Tooltip icon={<FaQuestionCircle />} >
+              Automatically starts download when conversion finishes.
+            </Tooltip>
+          </Switch>
+        </form>
       </div>
     </div>
   )
