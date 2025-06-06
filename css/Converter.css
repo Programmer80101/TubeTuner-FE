@@ -1,9 +1,18 @@
 @import "./globals.css";
 
+@keyframes rotate {
+  0% {
+    rotate: 0deg;
+  }
+  100% {
+    rotate: 360deg;
+  }
+}
+
 @layer utilities {
   #converter {
-    @apply bg-gradient-to-b from-primary-200 to-primary-50;
-    @apply shadow-lg;
+    @apply bg-primary-100;
+    @apply shadow-lg rounded-b-lg;
   }
 
   #converter .converter-wrapper {
@@ -11,14 +20,52 @@
   }
 
   #converter .converter-form {
-    @apply flex flex-col gap-3;
+    @apply flex flex-col gap-y-3;
   }
 
   #converter .split-container {
-    @apply grid grid-cols-2 gap-3;
+    @apply grid grid-cols-2 gap-x-3;
   }
 
-  #converter #advanced-options {
-    @apply p-3;
+  #converter #convert-button {
+    @apply relative overflow-hidden;
+  }
+
+  #converter #convert-button .content {
+    @apply relative z-2 flex flex-row;
+    @apply justify-center items-center gap-2;
+  }
+
+  @keyframes ripple {
+    0% {
+      background-position: 400% 0;
+    }
+    100% {
+      background-position: -400% 0;
+    }
+  }
+
+  #converter #convert-button .progress-bar {
+    @apply absolute z-1 inset-0 h-full;
+    @apply bg-green-600;
+    @apply transition-colors duration-300 ease-in;
+
+    background-image: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 35%,
+      rgba(255, 255, 255, 0.25) 50%,
+      rgba(255, 255, 255, 0) 65%
+    );
+
+    background-size: 400% 100%;
+    animation: ripple 10s linear infinite;
+  }
+
+  #converter #convert-button:hover .progress-bar {
+    @apply bg-green-700;
+  }
+
+  #converter #convert-button[aria-busy="true"] > svg {
+    animation: rotate infinite 3s ease;
   }
 }

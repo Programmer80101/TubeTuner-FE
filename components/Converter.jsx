@@ -1,6 +1,6 @@
 "use client";
 
-import { HiOutlineAdjustments } from "react-icons/hi";
+import { FaArrowsRotate } from "react-icons/fa6";
 
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -8,11 +8,16 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 import Input from "@/components/Input";
 import Button from "@/components/Button";
 import Dropdown from "@/components/Dropdown";
-import ToggleButton from "@/components/ToggleButton";
 import withPopup from "@/hoc/withPopup";
 import "@/css/Converter.css";
 
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+const ytApiKey = process.env.NEXT_PUBLIC_YT_API_KEY;
+
+const types = [
+  `Audio`,
+  `Video`,
+];
 
 const audioFormats = [
   'mp3',
@@ -57,6 +62,61 @@ const audioQualities = [
   "512kbps",
 ];
 
+const displayStatus = {
+  idle: "Convert",
+  pending: "Pending...",
+  converting: "Converting...",
+  processing: "Processing...",
+  done: "Convert Next",
+}
+
+const displayStatusLabel = {
+  idle: "Convet YouTube Video",
+  pending: "Pending Conversion",
+  converting: "Converting Current YouTube Video",
+  processing: "Processing YouTube Video",
+  done: "Conversion Completed! Convert Next YouTube Video",
+}
+
+const displayStatusPopup = {
+  idle: "",
+  pending: "",
+  converting: "Conversion Started!",
+  processing: "Processing...",
+  done: "Conversion Completed!",
+}
+
+const displayStatusPopupColors = {
+  idle: "",
+  pending: "",
+  converting: "blue",
+  processing: "blue",
+  done: "green",
+  error: "red",
+}
+
+function extractYouTubeVideoID(url) {
+  if (typeof url !== 'string') return null;
+
+  const regex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|shorts)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i;
+  const match = url.match(regex);
+  return match ? match[1] : null;
+}
+
+function parseISODuration(isoDuration) {
+  const regex = /PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/;
+  const matches = isoDuration.match(regex);
+
+  if (!matches) return '00:00:00';
+
+  const hours = parseInt(matches[1] || '0', 10);
+  const minutes = parseInt(matches[2] || '0', 10);
+  const seconds = parseInt(matches[3] || '0', 10);
+
+  const pad = (num) => String(num).padStart(2, '0');
+
+  return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+}
 
 function Converter({ addPopup }) {
   const [url, setUrl] = useLocalStorage("converter-url", "");
@@ -66,19 +126,17 @@ function Converter({ addPopup }) {
   const [videoQuality, setVideoQuality] = useLocalStorage("converter-video-quality", 3);
   const [audioQuality, setAudioQuality] = useLocalStorage("converter-audio-quality", 2);
 
-  const [status, setStatus] = useState("");
-  const [progress, setProgress] = useState(0);
-  const [conversionId, setConversionId] = useState(null);
+  const [videoId, setVideoId] = useState("");
+  const [videoDetails, setVideoDetails] = useState({});
 
-  const types = [
-    `Audio | ${audioFormats[audioFormat]}`,
-    `Video | ${videoFormats[videoFormat]}`,
-  ];
+  const [status, setStatus] = useState("idle");
+  const [loading, setLoading] = useState(false);
+  const [progress, setProgress] = useState(10);
 
   const triggerDownload = () => {
     const url = [
       `${backendUrl}/download/`,
-      `?fileName=${conversionId}`,
+      `?fileName=${videoId}`,
       `&customName=hehehehaw`
     ]
 
@@ -88,39 +146,77 @@ function Converter({ addPopup }) {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    setVideoId(extractYouTubeVideoID(url));
 
     const endpoint = `${backendUrl}/convert`;
     const body = {
+      id: videoId,
       url: url,
       type: types[type],
-      format: type === 0 ? audioFormats[audioFormat] : videoQualities[videoQuality],
-      audioQuality: audioQualities[audioFormat],
-      videoQuality: videoQualities[videoQuality],
+      format: type === 0 ? audioFormats[audioFormat] : videoFormats[videoQuality],
+      audioQuality: parseInt(audioQualities[audioFormat]),
+      videoQuality: parseInt(videoQualities[videoQuality]),
+    }
+
+    try {
+      const response = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
+        params: {
+          part: 'snippet,contentDetails',
+          id: videoId,
+          key: ytApiKey,
+        },
+      });
+
+      const items = response.data.items;
+      if (items && items.length > 0) {
+        const title = items[0].snippet.title;
+        const duration = items[0].contentDetails.duration;
+
+        const parsedDuration = parseISODuration(duration);
+
+        setVideoDetails({
+          title,
+          parsedDuration,
+        });
+      } else {
+        setStatus("error");
+        addPopup("Invalid YouTube URL", "red");
+      }
+    } catch (error) {
+      setStatus("error");
+      addPopup("Invalid YouTube URL", "red");
+      console.error("Error fetching video details: ", error);
     }
 
     try {
       const { data } = await axios.post(endpoint, body);
 
       if (data.error) {
-        addPopup("Something went wrong!", "red");
+        setStatus("error");
+        addPopup("Uh-oh! Something went horribly wrong!", "red");
         return;
       }
 
-      console.log("data: ", data);
-      setStatus("Pending...");
-      setConversionId(data.conversionId);
+      setLoading(true);
+      setStatus(data.status);
     } catch (error) {
+      setStatus("error");
       addPopup("An unexpected error occured!", "red");
       console.error("Error while conversion: ", error);
     }
   }
 
   useEffect(() => {
-    if (!conversionId) return;
+    if (displayStatusPopup[status])
+      addPopup(displayStatusPopup[status], displayStatusPopupColors[status]);
+  }, [status]);
+
+  useEffect(() => {
+    if (!videoId) return;
     const interval = setInterval(async () => {
       try {
         const endpoint = `${backendUrl}/progress`;
-        const body = { conversionId };
+        const body = { videoId };
 
         const { data } = await axios.post(endpoint, body);
         const newStatus = data.status;
@@ -129,54 +225,29 @@ function Converter({ addPopup }) {
         setProgress(data.progress);
 
         if (newStatus === "done") {
+          setLoading(false);
           clearInterval(interval);
-          addPopup("Conversion completed!", "green");
         }
 
         if (newStatus === "error") {
+          setLoading(false);
           clearInterval(interval);
-          addPopup("Uh oh! Something went horribly wrong!", "red");
+          addPopup("Something went wrong!", "red");
         }
       } catch (error) {
-        console.error("Progress poll error:", error);
-        addPopup("Something went wrong while ");
+        setStatus("error");
+        setLoading(false);
         clearInterval(interval);
+        addPopup("Something went horribly wrong!", "red");
+        console.error("Progress poll error:", error);
       }
     }, 500);
 
     return () => clearInterval(interval);
-  }, [conversionId]);
+  }, [videoId]);
 
   return (
     <div id="converter">
-      {/* <div id="advanced-options">
-          <Dropdown
-            label="Audio Quality"
-            className="mt-0"
-            width="50%"
-            value={audioQuality}
-            setValue={setAudioQuality}
-            options={audioQualities}
-          />
-          <Dropdown
-            label="Video Quality"
-            className="mt-0"
-            width="50%"
-            value={videoQuality}
-            setValue={setVideoQuality}
-            options={videoQualities}
-            disabled={type === 0}
-          />
-          <Dropdown
-            label="Format"
-            width="50%"
-            className="mt-0"
-            value={type === 0 ? audioFormat : videoFormat}
-            setValue={type === 0 ? setAudioFormat : setVideoFormat}
-            options={type === 0 ? audioFormats : videoFormats}
-          />
-        </div> */}
-
       <div className="converter-wrapper">
         <h2>Converter</h2>
         <form
@@ -188,7 +259,7 @@ function Converter({ addPopup }) {
             id="url"
             name="url"
             type="text"
-            className="mb-0"
+            className="mb-0 mt-0"
             label="Paste a YouTube URL"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
@@ -198,33 +269,66 @@ function Converter({ addPopup }) {
             showDetails={false}
           />
           <div className="split-container">
-            <ToggleButton
-              label="Select Type"
-              aria-label="Select Type"
+            <Dropdown
+              width={30 * 4}
               className="mt-0"
               value={type}
               setValue={setType}
               options={types}
+              ariaLabel="Type"
             />
+            <Dropdown
+              width={28 * 4}
+              className="mt-0"
+              value={type === 0 ? audioFormat : videoFormat}
+              setValue={type === 0 ? setAudioFormat : setVideoFormat}
+              options={type === 0 ? audioFormats : videoFormats}
+              ariaLabel="Format"
+            />
+          </div>
+          <div className="split-container">
+            <Dropdown
+              className="mt-0"
+              width={30 * 4}
+              value={audioQuality}
+              setValue={setAudioQuality}
+              options={audioQualities}
+              ariaLabel="Audio Quality"
+            />
+            <Dropdown
+              className="mt-0"
+              width={28 * 4}
+              value={videoQuality}
+              setValue={setVideoQuality}
+              options={videoQualities}
+              disabled={type === 0}
+              ariaLabel="Video Quality"
+            />
+          </div>
+          <div className="split-container">
             <Button
+              id="convert-button"
               type="submit"
               color="primary"
-              title="Convert YouTube Video"
-              aria-label="Convert YouTube Video"
-              loadingText="Converting..."
-              isLoading={false}
+              className="col-span-2"
+              title={displayStatusLabel[status]}
+              aria-label={displayStatusLabel[status]}
+              isLoading={loading}
+              showLoadingAnimation={false}
             >
-              Convert
+              <span className="content">
+                <FaArrowsRotate />
+                {displayStatus[status]}
+              </span>
+              <span
+                className="progress-bar"
+                style={{
+                  width: `${progress}%`
+                }}
+              />
             </Button>
           </div>
         </form>
-        {conversionId && (
-          <div>
-            <p>Conversion ID: {conversionId}</p>
-            <p>Status: {status}</p>
-            <p>Progress: {progress}%</p>
-          </div>
-        )}
       </div>
     </div>
   )

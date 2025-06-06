@@ -34,6 +34,7 @@ export default function Dropdown({
   width,
   options = [],
   disabled = false,
+  ariaLabel = "label",
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef(null);
@@ -72,7 +73,7 @@ export default function Dropdown({
         onClick={toggleOpen}
         className="dropdown-button"
         clickAnimation={false}
-        aria-label={label}
+        aria-label={ariaLabel}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
         aria-controls={controlId}

@@ -7,7 +7,7 @@
     @apply bg-neutral-600 hover:bg-neutral-550;
     @apply flex flex-row justify-center items-center gap-2;
     @apply rounded-xs border-none cursor-pointer;
-    @apply shadow-sm shadow-black/50;
+    @apply shadow-xs shadow-black/50;
     @apply focus-visible:outline-offset-2 focus-visible:outline-2;
     @apply focus-visible:outline-neutral-150;
     @apply duration-300 ease-in;

@@ -12,6 +12,7 @@ export default function Button({
   isLoading = false,
   clickAnimation = true,
   loadingText = "",
+  showLoadingAnimation = true,
   size = 2,
   icon = false,
   ...props
@@ -36,7 +37,7 @@ export default function Button({
       {...props}
     >
       {
-        isLoading ? (
+        (isLoading && showLoadingAnimation) ? (
           <div className="button-loader-wrapper">
             <DotLoader size={size} />
             <span>
