@@ -35,6 +35,7 @@ export default function Dropdown({
   options = [],
   disabled = false,
   ariaLabel = "label",
+  inlineLabel = false
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef(null);
@@ -60,11 +61,13 @@ export default function Dropdown({
       className="dropdown-wrapper"
       ref={containerRef}
     >
-      <div className="dropdown-label">
-        <label htmlFor={labelId}>
-          {label}
-        </label>
-      </div>
+      {!inlineLabel && (
+        <div className="dropdown-label">
+          <label htmlFor={labelId}>
+            {label}
+          </label>
+        </div>
+      )}
       <Button
         id={labelId}
         ref={buttonRef}
@@ -80,6 +83,8 @@ export default function Dropdown({
         aria-disabled={disabled}
         disabled={disabled}
       >
+        {inlineLabel && label}
+        {": "}
         {options[value]}
         <FiChevronDown className={isOpen ? "rotate-180" : ""} />
       </Button>

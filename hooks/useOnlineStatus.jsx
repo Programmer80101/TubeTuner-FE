@@ -5,7 +5,7 @@ export default function useOnlineStatus() {
     typeof navigator !== 'undefined' && typeof navigator.onLine === 'boolean'
       ? navigator.onLine
       : true
-  );
+  ); 
 
   useEffect(() => {
     const handleOnline = () => setIsOnline(true);

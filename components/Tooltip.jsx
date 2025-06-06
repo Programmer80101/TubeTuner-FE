@@ -23,7 +23,7 @@ export default function Tooltip({
       <div className="tooltip-icon">
         {!!icon ? icon : <FaInfoCircle />}
       </div>
-      <div
+      <div 
         id={tooltipId}
         className="tooltip-content"
         role="tooltip"

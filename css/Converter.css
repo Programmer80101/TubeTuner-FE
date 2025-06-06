@@ -9,6 +9,15 @@
   }
 }
 
+@keyframes ripple {
+  0% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: -400% 0;
+  }
+}
+
 @layer utilities {
   #converter {
     @apply bg-primary-100;
@@ -16,7 +25,7 @@
   }
 
   #converter .converter-wrapper {
-    @apply max-w-xl mx-auto px-6 pb-6;
+    @apply max-w-xl mx-auto px-6 pb-3;
   }
 
   #converter .converter-form {
@@ -34,15 +43,6 @@
   #converter #convert-button .content {
     @apply relative z-2 flex flex-row;
     @apply justify-center items-center gap-2;
-  }
-
-  @keyframes ripple {
-    0% {
-      background-position: 400% 0;
-    }
-    100% {
-      background-position: -400% 0;
-    }
   }
 
   #converter #convert-button .progress-bar {
@@ -67,5 +67,16 @@
 
   #converter #convert-button[aria-busy="true"] > svg {
     animation: rotate infinite 3s ease;
+  }
+
+  #converter .advanced-options-toggle {
+    @apply w-full py-1 cursor-pointer;
+    @apply flex flex-row;
+    @apply justify-center items-center gap-2;
+  }
+
+  #converter .advanced-options-content {
+    @apply overflow-hidden px-0.25;
+    @apply flex flex-col gap-2;
   }
 }

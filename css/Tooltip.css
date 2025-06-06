@@ -2,7 +2,7 @@
 
 @layer components {
   .tooltip-wrapper {
-    @apply relative inline-block;
+    @apply relative z-50 inline-block;
     @apply m-1 -translate-y-1;
     @apply rounded-full outline-offset-2;
     @apply focus-visible:outline-2 focus-visible:outline-neutral-100;

@@ -10,6 +10,7 @@ export default function Switch({
   label = "",
   disabled = false,
   fullWidth = true,
+  children,
   ...props
 }) {
 
@@ -20,7 +21,7 @@ export default function Switch({
     <div className="switch-wrapper" data-full-width={fullWidth} {...props}>
       <div className="switch-label">
         <label htmlFor={labelId}>
-          {label}
+          {children}
         </label>
       </div>
       <button
@@ -37,10 +38,10 @@ export default function Switch({
       >
         <motion.span
           className="switch-thumb"
-          layout
-          transition={{ duration: 0.2, ease: "easeIn" }}
           initial={false}
           animate={{ x: checked ? 20 : 0 }}
+          transition={{ duration: 0.2, ease: "easeIn" }}
+          layout
         />
       </button>
     </div>

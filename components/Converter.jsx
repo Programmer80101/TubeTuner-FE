@@ -1,15 +1,30 @@
 "use client";
 
 import { FaArrowsRotate } from "react-icons/fa6";
+import { FaQuestionCircle } from "react-icons/fa";
+import { FiChevronDown } from "react-icons/fi";
 
 import axios from "axios";
+import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
+import useOnlineStatus from "@/hooks/useOnlineStatus";
 import useLocalStorage from "@/hooks/useLocalStorage";
+import useToggle from "@/hooks/useToggle";
 import Input from "@/components/Input";
 import Button from "@/components/Button";
+import Switch from "@/components/Switch";
 import Dropdown from "@/components/Dropdown";
+import Tooltip from "@/components/Tooltip";
 import withPopup from "@/hoc/withPopup";
 import "@/css/Converter.css";
+
+const contentVariants = {
+  hidden: { height: 0 },
+  visible: { height: "auto" }
+}
+
+const controlId = `accordion-control-advanced-options`
+const buttonId = `accordion-button-advanced-options`
 
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 const ytApiKey = process.env.NEXT_PUBLIC_YT_API_KEY;
@@ -98,7 +113,7 @@ const displayStatusPopupColors = {
 function extractYouTubeVideoID(url) {
   if (typeof url !== 'string') return null;
 
-  const regex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|shorts)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i;
+  const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|shorts)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i;
   const match = url.match(regex);
   return match ? match[1] : null;
 }
@@ -125,18 +140,23 @@ function Converter({ addPopup }) {
   const [audioFormat, setAudioFormat] = useLocalStorage("converter-audio-format", 0);
   const [videoQuality, setVideoQuality] = useLocalStorage("converter-video-quality", 3);
   const [audioQuality, setAudioQuality] = useLocalStorage("converter-audio-quality", 2);
+  const [autoDownload, setAutoDownload] = useLocalStorage("converter-auto-download", false);
 
-  const [videoId, setVideoId] = useState("");
+  const [advancedOptions, toggleAdvancedOptions] = useToggle(false);
+
+  const [fileName, setFileName] = useState("");
   const [videoDetails, setVideoDetails] = useState({});
 
   const [status, setStatus] = useState("idle");
   const [loading, setLoading] = useState(false);
-  const [progress, setProgress] = useState(10);
+  const [progress, setProgress] = useState(0);
+
+  const isOnline = useOnlineStatus();
 
   const triggerDownload = () => {
     const url = [
       `${backendUrl}/download/`,
-      `?fileName=${videoId}`,
+      `?fileName=${encodeURIComponent(fileName)}`,
       `&customName=hehehehaw`
     ]
 
@@ -146,7 +166,18 @@ function Converter({ addPopup }) {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    setVideoId(extractYouTubeVideoID(url));
+
+    if (!isOnline) {
+      addPopup("Network error! Check your connection and try again!", "red");
+      return;
+    }
+
+    const videoId = extractYouTubeVideoID(url);
+
+    if (!videoId) {
+      addPopup("Invalid YouTube URL", "red");
+      return;
+    }
 
     const endpoint = `${backendUrl}/convert`;
     const body = {
@@ -167,6 +198,11 @@ function Converter({ addPopup }) {
         },
       });
 
+      if (!response.data || !response.data.items) {
+        addPopup("Invalid YouTube URL!", "red");
+        return;
+      }
+
       const items = response.data.items;
       if (items && items.length > 0) {
         const title = items[0].snippet.title;
@@ -176,31 +212,32 @@ function Converter({ addPopup }) {
 
         setVideoDetails({
           title,
-          parsedDuration,
+          duration: parsedDuration,
         });
       } else {
-        setStatus("error");
-        addPopup("Invalid YouTube URL", "red");
+        addPopup("Invalid YouTube URL!", "red");
+        return;
       }
     } catch (error) {
-      setStatus("error");
+      setStatus("idle");
       addPopup("Invalid YouTube URL", "red");
       console.error("Error fetching video details: ", error);
+      return;
     }
 
     try {
       const { data } = await axios.post(endpoint, body);
 
       if (data.error) {
-        setStatus("error");
         addPopup("Uh-oh! Something went horribly wrong!", "red");
         return;
       }
 
       setLoading(true);
       setStatus(data.status);
+      setFileName(data.fileName);
     } catch (error) {
-      setStatus("error");
+      setStatus("idle");
       addPopup("An unexpected error occured!", "red");
       console.error("Error while conversion: ", error);
     }
@@ -212,11 +249,11 @@ function Converter({ addPopup }) {
   }, [status]);
 
   useEffect(() => {
-    if (!videoId) return;
+    if (!fileName) return;
     const interval = setInterval(async () => {
       try {
         const endpoint = `${backendUrl}/progress`;
-        const body = { videoId };
+        const body = { fileName };
 
         const { data } = await axios.post(endpoint, body);
         const newStatus = data.status;
@@ -230,12 +267,13 @@ function Converter({ addPopup }) {
         }
 
         if (newStatus === "error") {
+          setStatus("idle");
           setLoading(false);
           clearInterval(interval);
           addPopup("Something went wrong!", "red");
         }
       } catch (error) {
-        setStatus("error");
+        setStatus("idle");
         setLoading(false);
         clearInterval(interval);
         addPopup("Something went horribly wrong!", "red");
@@ -244,7 +282,7 @@ function Converter({ addPopup }) {
     }, 500);
 
     return () => clearInterval(interval);
-  }, [videoId]);
+  }, [fileName]);
 
   return (
     <div id="converter">
@@ -255,56 +293,77 @@ function Converter({ addPopup }) {
           name="converter"
           onSubmit={(e) => onSubmit(e)}
         >
-          <Input
-            id="url"
-            name="url"
-            type="text"
-            className="mb-0 mt-0"
-            label="Paste a YouTube URL"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-            required
-            showTooltip={false}
-            showDetails={false}
-          />
-          <div className="split-container">
-            <Dropdown
-              width={30 * 4}
-              className="mt-0"
-              value={type}
-              setValue={setType}
-              options={types}
-              ariaLabel="Type"
-            />
-            <Dropdown
-              width={28 * 4}
-              className="mt-0"
-              value={type === 0 ? audioFormat : videoFormat}
-              setValue={type === 0 ? setAudioFormat : setVideoFormat}
-              options={type === 0 ? audioFormats : videoFormats}
-              ariaLabel="Format"
-            />
-          </div>
-          <div className="split-container">
-            <Dropdown
-              className="mt-0"
-              width={30 * 4}
-              value={audioQuality}
-              setValue={setAudioQuality}
-              options={audioQualities}
-              ariaLabel="Audio Quality"
-            />
-            <Dropdown
-              className="mt-0"
-              width={28 * 4}
-              value={videoQuality}
-              setValue={setVideoQuality}
-              options={videoQualities}
-              disabled={type === 0}
-              ariaLabel="Video Quality"
-            />
-          </div>
+          {(status === "idle") ? (
+            <>
+              <Input
+                id="url"
+                name="url"
+                type="text"
+                className="mb-0 mt-0"
+                label="Paste a YouTube URL"
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+                placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                required
+                showTooltip={false}
+                showDetails={false}
+              />
+              <div className="split-container">
+                <Dropdown
+                  label="Type"
+                  width={30 * 4}
+                  className="mt-0"
+                  value={type}
+                  setValue={setType}
+                  options={types}
+                  ariaLabel="Type"
+                  inlineLabel={true}
+                />
+                <Dropdown
+                  label="Format"
+                  width={28 * 4}
+                  className="mt-0"
+                  value={type === 0 ? audioFormat : videoFormat}
+                  setValue={type === 0 ? setAudioFormat : setVideoFormat}
+                  options={type === 0 ? audioFormats : videoFormats}
+                  ariaLabel="Format"
+                  inlineLabel={true}
+                />
+              </div>
+              <div className="split-container">
+                <Dropdown
+                  label="Audio Quality"
+                  className="mt-0"
+                  width={30 * 4}
+                  value={audioQuality}
+                  setValue={setAudioQuality}
+                  options={audioQualities}
+                  ariaLabel="Audio Quality"
+                  inlineLabel={true}
+                />
+                <Dropdown
+                  label="Video Quality"
+                  className="mt-0"
+                  width={28 * 4}
+                  value={videoQuality}
+                  setValue={setVideoQuality}
+                  options={videoQualities}
+                  disabled={type === 0}
+                  ariaLabel="Video Quality"
+                  inlineLabel={true}
+                />
+              </div>
+            </>
+          ) : (
+            <div>
+              <span className="block">
+                <span className="font-400">Video Title: </span> {videoDetails.title}
+              </span>
+              <span className="block">
+                <span className="font-400">Duration: </span> {videoDetails.duration}
+              </span>
+            </div>
+          )}
           <div className="split-container">
             <Button
               id="convert-button"
@@ -328,7 +387,53 @@ function Converter({ addPopup }) {
               />
             </Button>
           </div>
+          <span
+            id={buttonId}
+            className="advanced-options-toggle"
+            title="Advanced Options"
+            onClick={() => toggleAdvancedOptions()}
+            aria-label="Advanced Options"
+            aria-expanded={advancedOptions}
+            aria-controls={controlId}
+          >
+            Advanced Options
+            <motion.span
+              animate={{ rotate: advancedOptions ? 180 : 0 }}
+              transition={{ duration: 0.2, ease: "easeIn" }}
+              aria-hidden={true}
+            >
+              <FiChevronDown className="icon text-xl" aria-hidden={true} />
+            </motion.span>
+          </span>
         </form>
+        <AnimatePresence initial={false}>
+          {advancedOptions && (
+            <motion.div
+              id={controlId}
+              className="advanced-options-content"
+              variants={contentVariants}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              transition={{ duration: 0.3, ease: "easeIn" }}
+              aria-labelledby={buttonId}
+              role="region"
+            >
+              <Switch
+                checked={autoDownload}
+                onChange={setAutoDownload}
+                label={`Auto Download: ${autoDownload ? "On" : "Off"}`}
+                disabled={false}
+                fullWidth={false}
+              >
+                Auto Download
+                <Tooltip icon={<FaQuestionCircle />}>
+                  Automatically starts download when conversion finishes.
+                </Tooltip>
+              </Switch>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   )

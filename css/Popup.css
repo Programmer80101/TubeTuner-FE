@@ -3,7 +3,7 @@
 @layer components {
   .popup {
     @apply relative z-50;
-    @apply text-sm font-500;
+    @apply text-base font-500;
     @apply w-full h-10 px-3 py-2;
     @apply text-white hover:text-neutral-950;
     @apply bg-neutral-600 hover:bg-neutral-550;
@@ -49,7 +49,7 @@
 
   .popup .popup-progress {
     @apply absolute bottom-0 left-0;
-    @apply h-1 bg-black/20;
+    @apply h-1 bg-black/15;
     @apply duration-100 ease-linear;
 
     transition-property: width, background-color;

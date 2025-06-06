@@ -3,6 +3,7 @@
 import { FiChevronDown } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
 import { useId, useState } from "react";
+import useToggle from "@/components/useToggle";
 import Button from "@/components/Button";
 import "@/css/Accordion.css";
 
@@ -12,7 +13,7 @@ const contentVariants = {
 }
 
 export default function Accordion({ title, children }) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, toggleOpen] = useToggle(false);
   const id = useId();
 
   const controlId = `accordion-control-${id}`
@@ -24,7 +25,7 @@ export default function Accordion({ title, children }) {
         id={buttonId}
         title={title}
         className="accordion-button"
-        onClick={() => setIsOpen(open => !open)}
+        onClick={() => toggleOpen()}
         clickAnimation={false}
         aria-label={title}
         aria-expanded={isOpen}

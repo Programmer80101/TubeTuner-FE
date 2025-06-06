@@ -19,7 +19,7 @@ export default function withPopup(WrappedComponent) {
 
     return (
       <>
-        <div className="fixed top-15 left-1/2 -translate-x-1/2 space-y-2 z-50 wrapper-sm w-full">
+        <div className="fixed top-3 left-1/2 -translate-x-1/2 space-y-2 z-50 wrapper-sm w-full">
           <AnimatePresence>
             {popups.map((popup) => (
               <Popup
