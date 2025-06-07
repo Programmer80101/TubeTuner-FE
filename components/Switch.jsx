@@ -9,7 +9,7 @@ export default function Switch({
   onChange,
   label = "",
   disabled = false,
-  fullWidth = true,
+  fullWidth = false,
   children,
   ...props
 }) {

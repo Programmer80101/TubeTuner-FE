@@ -25,7 +25,7 @@
   }
 
   #converter .converter-wrapper {
-    @apply max-w-xl mx-auto px-6 pb-3;
+    @apply max-w-xl mx-auto px-6 pb-4;
   }
 
   #converter .converter-form {

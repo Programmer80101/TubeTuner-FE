@@ -13,11 +13,11 @@ const triggerDeploy = async () => {
 };
 
 const useServiceStatus = () => {
-  const [isServiceReady, setIsServiceReady] = useState(false);
+  const [isServiceReady, setIsServiceReady] = useState(true);
   const isOnline = useOnlineStatus();
 
   useEffect(() => {
-    if (!isOnline) return; 
+    if (!isOnline) return;
 
     let isMounted = true;
     let intervalId;

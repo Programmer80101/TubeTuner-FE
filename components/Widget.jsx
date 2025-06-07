@@ -17,15 +17,13 @@ export default function Widget({ title, children, icon }) {
         >
           {icon}
         </Button>
-        <div>
-          <Dialog
-            title={title}
-            isOpen={isOpen}
-            onClose={() => setIsOpen(false)}
-          >
-            {children}
-          </Dialog>
-        </div>
+        <Dialog
+          title={title}
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+        >
+          {children}
+        </Dialog>
       </div>
     </>
   );

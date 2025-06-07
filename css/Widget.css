@@ -11,8 +11,4 @@
     @apply text-neutral-150 hover:text-neutral-200;
     @apply rounded-full;
   }
-
-  .widget-wrapper > button svg {
-    @apply rotate-90;
-  }
 }

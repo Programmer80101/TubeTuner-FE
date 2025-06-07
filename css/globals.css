@@ -28,20 +28,20 @@
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-transparent rounded-xs;
+    @apply bg-neutral-900 rounded-xs;
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-neutral-500 rounded-xs;
-    @apply border-2 border-neutral-700;
-    @apply hover:bg-neutral-600;
+    @apply bg-neutral-750 rounded-xs;
+    @apply border-2 border-neutral-750;
+    @apply hover:bg-neutral-750;
   }
 
   html,
   body {
     @apply bg-neutral-950 text-neutral-200 font-300;
     scrollbar-width: thin;
-    scrollbar-color: #9c9c9c #0000;
+    scrollbar-color: #aeaeae #e8e8e8;
     scrollbar-gutter: stable;
   }
 
@@ -68,7 +68,7 @@
   }
 
   h1 {
-    @apply text-5xl pt-2 pb-2;
+    @apply text-5xl pt-4 pb-3;
   }
 
   h2 {

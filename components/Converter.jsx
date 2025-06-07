@@ -1,7 +1,7 @@
 "use client";
 
 import { FaSliders, FaArrowsRotate, FaDownload } from "react-icons/fa6";
-import { FaQuestionCircle } from "react-icons/fa";
+import { FaQuestionCircle, FaArrowRight } from "react-icons/fa";
 
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -28,13 +28,15 @@ const types = [
 
 const audioFormats = [
   'mp3',
-  'wav',
   'flac',
-  'aac',
+  'wav',
+  "m4a",
+  "ogg",
+  "webm",
   'opus',
-  'ac3',
-  'vorbis',
-  'alac',
+  'aac',
+  "aiff",
+  "mka"
 ];
 
 const videoFormats = [
@@ -130,6 +132,8 @@ function Converter({ addPopup }) {
   const [audioFormat, setAudioFormat] = useLocalStorage("converter-audio-format", 0);
   const [videoQuality, setVideoQuality] = useLocalStorage("converter-video-quality", 3);
   const [audioQuality, setAudioQuality] = useLocalStorage("converter-audio-quality", 2);
+
+  const [playSound, setPlaySound] = useLocalStorage("converter-play-sound", true);
   const [autoDownload, setAutoDownload] = useLocalStorage("converter-auto-download", false);
 
   const [fileName, setFileName] = useState("");
@@ -143,9 +147,8 @@ function Converter({ addPopup }) {
   const isOnline = useOnlineStatus();
   const isServiceReady = useServiceStatus();
 
-  const showServiceIsOffline = (reload = true) => {
+  const showServiceIsOffline = () => {
     addPopup("Service is offline, try again in a few minutes!", "red");
-    if (reload) window.location.reload();
   }
 
   const showServiceIsOnline = () => {
@@ -234,6 +237,8 @@ function Converter({ addPopup }) {
       return;
     }
 
+    setFileName("");
+
     const endpoint = `${backendUrl}/convert`;
     const body = {
       id: videoId,
@@ -243,6 +248,8 @@ function Converter({ addPopup }) {
       audioQuality: parseInt(audioQualities[audioQuality]),
       videoQuality: parseInt(videoQualities[videoQuality]),
     }
+
+    console.log("Payload:", body);
 
     try {
       const { data } = await axios.post(endpoint, body);
@@ -269,7 +276,7 @@ function Converter({ addPopup }) {
 
   useEffect(() => {
     if (isServiceReady) showServiceIsOnline();
-    else showServiceIsOffline(false);
+    else showServiceIsOffline();
   }, [isServiceReady]);
 
   useEffect(() => {
@@ -288,12 +295,15 @@ function Converter({ addPopup }) {
         if (newStatus === "done") {
           setLoading(false);
           setProgress(0);
+          setFileName("");
           setFileSize(data.fileSize);
           clearInterval(interval);
 
-          const audio = new Audio("./ding.m4a");
-          audio.volume = 0.25;
-          audio.play();
+          if (playSound) {
+            const audio = new Audio("./ding.m4a");
+            audio.volume = 0.25;
+            audio.play();
+          }
 
           if (autoDownload) triggerDownload();
         }
@@ -319,7 +329,7 @@ function Converter({ addPopup }) {
   return (
     <div id="converter">
       <div className="converter-wrapper">
-        <h2>Converter</h2>
+        <h1>TubeTuner</h1>
         <form
           className="converter-form"
           name="converter"
@@ -434,7 +444,7 @@ function Converter({ addPopup }) {
                   disabled={!isServiceReady}
                 >
                   <FaDownload />
-                  Download {fileSize}
+                  Download ({fileSize})
                 </Button>
                 <Button
                   type="button"
@@ -442,25 +452,40 @@ function Converter({ addPopup }) {
                   onClick={() => setStatus("idle")}
                 >
                   Convert Next
+                  <FaArrowRight />
                 </Button>
               </>
             )}
           </div>
         </form>
       </div>
-      <Widget icon={<FaSliders />}>
-        <Switch
-          checked={autoDownload}
-          onChange={setAutoDownload}
-          label={`Auto Download: ${autoDownload ? "On" : "Off"}`}
-          disabled={false}
-          fullWidth={false}
-        >
-          Auto Download
-          <Tooltip icon={<FaQuestionCircle />} >
-            Automatically starts download when conversion finishes.
-          </Tooltip>
-        </Switch>
+      <Widget title="Settings" icon={<FaSliders className="scale-90 origin-center" />}>
+        <div className="p-4">
+          <div className="flex flex-col gap-2">
+            <Switch
+              checked={playSound}
+              onChange={setPlaySound}
+              label={`Play Sound: ${playSound ? "On" : "Off"}`}
+              disabled={false}
+            >
+              Play Sound
+              <Tooltip icon={<FaQuestionCircle />} >
+                Plays a sound when conversion finishes.
+              </Tooltip>
+            </Switch>
+            <Switch
+              checked={autoDownload}
+              onChange={setAutoDownload}
+              label={`Auto Download: ${autoDownload ? "On" : "Off"}`}
+              disabled={false}
+            >
+              Auto Download
+              <Tooltip icon={<FaQuestionCircle />} >
+                Automatically starts download when conversion finishes.
+              </Tooltip>
+            </Switch>
+          </div>
+        </div>
       </Widget>
     </div>
   )

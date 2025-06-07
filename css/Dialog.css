@@ -8,14 +8,14 @@
   }
 
   .dialog-wrapper .dialog-box {
-    @apply relative z-50 wrapper-sm;
+    @apply relative z-50 w-full wrapper-sm;
     @apply bg-neutral-950 rounded-sm;
     @apply border-1 border-neutral-600;
     @apply shadow-2xl;
   }
 
   .dialog-wrapper .dialog-title {
-    @apply w-full text-2xl pt-3 pb-2 px-8;
+    @apply w-full text-3xl pt-3 pb-2 px-8;
   }
 
   .dialog-wrapper .dialog-close-button {

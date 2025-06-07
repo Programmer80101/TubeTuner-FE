@@ -68,8 +68,8 @@
 
   button[aria-busy="false"]:disabled {
     @apply cursor-not-allowed;
-    @apply bg-neutral-450 text-neutral-700;
-    @apply hover:bg-neutral-450 hover:text-neutral-700;
+    @apply bg-neutral-450 text-neutral-750;
+    @apply hover:bg-neutral-450 hover:text-neutral-750;
   }
 
   button[aria-busy="true"] {
