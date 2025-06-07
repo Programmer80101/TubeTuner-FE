@@ -1,16 +1,17 @@
 "use client";
 
-import { FaArrowsRotate } from "react-icons/fa6";
+import { FaSliders, FaArrowsRotate, FaDownload } from "react-icons/fa6";
 import { FaQuestionCircle } from "react-icons/fa";
-import { FaDownload } from "react-icons/fa6";
 
 import axios from "axios";
 import { useEffect, useState } from "react";
 import useOnlineStatus from "@/hooks/useOnlineStatus";
 import useLocalStorage from "@/hooks/useLocalStorage";
+import useServiceStatus from "@/hooks/useServiceStatus";
 import Input from "@/components/Input";
 import Button from "@/components/Button";
 import Switch from "@/components/Switch";
+import Widget from "@/components/Widget";
 import DotLoader from "@/components/DotLoader";
 import Dropdown from "@/components/Dropdown";
 import Tooltip from "@/components/Tooltip";
@@ -140,6 +141,16 @@ function Converter({ addPopup }) {
   const [progress, setProgress] = useState(0);
 
   const isOnline = useOnlineStatus();
+  const isServiceReady = useServiceStatus();
+
+  const showServiceIsOffline = (reload = true) => {
+    addPopup("Service is offline, try again in a few minutes!", "red");
+    if (reload) window.location.reload();
+  }
+
+  const showServiceIsOnline = () => {
+    addPopup("Service is back online!", "green");
+  }
 
   const triggerDownload = () => {
     const fileFormat = type === 0 ? audioFormats[audioFormat] : videoFormats[videoFormat]
@@ -163,10 +174,27 @@ function Converter({ addPopup }) {
       return;
     }
 
+    if (!isServiceReady) {
+      showServiceIsOffline();
+      return;
+    }
+
     const videoId = extractYouTubeVideoID(url);
 
     if (!videoId) {
       addPopup("Invalid YouTube URL", "red");
+      return;
+    }
+
+    try {
+      const response = await axios.get(`${backendUrl}/ping`);
+
+      if (response.status !== 200) {
+        showServiceIsOffline();
+        return;
+      }
+    } catch {
+      showServiceIsOffline();
       return;
     }
 
@@ -238,6 +266,11 @@ function Converter({ addPopup }) {
     if (displayStatusPopup[status])
       addPopup(displayStatusPopup[status], displayStatusPopupColors[status]);
   }, [status]);
+
+  useEffect(() => {
+    if (isServiceReady) showServiceIsOnline();
+    else showServiceIsOffline(false);
+  }, [isServiceReady]);
 
   useEffect(() => {
     if (!fileName) return;
@@ -374,6 +407,7 @@ function Converter({ addPopup }) {
                 aria-label={displayStatusLabel[status]}
                 isLoading={loading}
                 showLoadingAnimation={false}
+                disabled={!isServiceReady}
               >
                 <span className="content">
                   {status === "pending" ? (
@@ -397,6 +431,7 @@ function Converter({ addPopup }) {
                   type="button"
                   color="green"
                   onClick={() => triggerDownload()}
+                  disabled={!isServiceReady}
                 >
                   <FaDownload />
                   Download {fileSize}
@@ -411,21 +446,22 @@ function Converter({ addPopup }) {
               </>
             )}
           </div>
-
-          <Switch
-            checked={autoDownload}
-            onChange={setAutoDownload}
-            label={`Auto Download: ${autoDownload ? "On" : "Off"}`}
-            disabled={false}
-            fullWidth={false}
-          >
-            Auto Download
-            <Tooltip icon={<FaQuestionCircle />} >
-              Automatically starts download when conversion finishes.
-            </Tooltip>
-          </Switch>
         </form>
       </div>
+      <Widget icon={<FaSliders />}>
+        <Switch
+          checked={autoDownload}
+          onChange={setAutoDownload}
+          label={`Auto Download: ${autoDownload ? "On" : "Off"}`}
+          disabled={false}
+          fullWidth={false}
+        >
+          Auto Download
+          <Tooltip icon={<FaQuestionCircle />} >
+            Automatically starts download when conversion finishes.
+          </Tooltip>
+        </Switch>
+      </Widget>
     </div>
   )
 }
