@@ -9,7 +9,7 @@ export default function withPopup(WrappedComponent) {
     const [popups, setPopups] = useState([]);
 
     const addPopup = (content, color) => {
-      const id = Date.now();
+      const id = Math.random();
       setPopups((prev) => [...prev, { id, content, color }]);
     };
 

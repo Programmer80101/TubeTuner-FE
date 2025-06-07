@@ -142,7 +142,8 @@ function Converter({ addPopup }) {
 
   const [status, setStatus] = useState("idle");
   const [loading, setLoading] = useState(false);
-  const [progress, setProgress] = useState(0);
+  const [conversionProgress, setConversionProgress] = useState(0);
+  const [processingProgress, setProcessingProgress] = useState(0);
 
   const isOnline = useOnlineStatus();
   const isServiceReady = useServiceStatus();
@@ -249,8 +250,6 @@ function Converter({ addPopup }) {
       videoQuality: parseInt(videoQualities[videoQuality]),
     }
 
-    console.log("Payload:", body);
-
     try {
       const { data } = await axios.post(endpoint, body);
 
@@ -290,12 +289,20 @@ function Converter({ addPopup }) {
         const newStatus = data.status;
 
         setStatus(newStatus);
-        setProgress(data.progress);
+
+        if (newStatus === "converting") {
+          setConversionProgress(data.progress);
+        }
+
+        if (newStatus === "processing") {
+          setConversionProgress(100);
+          setProcessingProgress(data.progress);
+        }
 
         if (newStatus === "done") {
           setLoading(false);
-          setProgress(0);
-          setFileName("");
+          setConversionProgress(0);
+          setProcessingProgress(0);
           setFileSize(data.fileSize);
           clearInterval(interval);
 
@@ -321,7 +328,7 @@ function Converter({ addPopup }) {
         addPopup("Something went horribly wrong!", "red");
         console.error("Progress poll error:", error);
       }
-    }, 500);
+    }, 300);
 
     return () => clearInterval(interval);
   }, [fileName]);
@@ -428,10 +435,16 @@ function Converter({ addPopup }) {
                   {displayStatus[status]}
                 </span>
                 <span
-                  className="progress-bar"
-                  data-status={status}
+                  className="progress-bar conversion"
                   style={{
-                    width: `${progress}%`
+                    width: `${conversionProgress}%`,
+                    animation: status === "converting" ? "" : "none",
+                  }}
+                />
+                <span
+                  className="progress-bar processing"
+                  style={{
+                    width: `${processingProgress}%`
                   }}
                 />
               </Button>
