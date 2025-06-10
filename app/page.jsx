@@ -1,4 +1,4 @@
-import Converter from "@/components/Converter";
+import Converter from "@/converter/Converter";
 import FAQ from "@/components/FAQ";
 
 export default function Home() {

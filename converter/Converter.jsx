@@ -5,9 +5,11 @@ import { FaQuestionCircle, FaArrowRight } from "react-icons/fa";
 
 import axios from "axios";
 import { useEffect, useState } from "react";
+
 import useOnlineStatus from "@/hooks/useOnlineStatus";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import useServiceStatus from "@/hooks/useServiceStatus";
+
 import Input from "@/components/Input";
 import Button from "@/components/Button";
 import Switch from "@/components/Switch";
@@ -15,115 +17,25 @@ import Widget from "@/components/Widget";
 import DotLoader from "@/components/DotLoader";
 import Dropdown from "@/components/Dropdown";
 import Tooltip from "@/components/Tooltip";
+
 import withPopup from "@/hoc/withPopup";
-import "@/css/Converter.css";
 
-const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
-const ytApiKey = process.env.NEXT_PUBLIC_YT_API_KEY;
+import {
+  backendUrl,
+  ytApiKey,
+  types,
+  audioFormats,
+  audioQualities,
+  videoFormats,
+  videoQualities,
+  buttonText,
+  buttonLabels,
+  popupText,
+  popupColors,
+} from "@/converter/config";
 
-const types = [
-  `Audio`,
-  `Video`,
-];
-
-const audioFormats = [
-  'mp3',
-  'flac',
-  'wav',
-  "m4a",
-  "ogg",
-  "webm",
-  'opus',
-  'aac',
-  "aiff",
-  "mka"
-];
-
-const videoFormats = [
-  'mp4',
-  'mkv',
-  'mov',
-  'avi',
-  'flv',
-  'webm',
-  "gif",
-];
-
-const videoQualities = [
-  "144p",
-  "240p",
-  "320p",
-  "480p",
-  "540p",
-  "720p",
-  "1080p",
-];
-
-const audioQualities = [
-  "48kbps",
-  "64kbps",
-  "128kbps",
-  "160kbps",
-  "256kbps",
-  "320kbps",
-  "512kbps",
-];
-
-const displayStatus = {
-  idle: "Convert",
-  pending: "Pending...",
-  converting: "Converting...",
-  processing: "Processing...",
-  done: "Convert Next",
-}
-
-const displayStatusLabel = {
-  idle: "Convet YouTube Video",
-  pending: "Pending Conversion",
-  converting: "Converting Current YouTube Video",
-  processing: "Processing YouTube Video",
-  done: "Conversion Completed! Convert Next YouTube Video",
-}
-
-const displayStatusPopup = {
-  idle: "",
-  pending: "",
-  converting: "Conversion Started!",
-  processing: "Processing...",
-  done: "Conversion Completed!",
-}
-
-const displayStatusPopupColors = {
-  idle: "",
-  pending: "",
-  converting: "blue",
-  processing: "blue",
-  done: "green",
-  error: "red",
-}
-
-function extractYouTubeVideoID(url) {
-  if (typeof url !== 'string') return null;
-
-  const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|shorts)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i;
-  const match = url.match(regex);
-  return match ? match[1] : null;
-}
-
-function parseISODuration(isoDuration) {
-  const regex = /PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/;
-  const matches = isoDuration.match(regex);
-
-  if (!matches) return '00:00:00';
-
-  const hours = parseInt(matches[1] || '0', 10);
-  const minutes = parseInt(matches[2] || '0', 10);
-  const seconds = parseInt(matches[3] || '0', 10);
-
-  const pad = (num) => String(num).padStart(2, '0');
-
-  return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
-}
+import { parseYouTubeVideoID, parseISODuration } from "@/converter/parsers";
+import "@/converter/Converter.css";
 
 function Converter({ addPopup }) {
   const [url, setUrl] = useLocalStorage("converter-url", "");
@@ -183,7 +95,7 @@ function Converter({ addPopup }) {
       return;
     }
 
-    const videoId = extractYouTubeVideoID(url);
+    const videoId = parseYouTubeVideoID(url);
 
     if (!videoId) {
       addPopup("Invalid YouTube URL", "red");
@@ -269,8 +181,8 @@ function Converter({ addPopup }) {
   }
 
   useEffect(() => {
-    if (displayStatusPopup[status])
-      addPopup(displayStatusPopup[status], displayStatusPopupColors[status]);
+    if (popupText[status])
+      addPopup(popupText[status], popupColors[status]);
   }, [status]);
 
   useEffect(() => {
@@ -420,8 +332,8 @@ function Converter({ addPopup }) {
                 type="submit"
                 color="primary"
                 className="col-span-2"
-                title={displayStatusLabel[status]}
-                aria-label={displayStatusLabel[status]}
+                title={buttonLabels[status]}
+                aria-label={buttonLabels[status]}
                 isLoading={loading}
                 showLoadingAnimation={false}
                 disabled={!isServiceReady}
@@ -432,7 +344,7 @@ function Converter({ addPopup }) {
                   ) : (
                     <FaArrowsRotate />
                   )}
-                  {displayStatus[status]}
+                  {buttonText[status]}
                 </span>
                 <span
                   className="progress-bar conversion"
