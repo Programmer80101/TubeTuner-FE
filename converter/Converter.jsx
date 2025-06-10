@@ -4,8 +4,9 @@ import { FaSliders, FaArrowsRotate, FaDownload } from "react-icons/fa6";
 import { FaQuestionCircle, FaArrowRight } from "react-icons/fa";
 
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
+import useUpdateEffect from "@/hooks/useUpdateEffect";
 import useOnlineStatus from "@/hooks/useOnlineStatus";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import useServiceStatus from "@/hooks/useServiceStatus";
@@ -180,15 +181,15 @@ function Converter({ addPopup }) {
     }
   }
 
+  useUpdateEffect(() => {
+    if (isServiceReady) showServiceIsOnline();
+    else showServiceIsOffline();
+  }, [isServiceReady]);
+
   useEffect(() => {
     if (popupText[status])
       addPopup(popupText[status], popupColors[status]);
   }, [status]);
-
-  useEffect(() => {
-    if (isServiceReady) showServiceIsOnline();
-    else showServiceIsOffline();
-  }, [isServiceReady]);
 
   useEffect(() => {
     if (!fileName) return;
@@ -247,6 +248,9 @@ function Converter({ addPopup }) {
 
   return (
     <div id="converter">
+      <div className="blob blob-1"></div>
+      <div className="blob blob-2"></div>
+      <div className="blob blob-3"></div>
       <div className="converter-wrapper">
         <h1>TubeTuner</h1>
         <form
@@ -330,7 +334,7 @@ function Converter({ addPopup }) {
               <Button
                 id="convert-button"
                 type="submit"
-                color="primary"
+                color="gradient"
                 className="col-span-2"
                 title={buttonLabels[status]}
                 aria-label={buttonLabels[status]}

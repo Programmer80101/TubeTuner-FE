@@ -25,38 +25,44 @@
     @apply icon w-auto h-auto text-[22px];
   }
 
+  button[data-color="gradient"] {
+    @apply relative overflow-visible;
+    @apply bg-linear-to-r/oklab from-primary-500;
+    @apply via-purple-600 to-indigo-600;
+  }
+
   button[data-color="primary"] {
-    @apply bg-primary-450 hover:bg-primary-500;
+    @apply bg-primary-450;
     @apply focus-visible:outline-primary-550;
   }
 
   button[data-color="sky"] {
-    @apply bg-sky-600 hover:bg-sky-700;
+    @apply bg-sky-600;
     @apply focus-visible:outline-sky-700;
   }
 
   button[data-color="blue"] {
-    @apply bg-blue-600 hover:bg-blue-700;
+    @apply bg-blue-600;
     @apply focus-visible:outline-blue-700;
   }
 
   button[data-color="red"] {
-    @apply bg-red-600 hover:bg-red-700;
+    @apply bg-red-600;
     @apply focus-visible:outline-red-700;
   }
 
   button[data-color="green"] {
-    @apply bg-green-600 hover:bg-green-700;
+    @apply bg-green-600;
     @apply focus-visible:outline-green-700;
   }
 
   button[data-color="yellow"] {
-    @apply bg-yellow-500 hover:bg-yellow-600;
+    @apply bg-yellow-500;
     @apply focus-visible:outline-yellow-500;
   }
 
   button[data-color="purple"] {
-    @apply bg-purple-600 hover:bg-purple-700;
+    @apply bg-purple-600;
     @apply focus-visible:outline-purple-700;
   }
 
