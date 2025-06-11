@@ -17,6 +17,62 @@
     background-position: -400% 0;
   }
 }
+@keyframes glide {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  25% {
+    transform: translate(20%, 18%) scale(1.02);
+  }
+
+  50% {
+    transform: translate(15%, -16%) scale(0.98);
+  }
+
+  75% {
+    transform: translate(-17%, 14%) scale(1.05);
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  13% {
+    opacity: 0.8;
+  }
+
+  18% {
+    opacity: 0.3;
+  }
+
+  25% {
+    opacity: 0.95;
+  }
+
+  40% {
+    opacity: 0.6;
+  }
+
+  54% {
+    opacity: 1;
+  }
+
+  71% {
+    opacity: 0.3;
+  }
+
+  87% {
+    opacity: 1;
+  }
+
+  94% {
+    opacity: 0.7;
+  }
+}
 
 @layer utilities {
   #converter {
@@ -96,22 +152,34 @@
     @apply absolute inset-0;
     @apply aspect-square rounded-full;
     @apply bg-radial/oklch;
-    @apply blur-md;
+    @apply blur-md backdrop-blur-[0.5px];
   }
 
   #converter .blob-1 {
     @apply left-full top-full w-full;
     @apply -translate-x-1/2 -translate-y-1/2;
-    @apply from-purple-600/40 to-primary-300/5;
+    @apply from-purple-600/40 to-primary-300/1;
+
+    animation:
+      blink 30s ease-in infinite,
+      glide 80s ease-out infinite;
   }
 
   #converter .blob-2 {
     @apply -top-[22vw] left-[20vw] w-[33vw];
-    @apply from-primary-500/40 to-sky-300/5;
+    @apply from-primary-500/40 to-sky-300/1;
+
+    animation:
+      blink 10s ease-in infinite,
+      glide 40s ease-out infinite;
   }
 
   #converter .blob-3 {
     @apply top-6 -left-[15vw] w-[50vw];
-    @apply from-blue-600/40 to-cyan-300/5;
+    @apply from-blue-600/40 to-cyan-300/1;
+
+    animation:
+      blink 20s ease-in infinite,
+      glide 50s ease-out infinite;
   }
 }
