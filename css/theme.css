@@ -68,7 +68,7 @@
 }
 
 @utility input {
-  @apply px-3 py-2 h-10 m-0 mt-1 w-full;
+  @apply px-2.5 py-2 h-9 m-0 mt-1 w-full;
   @apply bg-neutral-950 text-neutral-150 rounded-xs;
   @apply disabled:bg-neutral-600 disabled:text-neutral-400;
   @apply disabled:hover:bg-neutral-850 disabled:hover:text-neutral-400;

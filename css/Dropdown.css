@@ -6,7 +6,7 @@
   }
 
   .dropdown-wrapper .dropdown-button {
-    @apply input outline-solid w-full font-400;
+    @apply input outline-solid w-full font-300;
     @apply m-0 flex items-center justify-between gap-2;
     @apply shadow-black/10 hover:shadow-black/10;
     @apply shadow-sm hover:shadow-md;
@@ -19,10 +19,11 @@
     @apply transition-transform duration-300 ease-in;
   }
 
-  .dropdown-wrapper .dropdown-list {
-    @apply w-48 max-w-screen;
+  .dropdown-list {
+    @apply relative z-10;
     @apply bg-neutral-950;
-    @apply absolute z-50 mt-2;
+    @apply w-48 max-w-screen p-1 mt-2;
+    @apply grid grid-cols-1 gap-1;
     @apply outline-1 outline-neutral-600;
     @apply shadow-sm shadow-black/50;
     @apply rounded-xs overflow-hidden;
@@ -32,27 +33,19 @@
       border-color, box-shadow, outline, outline, background-color;
   }
 
-  .dropdown-wrapper .dropdown-item {
+  .dropdown-list .dropdown-item {
     @apply relative pl-3 py-2 m-0;
-    @apply bg-neutral-950 hover:bg-neutral-900 font-400;
+    @apply bg-neutral-950 hover:bg-neutral-900 font-300;
     @apply text-neutral-150 hover:text-neutral-200;
     @apply focus-visible:outline-offset-0 focus-visible:outline-1;
     @apply focus-visible:outline-neutral-100;
-    @apply list-none cursor-pointer transition-colors;
-    @apply duration-200 ease-in;
+    @apply list-none cursor-pointer rounded-xs;
+    @apply transition-colors duration-200 ease-in;
 
     list-style: none;
   }
 
-  .dropdown-wrapper .dropdown-item:first-child {
-    @apply rounded-t-xs;
-  }
-
-  .dropdown-wrapper .dropdown-item:last-child {
-    @apply rounded-b-xs;
-  }
-
-  .dropdown-wrapper .dropdown-check {
+  .dropdown-list .dropdown-check {
     @apply text-lg text-primary-500;
     @apply absolute top-0 right-3;
     @apply h-full aspect-square;

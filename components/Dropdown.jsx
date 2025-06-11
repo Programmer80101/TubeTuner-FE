@@ -1,8 +1,11 @@
 "use client";
 
 import { FiChevronDown, FiCheck } from "react-icons/fi";
+
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useRef, useId } from 'react';
+import { createPortal } from "react-dom";
+
 import useClickOutside from "@/hooks/useClickOutside";
 import Button from "@/components/Button";
 import "@/css/Dropdown.css";
@@ -35,39 +38,85 @@ export default function Dropdown({
   options = [],
   disabled = false,
   ariaLabel = "label",
-  inlineLabel = false
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [coords, setCoords] = useState(null);
   const containerRef = useRef(null);
+  const dropdownRef = useRef(null);
   const buttonRef = useRef(null);
   const id = useId();
 
   const controlId = `dropdown-control-${id}`;
   const labelId = `dropdown-label-${id}`;
 
+  const dropdownRoot = typeof document !== "undefined"
+    ? document.getElementById("dropdown-root")
+    : null
+
   const toggleOpen = () => {
     if (!isOpen) {
       document.getElementById(`dropdown-item-${id}-${value}`)?.focus();
     }
 
+    const rect = buttonRef.current?.getBoundingClientRect();
+    setCoords({ top: rect.bottom + window.scrollY, left: rect.left + window.scrollX });
     setIsOpen(prev => !prev);
     buttonRef.current?.focus();
   };
 
   useClickOutside(containerRef, () => setIsOpen(false));
 
-  return (
-    <div
-      className="dropdown-wrapper"
-      ref={containerRef}
+  const dropdownList = (
+    <motion.ul
+      ref={dropdownRef}
+      id={controlId}
+      tabIndex={-1}
+      className="dropdown-list"
+      initial="hidden"
+      animate="show"
+      exit="hidden"
+      style={{
+        position: 'absolute',
+        top: coords?.top,
+        left: coords?.left,
+        width: width,
+      }}
+      variants={containerVariants}
+      transition={{ duration: 0.2, ease: 'easeIn' }}
+      aria-labelledby={labelId}
+      role="listbox"
     >
-      {!inlineLabel && (
-        <div className="dropdown-label">
-          <label htmlFor={labelId}>
-            {label}
-          </label>
-        </div>
-      )}
+      {options.map((option, index) => (
+        <motion.li
+          key={index}
+          tabIndex={0}
+          id={`dropdown-item-${id}-${index}`}
+          className="dropdown-item"
+          variants={itemVariants}
+          transition={{ duration: 0.2, ease: 'easeIn' }}
+          onClick={() => {
+            setValue && setValue(index);
+            setIsOpen(false);
+          }}
+          aria-selected={value === index}
+          role="option"
+        >
+          {option}
+          {option === options[value] && (
+            <FiCheck aria-hidden={true} className="dropdown-check" />
+          )}
+        </motion.li>
+      ))}
+    </motion.ul>
+  )
+
+  return (
+    <div className="dropdown-wrapper" ref={containerRef}>
+      <div className="dropdown-label">
+        <label htmlFor={labelId}>
+          {label}
+        </label>
+      </div>
       <Button
         id={labelId}
         ref={buttonRef}
@@ -83,50 +132,18 @@ export default function Dropdown({
         aria-disabled={disabled}
         disabled={disabled}
       >
-        {(inlineLabel && label) && `: ${label}`}
         {options[value]}
         <FiChevronDown className={isOpen ? "rotate-180" : ""} />
       </Button>
-
-      <AnimatePresence>
-        {isOpen && (
-          <motion.ul
-            id={controlId}
-            tabIndex={-1}
-            className="dropdown-list"
-            style={{ width: width }}
-            initial="hidden"
-            animate="show"
-            exit="hidden"
-            variants={containerVariants}
-            transition={{ duration: 0.2, ease: 'easeIn' }}
-            aria-labelledby={labelId}
-            role="listbox"
-          >
-            {options.map((option, index) => (
-              <motion.li
-                key={index}
-                tabIndex={0}
-                id={`dropdown-item-${id}-${index}`}
-                className="dropdown-item"
-                variants={itemVariants}
-                transition={{ duration: 0.2, ease: 'easeIn' }}
-                onClick={() => {
-                  setValue && setValue(index);
-                  setIsOpen(false);
-                }}
-                aria-selected={value === index}
-                role="option"
-              >
-                {option}
-                {option === options[value] && (
-                  <FiCheck aria-hidden={true} className="dropdown-check" />
-                )}
-              </motion.li>
-            ))}
-          </motion.ul>
-        )}
-      </AnimatePresence>
+      {
+        dropdownRoot
+        && createPortal(
+          <AnimatePresence>
+            {isOpen && dropdownList}
+          </AnimatePresence>,
+          dropdownRoot
+        )
+      }
     </div>
   );
 }

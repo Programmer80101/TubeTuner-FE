@@ -78,6 +78,7 @@ export default function RootLayout({ children }) {
       <body className={`${outfit.className} antialiased`} >
         {/* <Header /> */}
         <AnimationWrapper>
+          <div id="dropdown-root"></div>
           {children}
         </AnimationWrapper>
         {/* <Footer /> */}
