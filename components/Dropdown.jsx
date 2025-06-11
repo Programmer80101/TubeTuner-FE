@@ -83,8 +83,7 @@ export default function Dropdown({
         aria-disabled={disabled}
         disabled={disabled}
       >
-        {inlineLabel && label}
-        {": "}
+        {(inlineLabel && label) && `: ${label}`}
         {options[value]}
         <FiChevronDown className={isOpen ? "rotate-180" : ""} />
       </Button>

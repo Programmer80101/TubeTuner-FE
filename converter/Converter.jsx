@@ -1,10 +1,12 @@
 "use client";
 
+import { Bricolage_Grotesque } from "next/font/google";
+
 import { FaSliders, FaArrowsRotate, FaDownload } from "react-icons/fa6";
 import { FaQuestionCircle, FaArrowRight } from "react-icons/fa";
 
 import axios from "axios";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 
 import useUpdateEffect from "@/hooks/useUpdateEffect";
 import useOnlineStatus from "@/hooks/useOnlineStatus";
@@ -37,6 +39,11 @@ import {
 
 import { parseYouTubeVideoID, parseISODuration } from "@/converter/parsers";
 import "@/converter/Converter.css";
+
+const bricolageGrotesque = Bricolage_Grotesque({
+  subsets: ["latin"],
+  display: "swap",
+});
 
 function Converter({ addPopup }) {
   const [url, setUrl] = useLocalStorage("converter-url", "");
@@ -252,7 +259,7 @@ function Converter({ addPopup }) {
       <div className="blob blob-2"></div>
       <div className="blob blob-3"></div>
       <div className="converter-wrapper">
-        <h1>TubeTuner</h1>
+        <h1 className={bricolageGrotesque.className}>TubeTuner</h1>
         <form
           className="converter-form"
           name="converter"
@@ -282,7 +289,6 @@ function Converter({ addPopup }) {
                   setValue={setType}
                   options={types}
                   ariaLabel="Type"
-                  inlineLabel={true}
                 />
                 <Dropdown
                   label="Format"
@@ -292,7 +298,6 @@ function Converter({ addPopup }) {
                   setValue={type === 0 ? setAudioFormat : setVideoFormat}
                   options={type === 0 ? audioFormats : videoFormats}
                   ariaLabel="Format"
-                  inlineLabel={true}
                 />
               </div>
               <div className="split-container">
@@ -304,7 +309,6 @@ function Converter({ addPopup }) {
                   setValue={setAudioQuality}
                   options={audioQualities}
                   ariaLabel="Audio Quality"
-                  inlineLabel={true}
                 />
                 <Dropdown
                   label="Video Quality"
@@ -315,7 +319,6 @@ function Converter({ addPopup }) {
                   options={videoQualities}
                   disabled={type === 0}
                   ariaLabel="Video Quality"
-                  inlineLabel={true}
                 />
               </div>
             </>

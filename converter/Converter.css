@@ -17,67 +17,92 @@
     background-position: -400% 0;
   }
 }
+
 @keyframes glide {
   0% {
     transform: translate(0, 0) scale(1);
   }
 
-  25% {
-    transform: translate(20%, 18%) scale(1.02);
+  10% {
+    transform: translate(8%, -5%) scale(1.01);
   }
 
-  50% {
-    transform: translate(15%, -16%) scale(0.98);
+  23% {
+    transform: translate(-12%, 9%) scale(0.99);
   }
 
-  75% {
-    transform: translate(-17%, 14%) scale(1.05);
+  35% {
+    transform: translate(15%, -12%) scale(1.02);
+  }
+
+  47% {
+    transform: translate(-8%, 14%) scale(0.98);
+  }
+
+  60% {
+    transform: translate(12%, -6%) scale(1.03);
+  }
+
+  72% {
+    transform: translate(-15%, 7%) scale(0.97);
+  }
+
+  85% {
+    transform: translate(5%, -15%) scale(1.02);
+  }
+
+  100% {
+    transform: translate(0, 0) scale(1);
   }
 }
 
 @keyframes blink {
   0%,
   100% {
-    opacity: 1;
+    opacity: 0.9;
   }
 
   13% {
-    opacity: 0.8;
+    opacity: 0.75;
   }
 
   18% {
-    opacity: 0.3;
+    opacity: 0.25;
   }
 
   25% {
-    opacity: 0.95;
+    opacity: 0.85;
   }
 
   40% {
-    opacity: 0.6;
+    opacity: 0.55;
   }
 
   54% {
-    opacity: 1;
+    opacity: 0.9;
   }
 
   71% {
-    opacity: 0.3;
+    opacity: 0.25;
   }
 
   87% {
-    opacity: 1;
+    opacity: 0.8;
   }
 
   94% {
-    opacity: 0.7;
+    opacity: 0.65;
   }
 }
 
 @layer utilities {
+  body {
+    @apply overflow-x-hidden;
+  }
+
   #converter {
-    @apply bg-neutral-950 relative overflow-hidden;
-    @apply shadow-lg rounded-b-lg;
+    @apply relative overflow-y-clip;
+    @apply bg-neutral-950 shadow-lg;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23d0d0d0' fill-opacity='0.4'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   }
 
@@ -96,11 +121,24 @@
 
   #converter .split-container {
     @apply grid gap-3 grid-cols-1;
-    @apply min-[30rem]:grid-cols-2;
+    @apply min-[24rem]:grid-cols-2;
   }
 
   #converter #convert-button {
     @apply relative overflow-hidden;
+  }
+
+  #converter #convert-button::after {
+    @apply absolute inset-0 content-[""];
+    @apply h-full w-full z-1;
+    @apply bg-linear-to-r/oklab;
+    @apply mix-blend-overlay;
+    @apply from-40% via-50% to-60%;
+    @apply from-transparent via-white/50 to-transparent;
+    @apply transition-all duration-300 ease-out;
+
+    background-size: 400% 100%;
+    animation: ripple 60s ease-out infinite;
   }
 
   #converter #convert-button:disabled {
@@ -152,7 +190,7 @@
     @apply absolute inset-0;
     @apply aspect-square rounded-full;
     @apply bg-radial/oklch;
-    @apply blur-md backdrop-blur-[0.5px];
+    @apply blur-md backdrop-blur-[0.25px];
   }
 
   #converter .blob-1 {
@@ -166,7 +204,7 @@
   }
 
   #converter .blob-2 {
-    @apply -top-[22vw] left-[20vw] w-[33vw];
+    @apply -top-[14vw] left-[20vw] w-[28vw];
     @apply from-primary-500/40 to-sky-300/1;
 
     animation:
