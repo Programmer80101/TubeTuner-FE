@@ -21,7 +21,7 @@
 
   .dropdown-list {
     @apply relative z-10;
-    @apply bg-neutral-950;
+    @apply bg-neutral-950 origin-top;
     @apply w-48 max-w-screen p-1 mt-2;
     @apply grid grid-cols-1 gap-1;
     @apply outline-1 outline-neutral-600;

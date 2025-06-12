@@ -66,19 +66,19 @@
   }
 
   h1 {
-    @apply text-6xl pt-4 pb-3;
+    font-size: clamp(2.8rem, 8vw + 1rem, 4rem);
   }
 
   h2 {
-    @apply text-3xl pt-4 pb-2;
+    font-size: clamp(2.2rem, 6vw + 0.5rem, 2.6rem);
   }
 
   h3 {
-    @apply text-3xl pt-4 pb-2;
+    font-size: clamp(1.8rem, 4vw + 0.5rem, 2.2rem);
   }
 
   h4 {
-    @apply text-2xl pt-4 pb-2;
+    font-size: clamp(1.6rem, 2vw + 0.25rem, 1.8rem);
   }
 
   p,

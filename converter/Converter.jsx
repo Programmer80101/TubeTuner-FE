@@ -292,7 +292,7 @@ function Converter({ addPopup }) {
                 />
                 <Dropdown
                   label="Format"
-                  width={28 * 4 * 2}
+                  width={24 * 4 * 2}
                   className="mt-0"
                   value={type === 0 ? audioFormat : videoFormat}
                   setValue={type === 0 ? setAudioFormat : setVideoFormat}
@@ -334,12 +334,12 @@ function Converter({ addPopup }) {
             </div>
           )}
           <div className="split-container">
-            {(status !== "done") ? (
+            {(status !== "done") ? ( 
               <Button
                 id="convert-button"
                 type="submit"
                 color="gradient"
-                className="col-span-2"
+                className="col-span-2 mt-1.5"
                 title={buttonLabels[status]}
                 aria-label={buttonLabels[status]}
                 isLoading={loading}

@@ -13,20 +13,23 @@ import "@/css/Dropdown.css";
 const containerVariants = {
   hidden: {
     y: -10,
+    scale: 0.9,
     opacity: 0,
   },
+
   show: {
     y: 0,
+    scale: 1,
     opacity: 1,
     transition: {
       staggerChildren: 0.1,
-      delayChildren: 0.1,
+      delayChildren: 0,
     }
   }
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: -10 },
+  hidden: { opacity: 0, y: -16 },
   show: { opacity: 1, y: 0 }
 };
 
@@ -65,7 +68,7 @@ export default function Dropdown({
     buttonRef.current?.focus();
   };
 
-  useClickOutside(dropdownRef, () => setIsOpen(false));
+  useClickOutside(containerRef, () => setIsOpen(false));
 
   const dropdownList = (
     <motion.ul
