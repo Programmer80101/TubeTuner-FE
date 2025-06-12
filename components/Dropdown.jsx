@@ -38,6 +38,7 @@ export default function Dropdown({
   options = [],
   disabled = false,
   ariaLabel = "label",
+  cols = 1,
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [coords, setCoords] = useState(null);
@@ -64,7 +65,7 @@ export default function Dropdown({
     buttonRef.current?.focus();
   };
 
-  useClickOutside(containerRef, () => setIsOpen(false));
+  useClickOutside(dropdownRef, () => setIsOpen(false));
 
   const dropdownList = (
     <motion.ul
@@ -85,6 +86,7 @@ export default function Dropdown({
       transition={{ duration: 0.2, ease: 'easeIn' }}
       aria-labelledby={labelId}
       role="listbox"
+      data-cols={cols}
     >
       {options.map((option, index) => (
         <motion.li

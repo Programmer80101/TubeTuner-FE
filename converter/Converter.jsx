@@ -292,12 +292,13 @@ function Converter({ addPopup }) {
                 />
                 <Dropdown
                   label="Format"
-                  width={28 * 4}
+                  width={28 * 4 * 2}
                   className="mt-0"
                   value={type === 0 ? audioFormat : videoFormat}
                   setValue={type === 0 ? setAudioFormat : setVideoFormat}
                   options={type === 0 ? audioFormats : videoFormats}
                   ariaLabel="Format"
+                  cols={2}
                 />
               </div>
               <div className="split-container">

@@ -135,7 +135,7 @@
     @apply transition-all duration-300 ease-out;
 
     background-size: 400% 100%;
-    animation: ripple 60s ease-out infinite;
+    animation: ripple 120s linear infinite;
   }
 
   #converter #convert-button:disabled {
