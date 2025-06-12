@@ -55,7 +55,7 @@ export default function Hero({ children }) {
     <div
       ref={parentRef}
       className={cn(
-        "bg-gradient-to-b from-white to-neutral-100 relative flex items-center w-full justify-center overflow-hidden"
+        "bg-gradient-to-b from-white to-sky-200 relative flex items-center w-full justify-center overflow-hidden"
       )}>
       {beams.map((beam) => (
         <Beam

@@ -334,7 +334,7 @@ function Converter({ addPopup }) {
             </div>
           )}
           <div className="split-container">
-            {(status !== "done") ? ( 
+            {(status !== "done") ? (
               <Button
                 id="convert-button"
                 type="submit"

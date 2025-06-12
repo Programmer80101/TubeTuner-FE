@@ -68,7 +68,7 @@ export default function Dropdown({
     buttonRef.current?.focus();
   };
 
-  useClickOutside(containerRef, () => setIsOpen(false));
+  useClickOutside(dropdownRef, () => setIsOpen(false));
 
   const dropdownList = (
     <motion.ul
