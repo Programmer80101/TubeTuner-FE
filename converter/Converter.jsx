@@ -93,6 +93,13 @@ function Converter({ addPopup }) {
   const onSubmit = async (e) => {
     e.preventDefault();
 
+    const videoId = parseYouTubeVideoID(url);
+
+    if (!videoId) {
+      addPopup("Invalid YouTube URL", "red");
+      return;
+    }
+
     if (!isOnline) {
       addPopup("Network error! Check your connection and try again!", "red");
       return;
@@ -100,13 +107,6 @@ function Converter({ addPopup }) {
 
     if (!isServiceReady) {
       showServiceIsOffline();
-      return;
-    }
-
-    const videoId = parseYouTubeVideoID(url);
-
-    if (!videoId) {
-      addPopup("Invalid YouTube URL", "red");
       return;
     }
 

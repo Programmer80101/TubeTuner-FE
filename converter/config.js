@@ -3,20 +3,9 @@ const ytApiKey = process.env.NEXT_PUBLIC_YT_API_KEY;
 
 const types = [`Audio`, `Video`];
 
-const audioFormats = [
-  "mp3",
-  "flac",
-  "wav",
-  "m4a",
-  "ogg",
-  "webm",
-  "opus",
-  "aac",
-  "aiff",
-  "mka",
-];
+const audioFormats = ["mp3", "flac", "m4a", "opus", "alac", "wav"];
 
-const videoFormats = ["mp4", "mkv", "mov", "avi", "flv", "webm", "gif"];
+const videoFormats = ["mp4", "mkv", "avi"];
 
 const videoQualities = [
   "144p",

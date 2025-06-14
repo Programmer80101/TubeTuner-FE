@@ -1,9 +1,22 @@
 @import "../css/globals.css";
 
 @layer utilities {
+  #hero {
+    @apply relative z-1;
+    @apply pt-4 pb-8;
+  }
+
   h1 {
-    @apply bg-gradient-to-l from-indigo-700;
-    @apply via-purple-700 to-primary-550;
+    @apply bg-gradient-to-t;
+    @apply from-neutral-50 to-neutral-500;
+    @apply bg-clip-text text-transparent;
+  }
+
+  #hero span.subtitle {
+    @apply block w-fit font-400;
+    @apply mx-auto px-4;
+    @apply bg-gradient-to-r from-indigo-900;
+    @apply via-purple-800 to-indigo-800;
     @apply bg-clip-text text-transparent;
   }
 }

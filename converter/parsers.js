@@ -2,7 +2,7 @@ function parseYouTubeVideoID(url) {
   if (typeof url !== "string") return null;
 
   const regex =
-    /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|shorts)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i;
+    /(?:youtu(?:\.be\/|be\.com\/(?:.*?(?:v=|vi=|v\/|embed\/|shorts\/))))([A-Za-z0-9_-]{11})/;
   const match = url.match(regex);
   return match ? match[1] : null;
 }

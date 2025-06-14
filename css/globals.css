@@ -59,26 +59,34 @@
   h2,
   h3,
   h4 {
-    @apply text-neutral-150 min-w-full px-12;
+    @apply text-neutral-150 px-12;
     @apply text-center text-balance font-400;
 
     max-width: var(--container-size-xs);
   }
 
   h1 {
-    font-size: clamp(2.8rem, 8vw + 1rem, 4rem);
+    --_size: clamp(2.8rem, 10vw + 1rem, 4rem);
+    font-size: var(--_size);
+    line-height: var(--_size);
   }
 
   h2 {
-    font-size: clamp(2.2rem, 6vw + 0.5rem, 2.6rem);
+    --_size: clamp(2.2rem, 6vw + 0.5rem, 2.6rem);
+    font-size: var(--_size);
+    line-height: var(--_size);
   }
 
   h3 {
-    font-size: clamp(1.8rem, 4vw + 0.5rem, 2.2rem);
+    --_size: clamp(1.8rem, 4vw + 0.5rem, 2.2rem);
+    font-size: var(--_size);
+    line-height: var(--_size);
   }
 
   h4 {
-    font-size: clamp(1.6rem, 2vw + 0.25rem, 1.8rem);
+    --_size: clamp(1.6rem, 2vw + 0.25rem, 1.8rem);
+    font-size: var(--_size);
+    line-height: var(--_size);
   }
 
   p,

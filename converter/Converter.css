@@ -138,6 +138,10 @@
     animation: ripple 120s linear infinite;
   }
 
+  #converter #convert-button[aria-busy="true"]::after {
+    @apply opacity-0;
+  }
+
   #converter #convert-button:disabled {
     @apply cursor-not-allowed hover:brightness-80;
     @apply bg-neutral-600 text-neutral-950;
@@ -191,7 +195,7 @@
   }
 
   #converter .blob-1 {
-    @apply left-full top-full w-full;
+    @apply left-full top-[90%] w-[90%];
     @apply -translate-x-1/2 -translate-y-1/2;
     @apply from-purple-600/50 to-indigo-600/1;
 
@@ -201,7 +205,7 @@
   }
 
   #converter .blob-2 {
-    @apply -top-[14vw] left-[20vw] w-[28vw];
+    @apply -top-[10vh] left-[25vw] w-[28vw];
     @apply from-sky-500/50 to-cyan-300/1;
 
     animation:
@@ -210,7 +214,7 @@
   }
 
   #converter .blob-3 {
-    @apply top-6 -left-[15vw] w-[50vw];
+    @apply top-[20%] -left-[15vw] w-[50vw];
     @apply from-purple-600/50 to-blue-300/1;
 
     animation:
